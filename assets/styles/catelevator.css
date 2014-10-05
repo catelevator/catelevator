@@ -1,0 +1,47 @@
+hr{
+  border-color:#ccc!important;
+}
+
+.jumbotron{
+
+/* google "css gradients" */
+
+background: #e570e7; /* Old browsers */
+background: -moz-linear-gradient(top,  #e570e7 0%, #c85ec7 47%, #a849a3 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e570e7), color-stop(47%,#c85ec7), color-stop(100%,#a849a3)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #e570e7 0%,#c85ec7 47%,#a849a3 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 ); /* IE6-9 */
+
+
+
+
+/* font styles */
+
+color:white!important;
+
+
+
+
+}
+
+
+h1.bigBrand{
+  font-size: 92px;
+  color:#fff;
+  text-shadow:0px -1px 3px #747;
+}
+p.jumbotron{
+  text-shadow:0px -1px 0px #313;
+}
+.jumbotron b{
+  color:#ffcc77!important;
+  text-shadow:0px 1px 0px #313;
+}
+
+label{
+  font-weight:400!important;
+  letter-spacing:1px!important;
+}

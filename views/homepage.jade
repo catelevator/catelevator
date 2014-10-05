@@ -4,20 +4,48 @@ extends ./layout
 block body
   // Default home page
 
-
-
   .jumbotron
-    h1 CatElevator
-    p.lead Mother fucking cats and elevators
-  .panel.panel-default
-    .panel-body
-      table#activityModel.table
+    .container
+      .col-sm-7
+        h1.bigBrand Cat Elevator
+        br
+        p
+          o This copy treats the user as an intelligent visitor in a strange land, and we pretend like 
+          b the user is drunk  
+          o while we explain why they should do stay here instead of look at cat pictures on reddit.
+      .col-sm-4.col-sm-offset-1
+        .well-sm(style="border:1px solid #bab;")
+            include login
+
+
+    br
+
+  .container
+    //- include navbar
+
+
+
+    .col-sm-2
+      br
+      include sidebar
+    .col-sm-10
+      br
+     
+      br
+      .panel.panel-default
+        .panel-heading
+          b Activities
+        .panel-body
+          table#activityTable.table
+
+
+      br
+      #activityThumbs
 
   script.
 
     // An eventemitter tool
     (function(jQuery) {
-       
         jQuery.eventEmitter = {
           _JQInit: function() {
             this._JQ = jQuery(this);
@@ -49,16 +77,21 @@ block body
        
       jQuery.extend(Model.prototype, jQuery.eventEmitter);
 
+      // make new instance of Model
       var activityModel = new Model();
        
+
+      // table everything
+
+      // Listen for when things of this model type are created
       activityModel.on('created', function(info,activity) {
-        $("#activityModel").append($("<tr/>", {id:activity.id}))
+        $("#activityTable").append($("<tr/>", {id:activity.id}))
         $.map(activity.data, function(val, attr){
-          console.log(attr, val)
           $("#"+activity.id).append($("<td/>",{id:attr,text:val}))
         })
       });
 
+      // Listen for when things of this model type are updated
       activityModel.on('updated', function(info,activity) {
         var gid = activity.id
         $.map(activity.data, function(val, attr){
@@ -66,6 +99,37 @@ block body
             $("#"+activity.id+" #"+attr).text(val)
           else
             $("#"+activity.id).append($("<td />",{id:attr,text:val}))
+        })
+      });
+
+
+
+
+
+      // thumbnails 
+
+
+      // Listen for when things of this model type are created
+      activityModel.on('created', function(info,activity) {
+
+        $("#activityThumbs").append($("<div>", {class:"panel panel-default well-sm ", id:activity.id}))
+
+        $("#activityThumbs "+ "#"+activity.id).append($("<h4>",{id:'name',text:activity.data.name}))
+        $("#activityThumbs "+ "#"+activity.id).append($("<p>",{id:'name',text:activity.data.desc}))
+
+        //- $.map(activity.data, function(val, attr){
+        //-   $("#activityThumbs "+ "#"+activity.id).append($("<div>",{id:attr,text:val}))
+        //- })
+      });
+
+      // Listen for when things of this model type are updated
+      activityModel.on('updated', function(info,activity) {
+        var gid = activity.id
+        $.map(activity.data, function(val, attr){
+          if($("#"+activity.id+" #"+attr).text())
+            $("#"+activity.id+" #"+attr).text(val)
+          else
+            $("#"+activity.id).append($("<div>",{id:attr,text:val}))
         })
       });
 
