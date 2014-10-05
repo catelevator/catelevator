@@ -1,0 +1,89 @@
+extends ./layout
+
+
+block body
+  // Default home page
+
+
+
+  .jumbotron
+    h1 CatElevator
+    p.lead Mother fucking cats and elevators
+  .panel.panel-default
+    .panel-body
+      table#activityModel.table
+
+  script.
+
+    // An eventemitter tool
+    (function(jQuery) {
+       
+        jQuery.eventEmitter = {
+          _JQInit: function() {
+            this._JQ = jQuery(this);
+          },
+          emit: function(evt, data) {
+            !this._JQ && this._JQInit();
+            this._JQ.trigger(evt, data);
+          },
+          once: function(evt, handler) {
+            !this._JQ && this._JQInit();
+            this._JQ.one(evt, handler);
+          },
+          on: function(evt, handler) {
+            !this._JQ && this._JQInit();
+            this._JQ.bind(evt, handler);
+          },
+          off: function(evt, handler) {
+            !this._JQ && this._JQInit();
+            this._JQ.unbind(evt, handler);
+          }
+        };
+      }(jQuery));
+
+
+
+      function Model() {
+        // do stuff
+      }
+       
+      jQuery.extend(Model.prototype, jQuery.eventEmitter);
+
+      var activityModel = new Model();
+       
+      activityModel.on('created', function(info,activity) {
+        $("#activityModel").append($("<tr/>", {id:activity.id}))
+        $.map(activity.data, function(val, attr){
+          console.log(attr, val)
+          $("#"+activity.id).append($("<td/>",{id:attr,text:val}))
+        })
+      });
+
+      activityModel.on('updated', function(info,activity) {
+        var gid = activity.id
+        $.map(activity.data, function(val, attr){
+          if($("#"+activity.id+" #"+attr).text())
+            $("#"+activity.id+" #"+attr).text(val)
+          else
+            $("#"+activity.id).append($("<td />",{id:attr,text:val}))
+        })
+      });
+
+
+
+      $(document).ready(function() {
+
+        io.socket.get("/activity",{}, function(activities){
+          console.log(activities)
+          $.map(activities, function(activity){
+            activityModel.emit('created', {id:activity.id,data:activity});
+          })
+        })
+
+        io.socket.on("activity",function(activity){
+            activityModel.emit(activity.verb, activity);
+        })
+
+      });
+
+
