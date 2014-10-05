@@ -1,3 +1,4 @@
-# catelevator
+# cat-elevator
 
-a [Sails](http://sailsjs.org) application
+The single greatest way to get cats high.
+
