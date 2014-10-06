@@ -1,0 +1,30 @@
+extends layout
+block body
+  .container
+    include navbar
+  .container
+    br
+    include simplenavbar
+    br
+
+
+  .tab-content
+
+    #featurerecognition.tab-pane
+      include usecases/featurerecognition
+
+    #featuredetection.tab-pane
+      include usecases/featuredetection
+
+    #changedetection.tab-pane
+      include usecases/changedetection
+
+    #captchasolving.tab-pane
+      include usecases/captchasolving
+
+    #videotimetagging.tab-pane
+      include usecases/captchasolving
+
+    #impressionmeasuring.tab-pane
+      include usecases/captchasolving
+

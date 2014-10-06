@@ -1,0 +1,77 @@
+block content
+  ul#sidebar.nav.nav-tabs.nav-sidebar.nav-justified
+
+  script.
+      // make new instance of Model
+      var sidebar = new $.eventModel();
+
+      // Listen for when things of this model type are created
+      sidebar.on('created', function(info,activity) {
+
+        var nm = activity.data.name.replace(/ /g,'').toLowerCase();
+
+        $("#sidebar").append($("<li>",{
+          class:"", 
+          id:"sidebar"+activity.id
+        }))
+
+        $("#sidebar "+ "#sidebar"+activity.id)
+          .append($("<a>",{
+            "data-toggle":'tab',
+            class:"",
+            href:"#"+nm, 
+            text:activity.data.name
+        }))
+
+      });
+
+
+      // Listen for when things of this model type are updated
+      sidebar.on('updated', function(info,activity) {
+        $.map(activity.data, function(val, attr){
+          if($("#sidebar"+activity.id+" #"+attr).text())
+            $("#sidebar"+activity.id+" #"+attr).text(val)
+          else $("#sidebar"+activity.id).append($("<div>",{id:attr,text:val}))
+        })
+      });
+
+
+      // bind dom to model with sockets
+      function sidebar_glue(model){
+
+        io.socket.on( model, function(activity){
+            console.log(activity)
+            sidebar.emit(activity.verb, activity);
+        })
+
+        io.socket.get( "/"+model, {}, function(activities){
+          console.log(activities)
+          $.map(activities, function(activity){
+            sidebar.emit('created', {
+              id:activity.id,
+              data:activity
+            })
+          })
+        $('#sidebar a:first').tab('show')
+          
+        })
+
+      }
+
+      // When document is ready, grab latest things.
+      $(document).ready(function(){
+
+        sidebar_glue("activity");
+
+
+        //- // bind sidebar licks to view changes
+        //- $('#sidebar a').click(function (e) {
+        //-   e.preventDefault()
+        //-   $(this).tab('show')
+        //- })
+
+
+
+
+
+      });

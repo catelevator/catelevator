@@ -1,27 +1,31 @@
-.blogShort{ border-bottom:1px solid #ddd;}
-.add{background: #333; padding: 10%; height: 300px;}
-
 .nav-sidebar { 
     width: 100%;
-    padding: 30px 0; 
-    border-right: 1px solid #ddd;
+    font-size:14px;
+    line-height: 18px
+    font-weight:500;
+    color:#ccc;
+
 }
 .nav-sidebar a {
-    color: #333;
+    color: #828288;
     -webkit-transition: all 0.08s linear;
     -moz-transition: all 0.08s linear;
     -o-transition: all 0.08s linear;
     transition: all 0.08s linear;
 }
-.nav-sidebar .active a { 
+.nav-sidebar .active a{ 
+    background-color:rgba(0,0,0,0)!important; 
+    /*font-size:18px;*/
     cursor: default;
-    border: 1px solid #ddd;
-    border-right: 0px solid #ddd;
-    background-color: #fff; 
-    color: #000000; 
+    color: #000066!important;
 }
-.nav-sidebar .active a:hover {
-    background-color: #fff; 
+.nav-sidebar .active a:hover, .nav-sidebar li:hover {
+    color: #000066;
+
+}
+.nav-sidebar a:hover {
+    background-color:none!important; 
+    color: #000066;
 }
 .nav-sidebar .text-overflow a,
 .nav-sidebar .text-overflow .media-body {
@@ -31,30 +35,7 @@
     text-overflow: ellipsis; 
 }
 
-.btn-blog {
-    color: #ffffff;
-    background-color: #E50000;
-    border-color: #E50000;
-    border-radius:0;
-    margin-bottom:10px
-}
-.btn-blog:hover,
-.btn-blog:focus,
-.btn-blog:active,
-.btn-blog.active,
-.open .dropdown-toggle.btn-blog {
-    color: white;
-    background-color:#fff;
-    border-color: #fff;
-}
-article h2{color:#333333;}
-h2{color:#fff;}
- .margin10{margin-bottom:10px; margin-right:10px;}
- 
- .container .text-style
-{
-  text-align: justify;
-  line-height: 23px;
-  margin: 0 13px 0 0;
-  font-size: 19px;
+.nav-sidebar-title{
+    margin-top:9px;
+    color:#aaa;
 }

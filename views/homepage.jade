@@ -1,169 +1,168 @@
 extends ./layout
-
-
 block body
-  // Default home page
   .container
-    br
     include navbar
-    .container-fluid
-      .text-center
-        .row
-          .col-sm-6.col-md-offset-3
+  .jumbotron
+    .container
+      .row
+        br
+        .col-sm-7
+          br
+          br
 
+          h1.bigBrand Crowd source 
             br
-            br
-            br
-            h1.bigBrand Cat Elevator
-            p.lead A framework for crowd sourcing pattern
-              br
-              o  recognition with any type of content.
-            
-            a.btn.btn-default.btn-lg Sign up 
-
-
-            br
-            br
-            br
-            br
-    hr
-
+            o everything, easily.
+          h2.bigBrand Transform your data-analysis needs into a simple, enjoyable activity 
+            o and reward users with discounts, money, or anything.
           
+          //- a.btn.btn-default.btn-lg Sign up 
+          br
+        .col-sm-4.col-md-offset-1
+          br
+          br
+          include login
+    br
+    br
 
 
   .container
-    .col-sm-4
+    h1 Activity prototypes
+    hr
+    p.lead We provide templates so you can just plug in your data. 
+      o Most data analysis needs that are crowd-sourcable fall under one of these basic functional paradigms. 
+      o Want special features or total customization? 
+      o You can upgrade your account to  
+      a(href="")  Data Scientist 
+      o and get a research team to design a solution specific for you.
+
+
+    h4 Select a template to demo the use case:
+    br
+    #activityThumbs
 
 
 
 
   .container
-    .col-sm-3
-      br
-      include sidebar
-    .col-sm-9
-      .panel.panel-default
-        .panel-body
-       
-          a.thumbnail.col-sm-2
-              img(src="http://1.bp.blogspot.com/-_1pDGXMyu7Y/UMVqxR13BFI/AAAAAAAAAJw/0ns2PhRiZbY/s320/cat.png")
+    hr
+    .tab-content
 
+      #featurerecognition.tab-pane
+        include usecases/featurerecognition
 
-          .panel-heading
-            b Activities
-          .panel-body
-            table#activityTable.table
+      #featuredetection.tab-pane
+        include usecases/featuredetection
 
+      #changedetection.tab-pane
+        include usecases/changedetection
 
-      br
-      #activityThumbs
+      #captchasolving.tab-pane
+        include usecases/captchasolving
+
+      #videotimetagging.tab-pane
+        include usecases/captchasolving
+
+      #impressionmeasuring.tab-pane
+        include usecases/captchasolving
+
 
   script.
 
-    // An eventemitter tool
-    (function(jQuery) {
-        jQuery.eventEmitter = {
-          _JQInit: function() {
-            this._JQ = jQuery(this);
-          },
-          emit: function(evt, data) {
-            !this._JQ && this._JQInit();
-            this._JQ.trigger(evt, data);
-          },
-          once: function(evt, handler) {
-            !this._JQ && this._JQInit();
-            this._JQ.one(evt, handler);
-          },
-          on: function(evt, handler) {
-            !this._JQ && this._JQInit();
-            this._JQ.bind(evt, handler);
-          },
-          off: function(evt, handler) {
-            !this._JQ && this._JQInit();
-            this._JQ.unbind(evt, handler);
-          }
-        };
-      }(jQuery));
+    // make new instance of Model
+    var activityModel = new $.eventModel();
 
 
-
-      function Model() {
-        // do stuff
-      }
-       
-      jQuery.extend(Model.prototype, jQuery.eventEmitter);
-
-      // make new instance of Model
-      var activityModel = new Model();
-       
-
-      // table everything
-
-      // Listen for when things of this model type are created
-      activityModel.on('created', function(info,activity) {
-        $("#activityTable").append($("<tr/>", {id:activity.id}))
-        $.map(activity.data, function(val, attr){
-          $("#"+activity.id).append($("<td/>",{id:attr,text:val}))
-        })
-      });
-
-      // Listen for when things of this model type are updated
-      activityModel.on('updated', function(info,activity) {
-        var gid = activity.id
-        $.map(activity.data, function(val, attr){
-          if($("#"+activity.id+" #"+attr).text())
-            $("#"+activity.id+" #"+attr).text(val)
-          else
-            $("#"+activity.id).append($("<td />",{id:attr,text:val}))
-        })
-      });
+    // ***** table everything
 
 
+    // Listen for when things of this model type are created
+    activityModel.on('created', function(info,activity) {
+      $("#activityTable").append($("<tr/>", {id:activity.id}))
+      $.map(activity.data, function(val, attr){
+        $("#"+activity.id).append($("<td/>",{id:attr,text:val}))
+      })
+    });
+
+    // Listen for when things of this model type are updated
+    activityModel.on('updated', function(info,activity) {
+      var gid = activity.id
+      $.map(activity.data, function(val, attr){
+        if($("#"+activity.id+" #"+attr).text())
+          $("#"+activity.id+" #"+attr).text(val)
+        else
+          $("#"+activity.id).append($("<td />",{id:attr,text:val}))
+      })
+    });
 
 
-
-      // thumbnails 
-
-
-      // Listen for when things of this model type are created
-      activityModel.on('created', function(info,activity) {
-
-        $("#activityThumbs").append($("<div>", {class:"panel panel-default well-sm ", id:activity.id}))
-
-        $("#activityThumbs "+ "#"+activity.id).append($("<h4>",{id:'name',text:activity.data.name}))
-        $("#activityThumbs "+ "#"+activity.id).append($("<p>",{id:'name',text:activity.data.desc}))
-
-        //- $.map(activity.data, function(val, attr){
-        //-   $("#activityThumbs "+ "#"+activity.id).append($("<div>",{id:attr,text:val}))
-        //- })
-      });
-
-      // Listen for when things of this model type are updated
-      activityModel.on('updated', function(info,activity) {
-        var gid = activity.id
-        $.map(activity.data, function(val, attr){
-          if($("#"+activity.id+" #"+attr).text())
-            $("#"+activity.id+" #"+attr).text(val)
-          else
-            $("#"+activity.id).append($("<div>",{id:attr,text:val}))
-        })
-      });
+    // ***** thumbnails 
 
 
+    // Listen for when things of this model type are created
+    activityModel.on('created', function(info,activity) {
+      var nm = activity.data.name.replace(/ /g,'').toLowerCase();
 
-      $(document).ready(function() {
+      $("#activityThumbs").append($("<div>", {class:"col-md-3 "}).append($("<div>",{
+        class:"panel panel-default panel-body activityPrototype", 
+        id:activity.id,
+        "data-toggle":'tab',
+        href:"#"+nm, 
 
-        io.socket.get("/activity",{}, function(activities){
-          console.log(activities)
-          $.map(activities, function(activity){
-            activityModel.emit('created', {id:activity.id,data:activity});
+      })))
+
+      $("#activityThumbs "+ "#"+activity.id)
+        .append($("<h4>",{
+          id:'name',
+          text:activity.data.name
+      }))
+
+      $("#activityThumbs "+ "#"+activity.id)
+        .append($("<p>",{
+          class:'desc',
+          class:"borderBottom", 
+          id:'name',
+          text:activity.data.desc
+      }))
+    });
+
+
+    // Listen for when things of this model type are updated
+    activityModel.on('updated', function(info,activity) {
+      $.map(activity.data, function(val, attr){
+        if($("#"+activity.id+" #"+attr).text())
+          $("#"+activity.id+" #"+attr).text(val)
+        else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
+      })
+    });
+
+
+    // bind dom to model with sockets
+    function dom_glue(model){
+      io.socket.on( model, function(activity){
+          activityModel.emit(activity.verb, activity);
+      })
+      io.socket.get( "/"+model, {}, function(activities){
+        $.map(activities, function(activity){
+          activityModel.emit('created', {
+            id:activity.id,
+            data:activity
           })
         })
+      })
+    }
 
-        io.socket.on("activity",function(activity){
-            activityModel.emit(activity.verb, activity);
-        })
+    // When document is ready, grab latest things.
+    $(document).ready(function(){
 
-      });
+      dom_glue("activity");
+
+      //- activityModel.emit('created', {
+      //-   id:5415,
+      //-   data:{name:"Feature Detection"}
+      //- })
+
+    });
+
 
 
