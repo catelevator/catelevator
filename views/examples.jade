@@ -3,28 +3,30 @@ block body
   .container
     include navbar
   .container
-    br
-    include simplenavbar
-    br
+    .col-md-3
+      br
+      include sidebar
+      br
+    .col-md-9.panel.panel-warning
+      br
 
+      .tab-content
 
-  .tab-content
+        #featurerecognition.tab-pane
+          include usecases/featurerecognition
 
-    #featurerecognition.tab-pane
-      include usecases/featurerecognition
+        #featuredetection.tab-pane
+          include usecases/featuredetection
 
-    #featuredetection.tab-pane
-      include usecases/featuredetection
+        #changedetection.tab-pane
+          include usecases/changedetection
 
-    #changedetection.tab-pane
-      include usecases/changedetection
+        #captchasolving.tab-pane
+          include usecases/captchasolving
 
-    #captchasolving.tab-pane
-      include usecases/captchasolving
+        #videotimetagging.tab-pane
+          include usecases/captchasolving
 
-    #videotimetagging.tab-pane
-      include usecases/captchasolving
-
-    #impressionmeasuring.tab-pane
-      include usecases/captchasolving
+        #impressionmeasuring.tab-pane
+          include usecases/captchasolving
 

@@ -1,5 +1,5 @@
 nav.nav-sidebar
-  ul.nav-tabs#sidebar
+  ul.nav.nav-stacked#sidebar
 
   script.
     
@@ -65,11 +65,7 @@ nav.nav-sidebar
       sidebar_glue("activity");
 
 
-      // bind sidebar licks to view changes
-      $('#sidebar a').click(function (e) {
-        e.preventDefault()
-        $(this).tab('show')
-      })
+
 
 
 
