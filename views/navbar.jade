@@ -6,35 +6,30 @@ nav.navbar.navbar-static-top(role='navigation')
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='#') Cat Elevator
+          a.navbar-brand(href='/') Cat Elevator
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='#') 
-                fa.fa.fa-github.fa-fw.fa-lg
-                o code
+              a(href="/j") Jobs
+          ul.nav.navbar-nav.navbar-right
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
-                | Dropdown
+                | Dev
                 span.caret
               ul.dropdown-menu(role='menu')
                 li
-                  a(href='#') Action
+                  a(href='http://github.com/catelevator') 
+                    fa.fa.fa-github.fa-fw(style="margin-right:20px;")
+                    o Get the code
                 li
-                  a(href='#') Another action
-                li
-                  a(href='#') Something else here
+                  a(href='/activity/examples') 
+                    fa.fa.fa-eye.fa-fw(style="margin-right:20px;")
+                    o See examples
                 li.divider
                 li
-                  a(href='#') Separated link
-                li.divider
-                li
-                  a(href='#') One more separated link
-          //form.navbar-form.navbar-left(role='search')
-            .form-group
-              input.form-control(type='text', placeholder='Search')
-            button.btn.btn-default(type='submit') Submit
-          ul.nav.navbar-nav.navbar-right
+                  a(href='/activity/bounce') 
+                    fa.fa.fa-refresh.fa-fw(style="margin-right:20px;")
+                    o Bounce database   
 
             li(href='#').btn.btn-default.navbar-btn
                 fa.fa.fa-user.fa-fw
@@ -48,3 +43,4 @@ nav.navbar.navbar-static-top(role='navigation')
                 li.loginBox
                   include login
                  
+
