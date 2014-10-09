@@ -35,7 +35,7 @@ block body
   .container
     .col-sm-8.text-center.col-sm-offset-2
       h1 It's almost done already.
-      p.lead We provide a set of templates so you can just plug in your data and incentivization strategy, and then go do someting else. 
+      p.lead We provide a set of templates so you can just plug in your data and incentivization strategy, and then go do something else. 
       fa.fa.fa-arrow-down
       br
       br
@@ -44,35 +44,55 @@ block body
       //- o You can upgrade your account to  
       //- a(href="")  Data Scientist 
       //- o and get a research team to design a solution specific for you.
+      
+      //did you mean to not put these things here??
+  .container
+    ul.nav.nav-tabs
+      li.active: a(href="#featurerecognition", data-toggle="tab") Feature Recognition
+      li: a(href="#featuredetection", data-toggle="tab") Feature Detection
+      li: a(href="#changedetection", data-toggle="tab") Change Detection
+      li: a(href="#captchasolving", data-toggle="tab") Captcha Solving
+      li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
+      li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring
+      li: a(href="#review", data-toggle="tab") Review
+      li: a(href="#survey", data-toggle="tab") Survey
+    .tab-content
 
-      .tab-content
+      //#featurerecognition.tab-pane
+      .tab-pane#featurerecognition
+        include usecases/featurerecognition
 
-        #featurerecognition.tab-pane
-          include usecases/featurerecognition
+      //#featuredetection.tab-pane
+      .tab-pane#featuredetection
+        include usecases/featuredetection
+        
+      //#changedetection.tab-pane
+      .tab-pane#changedetection
+        include usecases/changedetection
+        
+      //#captchasolving.tab-pane
+      .tab-pane#captchasolving
+        include usecases/captchasolving
 
-        #featuredetection.tab-pane
-          include usecases/featuredetection
+      //#videotimetagging.tab-pane
+      .tab-pane#videotimetagging
+        include usecases/videotimetagging
 
-        #changedetection.tab-pane
-          include usecases/changedetection
+      //#impressionmeasuring.tab-pane
+      .tab-pane#impressionmeasuring
+        include usecases/impressionmeasuring
+ 
+      //#impressionmeasuring.tab-pane
+      //.tab-pane#impressionmeasuring
+      //  include usecases/captchasolving
 
-        #captchasolving.tab-pane
-          include usecases/captchasolving
+      //#review.tab-pane
+      .tab-pane#review
+        include usecases/review
 
-        #videotimetagging.tab-pane
-          include usecases/videotimetagging
-
-        #impressionmeasuring.tab-pane
-          include usecases/impressionmeasuring
-
-        #impressionmeasuring.tab-pane
-          include usecases/captchasolving
-
-        #review.tab-pane
-          include usecases/review
-
-        #survey.tab-pane
-          include usecases/survey
+      //#survey.tab-pane
+      .tab-pane#survey
+        include usecases/survey
 
     .col-sm-12
       hr
@@ -90,7 +110,7 @@ block body
       h1.fa.fa-fw.fa-4x.fa-globe
     .col-sm-7
       p.lead Someone else write some copy please.
-      o Most data analysis needs fall under 
+      o Most data analysis needs to fall under 
       o one of those basic functional paradigms. If yours doesn't or you have 
       o special requests for implementation, our research team is available.
 
@@ -104,7 +124,7 @@ block body
     br
     br
     br
-
+//what are you trying to do with these things?
   script.
 
     // make new instance of Model
