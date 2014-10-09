@@ -1,0 +1,119 @@
+br
+h4.lead Active jobs
+table#jobnav.table.table-condensed
+  thead
+    th.text-muted Name
+    th.text-muted Description
+    th.text-muted Reward
+    th.text-muted Tasks
+    th.text-muted Progress
+  each job in jobs
+    tr
+      td
+        a(href="/job/#{job.id}")=job.name
+      td=job.desc
+      td="$"+job.reward
+      td=job.taskCount
+      td=job.progress
+
+
+
+  //- tr
+  //- script.
+    
+  //-   // make new instance of Model
+  //-   var jobnav = new $.eventModel();
+
+  //-   // Listen for when things of this model type are created
+  //-   jobnav.on('created', function(info,job) {
+
+  //-     var nm = job.data.name.replace(/ /g,'').toLowerCase();
+
+  //-     $("#jobnav").append($("<tr>",{
+  //-       id:"jobnav"+job.id
+  //-     }))
+
+  //-     $("#jobnav "+ "#jobnav"+job.id)
+  //-       .append($("<td>",{
+  //-         html:$("<a href='/job/"+job.id+"'>"+job.data.name+"</a>")
+  //-       })
+  //-     )
+
+  //-     $("#jobnav "+ "#jobnav"+job.id)
+  //-       .append($("<td>",{
+  //-         text:job.data.desc
+  //-       })
+  //-     )
+
+  //-     $("#jobnav "+ "#jobnav"+job.id)
+  //-       .append($("<td>",{
+  //-         text:job.data.reward
+  //-       })
+  //-     )
+
+  //-     $("#jobnav "+ "#jobnav"+job.id)
+  //-       .append($("<td>",{
+  //-         text:job.data.tasks.length
+  //-       })
+  //-     )
+
+
+
+
+  //-     $("#jobnav "+ "#jobnav"+job.id)
+  //-       .append(
+  //-         $("<td>").html($("<div>",{
+  //-         class:"progress jobProgress btn-block"
+  //-     }).append($("<div>", {
+  //-       class:"progress-bar progress-bar-info  ",
+  //-       "aria-valuenow":"60",
+  //-       "aria-valuemin":"0",
+  //-       "aria-valuemax":"100",
+  //-       style:"width: 60%;"
+  //-       })))
+  //-   )
+
+
+  //-   });
+
+
+  //-   // Listen for when things of this model type are updated
+  //-   jobnav.on('updated', function(info,activity) {
+  //-     $.map(activity.data, function(val, attr){
+  //-       if($("#jobnav"+activity.id+" #"+attr).text())
+  //-         $("#jobnav"+activity.id+" #"+attr).text(val)
+  //-       else $("#jobnav"+activity.id).append($("<div>",{id:attr,text:val}))
+  //-     })
+  //-   });
+
+
+  //-   // bind dom to model with sockets
+  //-   function jobnav_glue(model){
+
+  //-     io.socket.on( model, function(job){
+  //-         console.log(job)
+  //-         jobnav.emit(job.verb, job);
+  //-     })
+
+  //-     io.socket.get( "/"+model, {}, function(jobs){
+  //-       console.log(jobs)
+  //-       $.map(jobs, function(job){
+  //-         jobnav.emit('created', {
+  //-           id:job.id,
+  //-           data:job
+  //-         })
+  //-       })
+        
+  //-     })
+
+  //-   }
+
+  //-   // When document is ready, grab latest things.
+  //-   $(document).ready(function(){
+
+  //-     jobnav_glue("job");
+
+
+
+
+  //-   });

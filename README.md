@@ -4,7 +4,7 @@ A content-agnostic, distributed, pattern-finding web service which facilitates c
 
 Examples include: tagging videos base on their containing cats; dogs; or both, searching security footage for suspects, translating languages, or locating that tricky son-of-a-bitch Waldo in a large collection of images. Further applications include producing datasets for comparative analysis against predictive algorithms and for training neural nets with redundant human decisions.
 
->**Some one please make that ^ English. holy moly......**
+>**Some one please make that ^ English. holy moly....**
 
 ***
 
@@ -23,5 +23,10 @@ Examples include: tagging videos base on their containing cats; dogs; or both, s
 ***
 
 ######Content Agnostic Tag Ellicitation of Linguistic and Epigraphic Variance And Topological Object Recognition ... or something.
+
+
+css gradients:
+http://www.colorzilla.com/gradient-editor/
+
 
 

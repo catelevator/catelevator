@@ -1,106 +1,103 @@
-.bg11
-  .container
-    br
-    br
-
-    .col-sm-6
-      #img1.thumbnail
-        img(src="http://i.imgur.com/eLmmpdR.jpg")
-
-    .col-sm-6
+.container-fluid
+  .col-lg-12
+    .text-muted
+      o Points:
+      b  100 
+      o  |  
+      o Congruence:
+      b  100
       br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
-
-      h2 Is there a cat?
       br
-      .row
-        .col-sm-4
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Yes
-        .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block No
-        .col-sm-4
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
+
+
+
+  .col-lg-12
+    #currentImage.thumbnail
+      img(src="http://i.imgur.com/eLmmpdR.jpg")
+
+  .col-lg-12
+    .row
+      .col-sm-4
+        a.btn.btn-lg.btn-success.btn-superbig.btn-block Cat
+      .col-sm-4
+        a.btn.btn-lg.btn-danger.btn-superbig.btn-block No Cat
+      .col-sm-4
+        a.btn.col-sm-4.btn-lg.btn-info.btn-superbig.btn-block  Skip 
+          fa.fa.fa-caret-right
 
 
     br
     br
-    br
+.container-fluid
+  
+  .col-sm-12.well.bg2
+    #dataset
+
+  script.
+
+    // make new instance of Model
+    var featureModel = new $.eventModel();
 
 
-
-  .container
-
-    br
-
-    .panel.panel-default
-      .panel-body
-        #dataset
-    br
-
-    script.
-
-      // make new instance of Model
-      var featureModel = new $.eventModel();
+    // ***** thumbnails 
 
 
-      // ***** thumbnails 
+    // Listen for when things of this model type are created
+    featureModel.on('created', function(info,activity) {
+      var a = activity.data.data
+      $.map(a, function(d){
+        $("#dataset").append($("<span>", {
+          class:"small featureImage"
+        }).append($("<img>",{
+          src:d.src
+        })))
+      })
+    });
 
 
-      // Listen for when things of this model type are created
-      featureModel.on('created', function(info,activity) {
-        var a = activity.data.data
-        $.map(a, function(d){
-          $("#dataset").append($("<span>", {
-            class:"small"
-          }).append($("<img>",{
-            src:d
-          })))
-        })
-      });
+    $(document).on("click", ".featureImage", function(){
+      var src = $(this).find('img').attr('src')
+      $("#currentImage img").attr('src',src)
+
+    })
 
 
-      // Listen for when things of this model type are updated
-      featureModel.on('updated', function(info,activity) {
-        $.map(activity.data, function(val, attr){
-          if($("#"+activity.id+" #"+attr).text())
-            $("#"+activity.id+" #"+attr).text(val)
-          else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
-        })
-      });
+    // Listen for when things of this model type are updated
+    featureModel.on('updated', function(info,activity) {
+      $.map(activity.data, function(val, attr){
+        if($("#"+activity.id+" #"+attr).text())
+          $("#"+activity.id+" #"+attr).text(val)
+        else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
+      })
+    });
 
 
-      // bind dom to model with sockets
-      function dataset_glue(model){
+    // bind dom to model with sockets
+    function dataset_glue(model){
 
-        io.socket.on( model, function(dataset){
-            featureModel.emit(dataset.verb, dataset);
-        })
+      io.socket.on( model, function(dataset){
+          featureModel.emit(dataset.verb, dataset);
+      })
 
-        io.socket.get( "/"+model, {type:"featuredetection"}, function(datasets){
-          $.map(datasets, function(dataset){
-            featureModel.emit('created', {
-              id:dataset.id,
-              data:dataset
-            })
+      io.socket.get( "/"+model, {type:"featuredetection"}, function(datasets){
+        $.map(datasets, function(dataset){
+          featureModel.emit('created', {
+            id:dataset.id,
+            data:dataset
           })
         })
+      })
 
-      }
+    }
 
-      // When document is ready, grab latest things.
-      $(document).ready(function(){
+    // When document is ready, grab latest things.
+    $(document).ready(function(){
 
-        dataset_glue("dataset");
+      dataset_glue("dataset");
 
-        //- featureModel.emit('created', {
-        //-   id:5415,
-        //-   data:{name:"Feature Detection"}
-        //- })
+      //- featureModel.emit('created', {
+      //-   id:5415,
+      //-   data:{name:"Feature Detection"}
+      //- })
 
-      });
+    });
