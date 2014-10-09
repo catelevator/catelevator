@@ -29,7 +29,7 @@ hr{
   min-height:60px;
   height:60px;
   width:auto;
-  border:1px solid #999;
+  border:1px solid #999;6
   margin:2px;
  } 
 
@@ -71,19 +71,19 @@ h2.bigBrand{
 }
 
 .navbar-brand{
-  font-size: 26px;
+  font-size: 17px;
   color:#009!important;
-  padding-left:8px;
+  padding-left:6px;
   font-weight:600;
   margin-top:0px;
 }
 
 .boxShadow {
-  -webkit-box-shadow: 0 1px 6px rgba(0,0,0,0.4);
-  box-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .boxShadowEasy {
-  -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
@@ -105,22 +105,42 @@ label{
   letter-spacing:1px!important;
 }
 
-.btn-superbig{
+.btn-superbig {
   padding-top:40px;
   padding-bottom:40px;
-}
 
+}
 
 .bg1{
-background: -moz-linear-gradient(top,  rgba(254,255,255,0) 0%, rgba(221,241,249,0.35) 35%, rgba(160,216,239,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,255,0)), color-stop(35%,rgba(221,241,249,0.35)), color-stop(100%,rgba(160,216,239,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(254,255,255,0) 0%,rgba(221,241,249,0.35) 35%,rgba(160,216,239,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(254,255,255,0) 0%,rgba(221,241,249,0.35) 35%,rgba(160,216,239,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(254,255,255,0) 0%,rgba(221,241,249,0.35) 35%,rgba(160,216,239,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(254,255,255,0) 0%,rgba(221,241,249,0.35) 35%,rgba(160,216,239,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00feffff', endColorstr='#a0d8ef',GradientType=0 ); /* IE6-9 */
-
+  background-color:#e5e5e5;
 }
+.bg2{
+  background-color:#f8f8fb;
+}
+
+  
+#jobnav .job{
+}
+
+#jobnav a {
+  color:#2d2d94!important;
+  font-size: 16px;
+  font-weight:500!important;
+  padding-top:16px;
+}
+
+#jobnav tr {
+  color:#2d2d34!important;
+}
+#jobnav td {
+  padding-top:20px;
+}
+#jobnav .progress{
+  max-height:12px;
+  margin-top:4px;
+  background-color:none;
+}
+
 
 
 

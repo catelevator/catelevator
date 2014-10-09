@@ -5,8 +5,9 @@ block body
   .jumbotron
     .container
       .row
-        br
         .col-sm-7
+          br
+          br
           br
           br
 
@@ -21,51 +22,88 @@ block body
         .col-sm-4.col-md-offset-1
           br
           br
+          br
+          br
+          br
           include login
     br
     br
-
-
-  .container
-    h1 Activity prototypes
-    hr
-    p.lead We provide templates so you can just plug in your data. 
-      o Most data analysis needs that are crowd-sourcable fall under one of these basic functional paradigms. 
-      o Want special features or total customization? 
-      o You can upgrade your account to  
-      a(href="")  Data Scientist 
-      o and get a research team to design a solution specific for you.
-
-
-    h4 Select a template to demo the use case:
     br
-    #activityThumbs
-
-
+    br
 
 
   .container
+    .col-sm-8.text-center.col-sm-offset-2
+      h1 It's almost done already.
+      p.lead We provide a set of templates so you can just plug in your data and incentivization strategy, and then go do someting else. 
+      fa.fa.fa-arrow-down
+      br
+      br
+
+      //- o Want special features or total customization? 
+      //- o You can upgrade your account to  
+      //- a(href="")  Data Scientist 
+      //- o and get a research team to design a solution specific for you.
+
+      .tab-content
+
+        #featurerecognition.tab-pane
+          include usecases/featurerecognition
+
+        #featuredetection.tab-pane
+          include usecases/featuredetection
+
+        #changedetection.tab-pane
+          include usecases/changedetection
+
+        #captchasolving.tab-pane
+          include usecases/captchasolving
+
+        #videotimetagging.tab-pane
+          include usecases/videotimetagging
+
+        #impressionmeasuring.tab-pane
+          include usecases/impressionmeasuring
+
+        #impressionmeasuring.tab-pane
+          include usecases/captchasolving
+
+        #review.tab-pane
+          include usecases/review
+
+        #survey.tab-pane
+          include usecases/survey
+
+    .col-sm-12
+      hr
+      br
+      //- h4 Select a template to demo the use case:
+      #activityThumbs
+      br
+      hr
+    
+  .container
     hr
-    .tab-content
+    br
+    br
+    .col-sm-4.text-right
+      h1.fa.fa-fw.fa-4x.fa-globe
+    .col-sm-7
+      p.lead Someone else write some copy please.
+      o Most data analysis needs fall under 
+      o one of those basic functional paradigms. If yours doesn't or you have 
+      o special requests for implementation, our research team is available.
 
-      #featurerecognition.tab-pane
-        include usecases/featurerecognition
 
-      #featuredetection.tab-pane
-        include usecases/featuredetection
 
-      #changedetection.tab-pane
-        include usecases/changedetection
-
-      #captchasolving.tab-pane
-        include usecases/captchasolving
-
-      #videotimetagging.tab-pane
-        include usecases/captchasolving
-
-      #impressionmeasuring.tab-pane
-        include usecases/captchasolving
-
+    br
+    br
+    br
+    br
+    br
+    br
+    br
+    br
 
   script.
 
@@ -104,7 +142,7 @@ block body
       var nm = activity.data.name.replace(/ /g,'').toLowerCase();
 
       $("#activityThumbs").append($("<div>", {class:"col-md-3 "}).append($("<div>",{
-        class:"panel panel-default panel-body activityPrototype", 
+        class:"panel panel-default well-sm activityPrototype", 
         id:activity.id,
         "data-toggle":'tab',
         href:"#"+nm, 
