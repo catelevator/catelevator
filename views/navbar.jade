@@ -1,5 +1,6 @@
-nav.navbar.navbar-static-top(role='navigation')
-    .container-fluid
+nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+    
+    .container
         .navbar-header
           button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
             span.sr-only Toggle navigation
@@ -14,15 +15,17 @@ nav.navbar.navbar-static-top(role='navigation')
               a(href='http://github.com/catelevator/catelevator') 
                 fa.fa.fa-github.fa-fw.fa-lg
                 o code
+
+            li
+              a(href='http://github.com/catelevator') 
+                o Docs
+
+
             li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
-                | Dev
+                | Development
                 span.caret
               ul.dropdown-menu(role='menu')
-                li
-                  a(href='http://github.com/catelevator') 
-                    fa.fa.fa-github.fa-fw(style="margin-right:20px;")
-                    o Get the code
                 li
                   a(href='/activity/examples') 
                     fa.fa.fa-eye.fa-fw(style="margin-right:20px;")
@@ -34,9 +37,20 @@ nav.navbar.navbar-static-top(role='navigation')
                     o Bounce database   
 
           ul.nav.navbar-nav.navbar-right
+
             li(href='#').btn.btn-default.navbar-btn
                 fa.fa.fa-user.fa-fw
-                o sign in
+                -if (user)
+                  o=user.name
+                  li.navbar-text
+                    o Points:
+                    b#userPoints  100 
+                    o  |  Accuracy
+                    b#userAccuracy 0.1
+                -else
+                  o sign in
+
+
             //- li.dropdown
               a.dropdown-toggle(href='#', data-toggle='dropdown')
                 fa.fa.fa-user.fa-fw
@@ -46,4 +60,4 @@ nav.navbar.navbar-static-top(role='navigation')
                 li.loginBox
                   include login
                  
-
+div(style="margin-bottom:50px;")

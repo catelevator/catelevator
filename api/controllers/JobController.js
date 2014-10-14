@@ -77,9 +77,6 @@ module.exports = {
     })
 
 
-
-
-
     Job.create([
       {
         name:"Find the cats", 
@@ -97,7 +94,17 @@ module.exports = {
           job_id:job.id
         },
         {
-          src:'http://i.imgur.com/eLmmpdR.jpg',
+          src:'http://i.imgur.com/X6qwKTU.png',
+          type:"featuredetection",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/zS59sKQ.jpg',
+          type:"featuredetection",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/xoz937V.jpg',
           type:"featuredetection",
           job_id:job.id
         }
