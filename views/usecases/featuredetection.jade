@@ -1,52 +1,136 @@
 .container-fluid
-  .col-lg-12
-    .text-muted
-      o Points:
-      b  100 
-      o  |  
-      o Congruence:
-      b  100
+  .col-lg-12.text-center
+    #jobDetails.text-center
       br
+      p.lead Find cats in the photos.
       br
+      a.btn.btn-lg.btn-fab.btn-primary.startButton.fa.fa-check.fa-2x
+        b  Start
+    #hiddenAtFirst
+      #currentImageContainer
+        #currentImage
+          img.thumbnail
+          hr
+
+      .row
+        .col-sm-4
+          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+        .col-sm-4
+          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+            //- fa.fa.fa-caret-right
+        .col-sm-4
+          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+
+      .row
+        .container-fluid
+          br
+          .bgLightDark
+            #job
+          br  
 
 
 
-  .col-lg-12
-    #currentImage.thumbnail
-      img(src="http://i.imgur.com/eLmmpdR.jpg")
+  #myModal.modal.fade
+    .modal-dialog
+        .modal-content
+          .modal-header
+            button.close(type='button', data-dismiss='modal')
+              span(aria-hidden='true') ×
+              span.sr-only Close
+            h4.modal-title Keyboard Mapping
+          .modal-body
+            table.table.table-bordered
+              tr
+                td 
+                  b a 
+                td Yes
+              tr
+                td 
+                  b s
+                td Maybe
+              tr
+                td 
+                  b d 
+                td No
+              tr
+                td 
+                  b w 
+                td Flag
 
-  .col-lg-12
-    .row
-      .col-sm-4
-        a.btn.btn-lg.btn-success.btn-superbig.btn-block Cat
-      .col-sm-4
-        a.btn.btn-lg.btn-danger.btn-superbig.btn-block No Cat
-      .col-sm-4
-        a.btn.col-sm-4.btn-lg.btn-info.btn-superbig.btn-block  Skip 
-          fa.fa.fa-caret-right
+          .modal-footer
+            button.btn.btn-default(type='button', data-dismiss='modal') Close
+            button.btn.btn-primary(type='button') Save changes
 
 
-    br
-    br
-.container-fluid
-  
-  .col-sm-12.well.bg2
-    #dataset
+
 
   script.
+    $("#hiddenAtFirst").hide() 
 
-    // make new instance of Model
+    /**
+     * Puts a clicked image into the #currentImage div
+     * and links the src and the data-id.
+     * @return null
+     */
+
+    function toCanvas(){
+      var src = $(this).find('img').attr('src')
+      var id  = $(this).attr('data-id')
+      $("#currentImage img").attr('src',src)
+      $("#currentImage img").attr('data-id',id)
+    }
+
+    /**
+     * Processes the option as selected by the user
+     * and parses, normalizes, then submits the change
+     * to the model.
+     * @return null
+     */
+    
+    function select(){
+      var src = $("#currentImage").find('img').attr('src')
+      var id = $("#currentImage").find('img').attr('data-id')
+      val = $(this).text()
+      console.log(val, id, src)
+    }
+
+    /**
+     * Listens for .selectButton class to be clicked
+     * and binds the event to the select() function
+     * @param  {String}   action    The action listener
+     * @param  {String}   selecter  The DOM id to listen to
+     * @param  {Function} callback  The function to execute
+     * @return null
+     */
+    
+    $(document).on( "click", ".featureImage", toCanvas )
+    $(document).on( "click", ".selectButton", select   )
+
+    $(document).on( "click", ".startButton", function(){ 
+      $(".featureImage").first().click(); 
+      $("#jobDetails").hide() 
+      $("#hiddenAtFirst").show() 
+    })
+
+    /**
+     * Instantiates a model event domain 
+     */
+
     var featureModel = new $.eventModel();
 
+    /**
+     * Listens for model instance creation and binds  events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info        Event information from emit
+     * @param  {Object} item    The thing that happened.
+     * @return null
+     */
 
-    // ***** thumbnails 
-
-
-    // Listen for when things of this model type are created
-    featureModel.on('created', function(info,activity) {
-      var a = activity.data.data
+    featureModel.on('created', function(info,item) {
+      var a = item.data.tasks
       $.map(a, function(d){
-        $("#dataset").append($("<span>", {
+        $("#job").append($("<span>", {
+          "data-id":d.id,
           class:"small featureImage"
         }).append($("<img>",{
           src:d.src
@@ -54,32 +138,37 @@
       })
     });
 
-
-    $(document).on("click", ".featureImage", function(){
-      var src = $(this).find('img').attr('src')
-      $("#currentImage img").attr('src',src)
-
-    })
-
-
-    // Listen for when things of this model type are updated
-    featureModel.on('updated', function(info,activity) {
-      $.map(activity.data, function(val, attr){
-        if($("#"+activity.id+" #"+attr).text())
-          $("#"+activity.id+" #"+attr).text(val)
-        else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
+    /**
+     * Listens for model updates and binds model events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info     Event information from emit
+     * @param  {Object} activity The thing that happened.
+     * @return null
+     */
+    
+    featureModel.on('updated', function(info,item) {
+      $.map(item.data, function(val, attr){
+        if($("#"+item.id+" #"+attr).text())
+          $("#"+item.id+" #"+attr).text(val)
+        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
       })
     });
 
-
-    // bind dom to model with sockets
+    /**
+     * Glues the model events to their respective DOM
+     * elements and gets a specified number of items
+     * with which to first populate the content.
+     * @param  {String} model The name of the model
+     * @return null
+     */
+    
     function dataset_glue(model){
 
       io.socket.on( model, function(dataset){
           featureModel.emit(dataset.verb, dataset);
       })
 
-      io.socket.get( "/"+model, {type:"featuredetection"}, function(datasets){
+      io.socket.get( "/"+model+"/find", {type:"featuredetection"}, function(datasets){
         $.map(datasets, function(dataset){
           featureModel.emit('created', {
             id:dataset.id,
@@ -87,17 +176,67 @@
           })
         })
       })
-
+      $(".featureImage").first().click();
     }
 
     // When document is ready, grab latest things.
     $(document).ready(function(){
 
-      dataset_glue("dataset");
+      dataset_glue("job");
 
-      //- featureModel.emit('created', {
-      //-   id:5415,
-      //-   data:{name:"Feature Detection"}
-      //- })
+      /**
+       * Instantiates Joe Folkemer's awesome Whisker.js plugin
+       * for rapid keyboard binding. Big thanks to Joe!
+       * www.github.com/jrfolk
+       * @type {Global Object}
+       * @return Whisker
+       */
+      
+      whisker = Whisker();
+
+      /**
+       * Maps the keyboard to the specified DOM events.
+       * @param  {Object} keymap
+       * @param  {onkeydown} 'a' : asserts Yes
+       * @param  {onkeydown} 's' : asserts Dunno
+       * @param  {onkeydown} 'd' : asserts No
+       * @return null
+       */
+      
+      whisker.map({
+        onkeydown : {
+          'a' : function(event){ $(".yesButton").click()   },
+          's' : function(event){ $(".dunnoButton").click() },
+          'd' : function(event){ $(".noButton").click()    },
+        }
+      });
+
+      /**
+       * Binds whisker to the DOM event domain.
+       * @param  {String}   action    The action listener
+       * @param  {Function} callback  The function to execute
+       * @return null
+       */
+      
+      $(document).on("keydown", whisker);
+
+      $(".navbar-right").prepend("<li><a class='fa fa-lg fa-keyboard-o' data-toggle='modal' data-target='#myModal'></a></li>")
+
+      /**
+       * Various methods for handling whisker scope.
+       */
+        
+        // whisker.unmap(keymap);
+        // whisker.pause();
+        // whisker.resume();
+        // whisker.save('scope_name');
+        // whisker.load('scope_name');
+        // whisker.clear();
+        // whisker.clear('scope_name');
 
     });
+
+
+
+
+

@@ -79,8 +79,8 @@ h2.bigBrand{
 }
 
 .boxShadow {
-  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 .boxShadowEasy {
   -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.2);
@@ -141,9 +141,32 @@ label{
   background-color:none;
 }
 
+#currentImageContainer {
+  text-align: "center";
+  display: inline-block;
+  *display:inline; /* ie7 fix */
+  float: none;
+}
 
+#jobDetails{
+  padding:82px;
+}
 
+.thumbnail{
+  text-align: "center";
+  float: none; 
+}
 
+#currentImage img{
+  height:320px;
+  float: none; 
+}
 
+.bgDark{
+  background-color: rgba(20,20,30,0.2);
+}
 
+.bgLightDark{
+  background-color: rgba(200,200,200,0.1);
+}
 
