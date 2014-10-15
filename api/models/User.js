@@ -26,7 +26,7 @@ module.exports = {
     expert_level:{
       type: 'number',
       defaultsTo:0
-    }
+    },
     password: {
       type: 'string',
       required: true
