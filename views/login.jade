@@ -1,14 +1,13 @@
-.container-fluid.loginbox
+.container-fluid
   br
-  form(role='form')
+  form(action='/login', method='post')
     .form-group
-      input#inputUsernameEmail.form-control.input-lg(type='text', placeholder="Pick a user name")
+      input#inputUsernameEmail.form-control.input-lg(type='text',name='username', placeholder='Pick a user name')
     .form-group
-      input#inputUsernameEmail.form-control.input-lg(type='text', placeholder="Email")
+      input#inputUsernameEmail.form-control.input-lg(type='text', name='password', placeholder='Email')
     .form-group
-      input#inputPassword.form-control.input-lg(type='password', placeholder="Password")
-    small.small.text-muted Email address will be verified.
-    a.btn.btn.btn-success.pull-right(type='submit')
-      b Sign up
-    br
-
+      input#inputPassword.form-control.input-lg(type='password', name='password', placeholder="Password")
+    .form-group
+      small.small.text-muted Email address will be verified.
+      input(type='submit', value='Sign up').btn.btn.btn-success.pull-right
+  br

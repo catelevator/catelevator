@@ -1,0 +1,41 @@
+extends ../layout
+block body
+  include ../navbar
+  div(style="background-color:#f7f7f8")
+    .container.text-center
+      br
+      br
+      br
+      .col-md-4.col-md-offset-4
+        if message
+          h3=message
+        form(action='/login', method='post')
+          .panel.panel-default.boxShadow
+            .panel-body
+              .panel-body
+                p.lead
+                  o Sign in
+                .form-group
+                  input#inputUsernameEmail.form-control.input-lg(type='text',name='username', placeholder='Username')
+                .form-group
+                  input#inputPassword.form-control.input-lg(type='password', name='password', placeholder="Password")
+              hr
+              .form-group
+                input(type='submit', value='Log in').btn.btn-primary.pull-right
+
+        .well
+          table.table.table-condensed.text-left.table-bordered
+            tr
+              td username
+              td test
+            tr
+              td password
+              td test
+        br
+        br
+        br
+        br
+        br
+        br
+        br
+        br

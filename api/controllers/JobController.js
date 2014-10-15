@@ -13,7 +13,11 @@ module.exports = {
     Job.find({}).exec(function(e,jobs){
       console.log("error:",e)
       console.log("jobs:",jobs)
-      res.view("job/index",{ jobs:jobs })
+      if(req.user[0])
+        res.view("job/index",{ jobs:jobs, user:req.user[0] })
+      else
+        res.view("job/index",{ jobs:jobs })
+
     });
 
   },

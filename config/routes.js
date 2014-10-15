@@ -36,7 +36,15 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  '/j': "JobController.index"
+  '/j': "JobController.index",
+  '/u': "ProfileController.index",
+
+
+  'get /login': "UserController.login",
+  'post /login': 'UserController.process',
+  'get /logout': 'UserController.logout',
+
+
 
   /***************************************************************************
   *                                                                          *
