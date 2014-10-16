@@ -24,6 +24,7 @@ Examples include: tagging videos base on their containing cats; dogs; or both, s
 
 ######Content Agnostic Tag Ellicitation of Linguistic and Epigraphic Variance And Topological Object Recognition ... or something.
 
+http://priceonomics.com/mechanical-turk-new-face-of-behavioral-science/
 
 css gradients:
 http://www.colorzilla.com/gradient-editor/
