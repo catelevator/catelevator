@@ -7,8 +7,6 @@
 
 module.exports = {
 
-
-
   index:function(req,res){
     Job.find({}).exec(function(e,jobs){
       console.log("error:",e)
@@ -17,8 +15,15 @@ module.exports = {
         res.view("job/index",{ jobs:jobs, user:req.user[0] })
       else
         res.view("job/index",{ jobs:jobs })
-
     });
+  },
+
+  work:function(req,res){
+    Job.findOne({ id:req.param('job') }).exec(function(e,job){
+      Task.find({ job_id:job.id }).exec(function(e,tasks){
+        res.view( "templates/"+job.type, { job:job, tasks:tasks } );
+      })
+    })
 
   },
 
@@ -40,8 +45,6 @@ module.exports = {
         })
       })
     })
-
-
 
     Job.create([
       {
@@ -121,10 +124,6 @@ module.exports = {
 
 
     })
-
-
-
-
 
 
 

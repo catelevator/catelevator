@@ -40,6 +40,10 @@ module.exports.routes = {
   '/u': "ProfileController.index",
 
 
+  '/signup': {
+    view: 'auth/signup'
+  },
+
   'get /login': "UserController.login",
   'post /login': 'UserController.process',
   'get /logout': 'UserController.logout',
