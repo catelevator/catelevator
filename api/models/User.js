@@ -16,15 +16,15 @@ module.exports = {
       unique: true
     },
     points: {
-      type: 'number',
+      type: 'string',
       defaultsTo:0.00
     },
     btc: {
-      type: 'number',
+      type: 'string',
       defaultsTo:0.00
     },
     expert_level:{
-      type: 'number',
+      type: 'string',
       defaultsTo:0
     },
     password: {

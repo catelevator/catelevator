@@ -14,6 +14,11 @@ module.exports = {
   login: function(req,res){
     res.view("auth/login");
   },
+  
+  mads: function(req,res){
+    User.create({username:'mads',password:'shit'},
+    function(err,user){res.send(user)});  
+  },
 
   process: function(req,res){
     passport.authenticate('local', function(err, user, info){
