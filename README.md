@@ -24,6 +24,11 @@ Examples include: tagging videos base on their containing cats; dogs; or both, s
 
 ######Content Agnostic Tag Ellicitation of Linguistic and Epigraphic Variance And Topological Object Recognition ... or something.
 
+Passwordless authentication.
+https://hacks.mozilla.org/2014/10/passwordless-authentication-secure-simple-and-fast-to-deploy/
+
+Good article about mechanical turk
+http://priceonomics.com/mechanical-turk-new-face-of-behavioral-science/
 
 css gradients:
 http://www.colorzilla.com/gradient-editor/
