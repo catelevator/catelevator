@@ -1,7 +1,10 @@
 body {
-   font-family:  "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif!important; 
+   font-family:  "Helvetica Neue", Helvetica,"Helvetica", Arial, "Lucida Grande", sans-serif!important; 
    font-weight: 400;
+   background-color: #f7f7f8;
 }
+
+
 
 hr{
   border-color:#ddd!important;
@@ -10,7 +13,9 @@ hr{
 .jumbotron{
 
   padding:0px;
-  background: #2d1d3a; /* Old browsers */
+  background-color: #2d1d3a; /* Old browsers */
+
+
 
   background: rgb(63,76,107); /* Old browsers */
   background: -moz-linear-gradient(top,  rgba(63,76,107,1) 0%, rgba(0,31,72,1) 100%); /* FF3.6+ */
@@ -22,6 +27,8 @@ hr{
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#001f48',GradientType=0 ); /* IE6-9 */
 
   color:white!important;
+
+
 }
 
 
@@ -39,14 +46,11 @@ hr{
 
 }
 
-.nav-tabs{
-  /*border:none;*/
-}
 
 h1.bigBrand{
   margin-left:-1px;
-  font-size: 60px;
-  font-weight: 300;
+  font-size: 40px;
+  font-weight: 400;
   line-height: 68px;
   color:#fff;
   text-shadow:0px -1px 9px #001;
@@ -60,23 +64,9 @@ h2.bigBrand{
   text-shadow:0px -1px 2px #111;
 }
 
-.navbar{
-  margin-bottom:0px;
-}
-.navbar a{
-  color:#555!important;
-}
-.navbar a:hover{
-  color:#003!important;
-}
 
-.navbar-brand{
-  font-size: 17px;
-  color:#009!important;
-  padding-left:6px;
-  font-weight:600;
-  margin-top:0px;
-}
+
+
 
 .boxShadow {
   -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -168,5 +158,52 @@ label{
 
 .bgLightDark{
   background-color: rgba(200,200,200,0.1);
+}
+
+.navbar-custom{
+  background-color:#313235;
+  color:white!important;
+}
+
+.navbar-custom li {
+  background-color:#313235;
+  letter-spacing:1.1px;
+}
+
+
+
+.navbar-custom ul.navbar-nav > li a{
+  font-size: 12px;
+  background-color:#313235;
+  letter-spacing:1.1px;
+  color:#ddd!important;
+}
+
+.navbar-custom li a:hover{
+  background-color:#313235;
+  color:#fff!important;
+}
+
+.navbar-custom a.navbar-brand {
+  color:#fff!important;
+  padding-left:6px;
+  margin-right:4px;
+  font-size: 14px;
+  font-weight:400;
+
+}
+
+.navbar-nav li{
+  margin-left:12px;
+  margin-right:12px;
+}
+
+
+.navbar-custom .navbar-btn{
+  margin-bottom:0px;
+}
+
+.actions{
+
 }
 

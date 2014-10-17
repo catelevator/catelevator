@@ -7,11 +7,16 @@
 
 module.exports = {
   index:function(req,res){
-    console.log("profilecontroller.index",req.user)
-    if(req.user)
-      res.view("profile/index",{ user:req.user[0] });
-    else
-      res.view("profile/index");
+    var content  = {}
+    content.user = req.user[0]
+
+    Job.find({}).exec(function(err,jobs){
+
+      content.jobs = err || jobs
+      res.view( "profile/index", content );
+    })
+
+    return;
   }
 };
 

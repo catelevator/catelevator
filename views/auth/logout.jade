@@ -1,0 +1,36 @@
+extends ../layout
+block body
+  include ../navbar
+  div(style="background-color:#f7f7f8")
+    .container.text-center
+      br
+      br
+      .col-md-8.col-md-offset-2
+        if message
+          h3=message
+        
+        h1 You have been successfully logged out.
+        br
+
+        .col-md-6.col-md-offset-3
+          form(action='/login', method='post')
+            hr
+            .panel.panel-default
+              .panel-body
+                .panel-body
+                  .form-group
+                    input#inputUsernameEmail.form-control(type='text', name='username', placeholder='Select a user name')
+                  .form-group
+                    input#inputUsernameEmail.form-control(type='password', name='password', placeholder='Create a password')
+                  .form-group
+                  hr
+                  input(type='submit', value='Sign in').button.button-flat-primary.pull-right.btn-block
+
+        //- .well
+          table.table.table-condensed.text-left.table-bordered
+            tr
+              td username
+              td test
+            tr
+              td password
+              td test

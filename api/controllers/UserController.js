@@ -11,6 +11,7 @@
 
 var passport = require("passport");
 module.exports = {
+
   login: function(req,res){
     res.view("auth/login");
   },
@@ -32,7 +33,7 @@ module.exports = {
 
   logout: function (req,res){
     req.logout();
-    res.send('logout successful');
+    res.view("auth/logout");
   },
   _config: {}
 };

@@ -1,36 +1,37 @@
 extends ../layout
 block body
-  include ../navbar
+  include navbar
   .container-fluid(style="background-color:#f7f7f8;")
-    br
     .container
       .row.well-sm
-        .col-md-3.panel.panel-default
-          
-          .panel-body
-            if user
-              h4
-                fa.fa.fa-fw.fa-user.fa-2x.text-primary
-                o=user.username
-              //- small.text-muted=user.email
-          table.table
-            tr 
-              td Wallet Balance
-              td
-                fa.fa.fa-fw.fa-btc.fa-sm
-                b=user.btc||"0.00"
-            tr 
-              td Tasks completed
-              td
-                o=user.tasks_completed||"0"
-            tr 
-              td Expert Level
-              td
-                o=user.expert_level||"0"
+        .col-md-3
           br
+          .nav-sidebar.panel
+            ul.nav.nav-stacked.actions
+
 
         .col-md-9
-          .panel.panel-default
-            .panel-body
-              h3 Jobs
-              hr
+          br
+          ul.nav.nav-justified.text-center
+            li.navbar-text
+              br
+              small Balance   
+              b.text-primary.lead=user.btc
+            li.navbar-text
+              br
+              small Jobs  
+              o.text-primary.lead=jobs.length
+            li.navbar-text
+              br
+              small Level 
+              o.text-primary.lead=user.expert_level||"0"
+          hr
+
+          if jobs
+            for job in jobs
+              .panel
+                .well-sm
+                  h4
+                    a(href="/job/work?job=#{job.id}").btn-link=job.name
+                  p=job.desc
+

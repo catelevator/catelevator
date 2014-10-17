@@ -1,12 +1,23 @@
-extends ../layout
+include header
 .container-fluid
   .col-lg-12.text-center
     #jobDetails.text-center
+      
+      if job        
+        h1=job.name
+        p.lead=job.desc
+
+      if tasks
+        each task in tasks
+          .col-sm-2
+            .thumbnail
+              img(src="#{task.src}")
+
       br
-      p.lead Find cats in the photos.
-      br
-      a.btn.btn-lg.btn-fab.btn-primary.startButton.fa.fa-check.fa-2x
+
+      a.btn.btn-lg.btn-fab.btn-primary.startButton.fa.fa-arrow-right
         b  Start
+
     #hiddenAtFirst
       #currentImageContainer
         #currentImage
@@ -28,7 +39,6 @@ extends ../layout
           .bgLightDark
             #job
           br  
-
 
 
   #myModal.modal.fade
@@ -90,7 +100,7 @@ extends ../layout
     
     function select(){
       var src = $("#currentImage").find('img').attr('src')
-      var id = $("#currentImage").find('img').attr('data-id')
+      var id  = $("#currentImage").find('img').attr('data-id')
       val = $(this).text()
       console.log(val, id, src)
     }
@@ -166,7 +176,7 @@ extends ../layout
     function dataset_glue(model){
 
       io.socket.on( model, function(dataset){
-          featureModel.emit(dataset.verb, dataset);
+        featureModel.emit(dataset.verb, dataset);
       })
 
       io.socket.get( "/"+model+"/find", {type:"featuredetection"}, function(datasets){

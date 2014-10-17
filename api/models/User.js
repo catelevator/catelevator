@@ -7,6 +7,7 @@
  */
 
 var bcrypt = require("bcrypt");
+var _ = require("underscore")
 
 module.exports = {
   attributes: {
@@ -16,21 +17,28 @@ module.exports = {
       unique: true
     },
     points: {
-      type: 'number',
+      type: 'float',
       defaultsTo:0.00
     },
     btc: {
-      type: 'number',
+      type: 'float',
       defaultsTo:0.00
     },
     expert_level:{
-      type: 'number',
+      type: 'float',
       defaultsTo:0
     },
     password: {
       type: 'string',
       required: true
     },
+  },
+
+
+  task_count: function(){
+    Tasks.count({user_id:this.id}, function(err,result){
+      console.log(result);
+    })
   },
 
   beforeCreate: function(user, cb) {
