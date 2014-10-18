@@ -10,9 +10,10 @@ block content
         a.navbar-brand(href='/') CAT ELEVATOR
       .collapse.navbar-collapse
         ul.nav.navbar-nav
-          li
-            a(href="/j")
-              o Jobs
+          if user
+            li
+              a(href="/j")
+                o Jobs
 
           li
             a(href='http://github.com/catelevator') 
