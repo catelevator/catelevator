@@ -17,6 +17,13 @@ module.exports = {
     })
 
     return;
-  }
+  },
+
+  createjob:function(req,res){
+  		console.log(req.params)
+  		var content  = {}
+      content.user = req.user[0]
+  		res.view("profile/createjob", content)
+  },
 };
 

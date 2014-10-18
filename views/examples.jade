@@ -1,30 +1,61 @@
 extends layout
 block body
-  include navbar
-  .container
-    br
-    .col-md-3
-      include sidebar
+   .container
+      include navbar
+      br
+      br
+      
+   //- .container
+   //-    br
+   //-    .col-md-3
+   //-       include sidebar
 
-    .col-md-9.panel.panel-default
-        br
+   //-    .col-md-9.panel.panel-default
+   //-          br
 
-        .tab-content
-          #featurerecognition.tab-pane.bg1
+   //-          .tab-content
+   //-             #featurerecognition.tab-pane.bg1
+   //-                include usecases/featurerecognition
+
+   //-             #featuredetection.tab-pane
+   //-                include usecases/featuredetection
+
+   //-             #changedetection.tab-pane
+   //-                include usecases/changedetection
+
+   //-             #captchasolving.tab-pane
+   //-                include usecases/captchasolving
+
+   //-             #videotimetagging.tab-pane
+   //-                include usecases/captchasolving
+
+   //-             #impressionmeasuring.tab-pane
+   //-                include usecases/captchasolving
+   
+   .container
+      ul.nav.nav-tabs
+         li.active: a(href="#featurerecognition", data-toggle="tab") Feature Recognition
+         li: a(href="#featuredetection", data-toggle="tab") Feature Detection
+         li: a(href="#changedetection", data-toggle="tab") Change Detection
+         li: a(href="#captchasolving", data-toggle="tab") Captcha Solving
+         li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
+         li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring
+
+      .tab-content
+         .tab-pane#featurerecognition
             include usecases/featurerecognition
 
-          #featuredetection.tab-pane
+         .tab-pane#featuredetection
             include usecases/featuredetection
-
-          #changedetection.tab-pane
+            
+         .tab-pane#changedetection
             include usecases/changedetection
-
-          #captchasolving.tab-pane
+            
+         .tab-pane#captchasolving
             include usecases/captchasolving
 
-          #videotimetagging.tab-pane
-            include usecases/captchasolving
+         .tab-pane#videotimetagging
+            include usecases/videotimetagging
 
-          #impressionmeasuring.tab-pane
-            include usecases/captchasolving
-
+         .tab-pane#impressionmeasuring
+            include usecases/impressionmeasuring
