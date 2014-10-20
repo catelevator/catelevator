@@ -22,7 +22,7 @@ Examples include: tagging videos base on their containing cats; dogs; or both, s
   
 ***
 
-######Content Agnostic Tag Ellicitation of Linguistic and Epigraphic Variance And Topological Object Recognition ... or something.
+######Content Agnostic Tagging Enabled Lingo-Epigraphic Variance And Topological Object Recognition
 
 Passwordless authentication.
 https://hacks.mozilla.org/2014/10/passwordless-authentication-secure-simple-and-fast-to-deploy/
