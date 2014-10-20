@@ -22,13 +22,9 @@ block content
         //-     a(href="/u")
         //-       o Jobs
 
-        ul.nav.navbar-nav.navbar-right
-
-          
-          o.text-muted.navbar-text=user.email
-          li
-            a(href="/logout")
-              o Sign Out 
+        .navbar-right
+          button(onclick="location.href='/logout'").btn.button-border-primary.navbar-btn.btn-sm
+            o SIGN OUT
 
 
         //- li.dropdown

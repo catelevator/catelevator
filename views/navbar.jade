@@ -41,8 +41,8 @@ block content
             if user
               a(href="/login").btn.button-flat-royal.navbar-btn.btn-sm=user.username
             else
-              a(href="/login").btn.button-flat-primary.navbar-btn.btn-sm
-                o Sign in
+              button(onclick="location.href='/login'").btn.button-border-primary.navbar-btn.button-small
+                o SIGN IN
 
 
      
