@@ -7,8 +7,12 @@ Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing a
 
 
 #### Templates
-- Feature Detection
-- 
+
+
+* Feature Detection
+
+
+
 
 ***
 
