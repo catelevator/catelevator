@@ -1,13 +1,13 @@
 #Cat Elevator
 
 
-Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing analysis and pattern identification in multimedia content sets by facilitating rapid development of heavily collaborative services.
+Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing analysis and pattern identification in multimedia content sets by facilitating rapid development of collaborative services.
 
 * * *
 
-Examples: tagging videos base on their containing cats; dogs; or both, searching security footage for suspects, translating languages, or locating that tricky son-of-a-bitch Waldo in a large collection of images. Further applications include producing datasets for comparative analysis against predictive algorithms and for training neural nets with redundant human decisions.
-
->**Some one please make that ^ English.**
+Templates
+- Feature Detection
+- 
 
 ***
 
@@ -24,6 +24,7 @@ install
     $ node catelevator.js
   
 ***
+Examples: tagging videos base on their containing cats; dogs; or both, searching security footage for suspects, translating languages, or locating that tricky son-of-a-bitch Waldo in a large collection of images. Further applications include producing datasets for comparative analysis against predictive algorithms and for training neural nets with redundant human decisions.
 
 
 
