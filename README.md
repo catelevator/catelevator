@@ -3,9 +3,6 @@
 
 Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing analysis and pattern identification in multimedia content sets by facilitating rapid development of collaborative services.
 
-* * *
-
-
 #### Templates
 
 
