@@ -4,8 +4,6 @@ body {
    background-color: #f7f7f8;
 }
 
-
-
 hr{
   border-color:#ddd!important;
 }
@@ -187,15 +185,9 @@ label{
   color:white!important;
 }
 
-.navbar-custom li {
-  background-color:#222222;
-  letter-spacing:1.1px;
-}
-
 
 
 .navbar-custom ul.navbar-nav > li a{
-  font-size: 12px;
   letter-spacing:1.1px;
   color:#ddd!important;
 }
@@ -206,22 +198,22 @@ label{
 }
 
 .navbar-custom a.navbar-brand {
-  color:#fff!important;
-  padding-left:6px;
+  margin-top:-1px;
+  color:#dfd!important;
   margin-right:4px;
-  font-size: 14px;
   font-weight:400;
 
 }
 
-.navbar-nav li{
-  margin-left:12px;
-  margin-right:12px;
+.nav-tabs li.active a{
+  color:#000;
 }
 
 
-.navbar-custom .navbar-btn{
-  margin-bottom:0px;
+.nav-tabs .bigNumber{
+  font-size: 22px!important;
+  font-weight: 100;
+
 }
 
 .actions{

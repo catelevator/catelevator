@@ -8,27 +8,28 @@ block body
         .panel.panel-default
           .panel-body
             ul.nav.nav-tabs.nav-justified.setup-panel
-                li.active
-                  a(href='#step-1')
-                    h5.list-group-item-heading 1 - Create
-                li.disabled
-                  a(href='#step-2')
-                    h5.list-group-item-heading 2 - Configure
-                li.disabled
-                  a(href='#step-3')
-                    h5.list-group-item-heading 3 - Add Data
+              li.active
+                a(href='#step-1').skinny
+                  b 1   
+                  o.list-group-item-heading   Create your project
+              li.disabled
+                a(href='#step-2').skinny
+                  b 2  
+                  o.list-group-item-heading Configure some settings
+              li.disabled
+                a(href='#step-3').skinny
+                  b 3  
+                  o.list-group-item-heading Assimilate Data
 
           #step-1.setup-content
             .panel-body
               .col-md-12
-                h1.skinny Setup
                 br
                 br
-              br
 
               .col-md-12
                 .col-md-4
-                  p Give it a name.
+                  p.lead Project name:
                 .col-md-8
                   input(type="text", placeholder="Name")#jobName.form-control
                 br
@@ -36,7 +37,7 @@ block body
                 br
               .col-md-12
                 .col-md-4
-                  p Explain it.
+                  p.lead Description:
                 .col-md-8
                   textarea(placeholder="Description").form-control#jobDesc
                 br
@@ -44,38 +45,40 @@ block body
                 br
                 br
                   
-                  
-                
             .panel-footer.text-right
                   button.btn.btn-link cancel  
-                  button#activate-step-2.btn.button.button-flat-royal Next 
-                    fa.fa.fa-fw.fa-caret-right
+                  button#activate-step-2.btn.button.button-flat-action Next 
+                    fa.fa.fa-fw.fa-chevron-right
 
 
           #step-2.setup-content
             .panel-body
               .col-md-12
-                h1.skinny Configuration
-                br
                 br
 
             .panel-footer.text-right
                   button.btn.btn-link cancel  
-                  button#activate-step-3.btn.button.button-flat-royal Next 
-                    fa.fa.fa-fw.fa-caret-right
+                  button#activate-step-3.btn.button.button-flat-action Next 
+                    fa.fa.fa-fw.fa-chevron-right
 
 
-          #step-3.setup-content.panel-body
-            .col-md-12
-              h1.skinny Data normalization
-              p.text-muted Lets take a look at 
-                a(href="http://www.dropzonejs.com/") dropzone.js
-                |  for this.
-            .col-md-10.col-md-offset-1
-               form.form(action='/jobs/create')
-                  //dropdown thing for task type
+          #step-3.setup-content
+            .panel-body
+              .col-md-12
+                .text-center
                   br
-                  #addMoreTasks.text-center
+                  h4.skinny Lets use 
+                    a(href="http://www.dropzonejs.com/") dropzone.js
+                    |  for this instead.
+
+                  br
+
+                form.form(action='/jobs/create')
+
+                  //- dropdown thing for task type
+                  
+                  br
+                  #addMoreTasks
                     hr
                     .row
                       .col-md-1
@@ -85,18 +88,17 @@ block body
 
                   hr
                   .row
-                    .col-md-4
-                      a(href='/u')
-                        input(type='button', value='Cancel').btn.btn.button-caution.btn-block
-                    .col-md-4
-                      a.btn.btn.button-pill.addtask.btn-block
-                        fa.fa.fa-plus.fa-fw
-                        o Add Another Task
-                    .col-md-4
-                      input(type='submit', value='Finish').btn.btn.button-royal.btn-block
+                  a.btn.btn.button-link.addtask
+                    fa.fa.fa-plus.fa-fw
+                    o Add Another Task
                   br
                   br
-                  br
+
+            .panel-footer.text-right
+                  button.btn.btn-link cancel  
+                  button#activate-step-3.btn.button.button-flat-action Finished  
+                    fa.fa.fa-chevron-right
+
 
 
   script.

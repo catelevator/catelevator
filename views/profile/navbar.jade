@@ -9,18 +9,14 @@ block content
           span.icon-bar
         a.navbar-brand(href='/u')
           b CE 
-          b.text-muted | 
+          b.text-muted  
           o(style="color:#e0e0e4;")=user.username
           b  
       .collapse.navbar-collapse
-        ul.nav.navbar-nav
+        ul.nav.navbar-nav.really-skinny
           li
             a(href='/profile/createjob')
-              o CREATE JOB
-        //- ul.nav.navbar-nav
-        //-   li
-        //-     a(href="/u")
-        //-       o Jobs
+              o New Project
 
         .navbar-right
           button(onclick="location.href='/logout'").btn.button-border-primary.navbar-btn.btn-sm
