@@ -228,3 +228,15 @@ label{
 
 }
 
+
+h1.big{
+  font-size: 48px!important;
+}
+
+.skinny{
+  font-weight:200!important;
+}
+.really-skinny{
+  font-weight:100!important;
+}
+

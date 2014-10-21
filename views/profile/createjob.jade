@@ -2,45 +2,155 @@ extends ../layout
 block body
   include navbar
   .container
+    .col-md-8.col-md-offset-2
       br
-      br
-      .col-md-6.col-md-offset-3
-         form.form(action='/jobs/create')
-            input(type='text', placeholder='Title', name='name').form-control
-            //dropdown thing for task type
-            br
+      .col-xs-12
+        .panel.panel-default
+          .panel-body
+            ul.nav.nav-tabs.nav-justified.setup-panel
+                li.active
+                  a(href='#step-1')
+                    h5.list-group-item-heading 1 - Create
+                li.disabled
+                  a(href='#step-2')
+                    h5.list-group-item-heading 2 - Configure
+                li.disabled
+                  a(href='#step-3')
+                    h5.list-group-item-heading 3 - Add Data
 
-            #addMoreTasks
-              hr
-              .row
-                .col-md-1
-                  label 1.
-                .col-md-11
-                  input(type='file', placeholder='things', name='task1').form-control
-              
+          #step-1.setup-content
+            .panel-body
+              .col-md-12
+                h1.skinny Setup
+                br
+                br
+              br
 
-            hr
-            .row
-              .col-md-4
-                a(href='/u')
-                  input(type='button', value='Cancel').btn.btn.button-caution.btn-block
-              .col-md-4
-                a.btn.btn.button-pill.addtask.btn-block
-                  fa.fa.fa-plus.fa-fw
-                  o Add Another Task
-              .col-md-4
-                input(type='submit', value='Finish').btn.btn.button-royal.btn-block
-            br
-            br
-            br
+              .col-md-12
+                .col-md-4
+                  p Give it a name.
+                .col-md-8
+                  input(type="text", placeholder="Name")#jobName.form-control
+                br
+                br
+                br
+              .col-md-12
+                .col-md-4
+                  p Explain it.
+                .col-md-8
+                  textarea(placeholder="Description").form-control#jobDesc
+                br
+                br
+                br
+                br
+                  
+                  
+                
+            .panel-footer.text-right
+                  button.btn.btn-link cancel  
+                  button#activate-step-2.btn.button.button-flat-royal Next 
+                    fa.fa.fa-fw.fa-caret-right
+
+
+          #step-2.setup-content
+            .panel-body
+              .col-md-12
+                h1.skinny Configuration
+                br
+                br
+
+            .panel-footer.text-right
+                  button.btn.btn-link cancel  
+                  button#activate-step-3.btn.button.button-flat-royal Next 
+                    fa.fa.fa-fw.fa-caret-right
+
+
+          #step-3.setup-content.panel-body
+            .col-md-12
+              h1.skinny Data normalization
+              p.text-muted Lets take a look at 
+                a(href="http://www.dropzonejs.com/") dropzone.js
+                |  for this.
+            .col-md-10.col-md-offset-1
+               form.form(action='/jobs/create')
+                  //dropdown thing for task type
+                  br
+                  #addMoreTasks.text-center
+                    hr
+                    .row
+                      .col-md-1
+                        label 1.
+                      .col-md-11
+                        input(type='file', placeholder='things', name='task1').form-control
+
+                  hr
+                  .row
+                    .col-md-4
+                      a(href='/u')
+                        input(type='button', value='Cancel').btn.btn.button-caution.btn-block
+                    .col-md-4
+                      a.btn.btn.button-pill.addtask.btn-block
+                        fa.fa.fa-plus.fa-fw
+                        o Add Another Task
+                    .col-md-4
+                      input(type='submit', value='Finish').btn.btn.button-royal.btn-block
+                  br
+                  br
+                  br
 
 
   script.
     var taskcount = 2;
 
     $(document).on( "click", ".addtask", function(){ 
-      $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' + taskcount + '.</label></div>' + '<div class="col-md-11"><input class="form-control", type="file", name="task' + taskcount + '", placeholder="things"></input></div></div>')
+      $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
+        + taskcount + '.</label></div>' 
+        + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
+        + taskcount + '", placeholder="things"></input></div></div>');
+      
       taskcount++;
     })
+
+
+    $(document).ready(function() {
+        
+        var navListItems = $('ul.setup-panel li a'),
+            allWells = $('.setup-content');
+
+        allWells.hide();
+
+        navListItems.click(function(e)
+        {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this).closest('li');
+            
+            if (!$item.hasClass('disabled')) {
+                navListItems.closest('li').removeClass('active');
+                $item.addClass('active');
+                allWells.hide();
+                $target.show();
+            }
+        });
+        
+        $('ul.setup-panel li.active a').trigger('click');
+        
+        $('#activate-step-2').on('click', function(e) {
+            $('ul.setup-panel li:eq(1)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+            $(this).remove();
+        })    
+        $('#activate-step-3').on('click', function(e) {
+            $('ul.setup-panel li:eq(2)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+            $(this).remove();
+        })
+
+
+
+    });
+
+
+
 
 
