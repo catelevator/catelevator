@@ -1,5 +1,5 @@
 block content
-  nav.navbar.navbar-custom.navbar-fixed-top(role='navigation')
+  nav.navbar.navbar-inverse.navbar-custom.navbar-fixed-top(role='navigation')
     .container
       .navbar-header
         button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
@@ -13,32 +13,38 @@ block content
           o(style="color:#e0e0e4;")=user.username
           b  
       .collapse.navbar-collapse
-        ul.nav.navbar-nav.really-skinny
+        ul.nav.navbar-nav.navbar-left
           li
             a(href='/profile/createjob')
               o New Project
 
-        .navbar-right
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              | Dev Tools  
+              fa.fa.fa-caret-down
+            
+              ul.dropdown-menu.mega-dropdown-menu.row
+                li 
+                  a adsf
+
+                //- li.dropdown
+                //-   a.dropdown-toggle(href='#', data-toggle='dropdown')
+                //-     | Development
+                //-     span.caret
+                //-   ul.dropdown-menu(role='menu')
+                //-     li
+                //-       a(href='/activity/examples') 
+                //-         fa.fa.fa-eye.fa-fw(style="margin-right:20px;")
+                //-         o See examples
+                //-     li.divider
+                //-     li
+                //-       a(href='/activity/bounce') 
+                //-         fa.fa.fa-refresh.fa-fw(style="margin-right:20px;")
+                //-         o Bounce database   
+
+
+        ul.nav.navbar-nav.navbar-right
           button(onclick="location.href='/logout'").btn.button-border-primary.navbar-btn.btn-sm
-            o SIGN OUT
-
-
-        //- li.dropdown
-        //-   a.dropdown-toggle(href='#', data-toggle='dropdown')
-        //-     | Development
-        //-     span.caret
-        //-   ul.dropdown-menu(role='menu')
-        //-     li
-        //-       a(href='/activity/examples') 
-        //-         fa.fa.fa-eye.fa-fw(style="margin-right:20px;")
-        //-         o See examples
-        //-     li.divider
-        //-     li
-        //-       a(href='/activity/bounce') 
-        //-         fa.fa.fa-refresh.fa-fw(style="margin-right:20px;")
-        //-         o Bounce database   
-
-
-     
+            o SIGN OUT     
                    
   div(style="margin-bottom:50px;")
