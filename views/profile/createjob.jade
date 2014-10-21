@@ -9,6 +9,38 @@ block body
             input(type='text', placeholder='Title', name='name').form-control
             //dropdown thing for task type
             br
+
+            #addMoreTasks
+              hr
+              .row
+                .col-md-1
+                  label 1.
+                .col-md-11
+                  input(type='file', placeholder='things', name='task1').form-control
+              
+
+            hr
+            .row
+              .col-md-4
+                a(href='/u')
+                  input(type='button', value='Cancel').btn.btn.button-caution.btn-block
+              .col-md-4
+                a.btn.btn.button-pill.addtask.btn-block
+                  fa.fa.fa-plus.fa-fw
+                  o Add Another Task
+              .col-md-4
+                input(type='submit', value='Finish').btn.btn.button-royal.btn-block
             br
-            .text-center
-               input(type='submit', value='Add Tasks').btn.button.button-royal
+            br
+            br
+
+
+  script.
+    var taskcount = 2;
+
+    $(document).on( "click", ".addtask", function(){ 
+      $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' + taskcount + '.</label></div>' + '<div class="col-md-11"><input class="form-control", type="file", name="task' + taskcount + '", placeholder="things"></input></div></div>')
+      taskcount++;
+    })
+
+
