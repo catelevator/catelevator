@@ -50,6 +50,9 @@ module.exports.routes = {
   'post /login': 'UserController.process',
   'get /logout': 'UserController.logout',
 
+  '/examples': {
+    view: 'examples'
+  }
 
 
   /***************************************************************************
