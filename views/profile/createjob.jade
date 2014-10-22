@@ -2,23 +2,26 @@ extends ../layout
 block body
   include navbar
   .container
-    .col-md-8.col-md-offset-2
+    .col-md-10.col-md-offset-1
       br
+      h1.text-center.skinny Crowd source in seconds.
       .col-xs-12
-          .panel-body
-            ul.nav.nav-pills.nav-justified.setup-panel
-              li.active
-                a(href='#step-1').skinny
-                  b 1.  
-                  o.list-group-item-heading   Create your project
-              li.disabled
-                a(href='#step-2').skinny
-                  b 2.  
-                  o.list-group-item-heading Configure some settings
-              li.disabled
-                a(href='#step-3').skinny
-                  b 3.  
-                  o.list-group-item-heading Assimilate Data
+        hr
+        ul.nav.nav-tabs.nav-justified.setup-panel
+          li.active
+            a(href='#step-1').skinny
+              b 1  
+              o.list-group-item-heading Define your project.
+          li.disabled
+            a(href='#step-2').skinny
+              b 2  
+              o.list-group-item-heading Configure some settings.
+          li.disabled
+            a(href='#step-3').skinny
+              b 3  
+              o.list-group-item-heading Assimilate data.
+
+      .col-xs-12
 
         .panel.panel-default
           #step-1.setup-content
@@ -34,7 +37,18 @@ block body
                   input(type="text", placeholder="Name")#jobName.form-control
                 br
                 br
-                br
+
+
+                  
+              .col-md-12
+                .col-md-4
+                  p.lead Template:
+                .col-md-8
+                  select.selectpicker
+                    option Mustard
+                    option Ketchup
+                    option Relish
+
               .col-md-12
                 .col-md-4
                   p.lead Description:
@@ -44,11 +58,13 @@ block body
                 br
                 br
                 br
-                  
+                hr
+              
+
             .panel-footer.text-right
-                  button.btn.btn-link cancel  
-                  button#activate-step-2.btn.button.button-flat-action Next 
-                    fa.fa.fa-fw.fa-chevron-right
+                button.btn.btn-link cancel  
+                button#activate-step-2.btn.button.button-flat-action Next 
+                  fa.fa.fa-fw.fa-chevron-right
 
 
           #step-2.setup-content
@@ -105,6 +121,9 @@ block body
 
   script.
     var taskcount = 2;
+
+    $('.selectpicker').selectpicker();
+
 
     $(document).on( "click", ".addtask", function(){ 
       $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 

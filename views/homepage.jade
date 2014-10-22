@@ -10,17 +10,20 @@ block body
           br
           br
           br
-          br
           h1.bigBrand Crowd source everything
-          h2.lead.text-muted An extendable open source platform for democratizing truth.
+          h2.lead.text-muted 
           //- h2.bigBrand Transform your data-analysis needs into a simple, enjoyable activity 
             o and reward users with discounts, money, or anything.
           
           br
+          br
 
           button(onclick="location.href='/signup'").button.button-border-action.button-pill
             o SIGN UP 
-
+          o   
+          button(onclick="location.href='/signup'").button.button-border-primary.button-pill
+            o PLAY
+    br
     br
     br
     br
@@ -31,7 +34,8 @@ block body
 
   .container.text-center
     br
-    h2.medBrand Welcoming narrative that segways into basic purposes
+    //- h2.medBrand Welcoming narrative that segways into basic purposes
+    h2.medBrand An extendable open source platform for democratizing truth.
     br
     br
     br
@@ -47,8 +51,9 @@ block body
           h1 Data Science
           p asd
           hr
-          a.btn.button.button-flat-royal.button-rounded.btn-block
-            o Create a job
+          .button-wrap
+            a.btn.button.button-flat-royal.button-pill
+              o Enhance your data
       
       .col-md-4
         .well.well-sm
@@ -57,8 +62,9 @@ block body
           h1 Hacktivism
           p asd
           hr
-          a.btn.button.button-flat-caution.button-rounded.btn-block
-            o Improve the world
+          .button-wrap
+            a.btn.button.button-flat-caution.button-pill
+              o Fight the power
 
       .col-md-4
         .well.well-sm
@@ -67,8 +73,9 @@ block body
           h1 Development
           p asd
           hr
-          a.btn.button.button-flat-highlight.button-rounded.btn-block
-            o Get the code
+          .button-wrap
+            a.btn.button.button-flat-primary.button-pill
+              o Get the code
 
           
 

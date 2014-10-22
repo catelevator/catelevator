@@ -1,5 +1,5 @@
 block content
-  nav.navbar.navbar-custom.navbar-fixed-top(role='navigation')
+  nav.navbar.navbar-inverse.navbar-custom.navbar-fixed-top(role='navigation')
     .container
       .navbar-header
         button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1')
@@ -15,6 +15,8 @@ block content
             li
               a(href="/j")
                 o Jobs
+        
+        ul.nav.navbar-nav.navbar-right
 
           li
             a(href='http://github.com/catelevator') 
@@ -38,12 +40,12 @@ block content
           //-       a(href='/activity/bounce') 
           //-         fa.fa.fa-refresh.fa-fw(style="margin-right:20px;")
           //-         o Bounce database   
-        .navbar-nav.navbar-right
-            if user
-              a(href="/login").btn.button-flat-royal.navbar-btn.btn-sm=user.username
-            else
-              button(onclick="location.href='/login'").btn.button-border-primary.navbar-btn.button-small
-                o SIGN IN
+
+          if user
+            a(href="/logout").btn.button-flat-royal.navbar-btn.btn-sm=user.username
+          else
+            li
+              a(href='/login') SIGN IN
 
 
      
