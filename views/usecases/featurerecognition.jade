@@ -4,10 +4,8 @@
     br
 
     .col-sm-6
-      //-img(src="http://i.imgur.com/eLmmpdR.jpg")
       canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
       
-
     .col-sm-6
       br
       .text-muted
@@ -30,29 +28,13 @@
         .col-sm-3
           a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
             fa.fa.fa-caret-right
-
-
     br
     br
     br
 
-
-
-  //- .container
-
-  //-   br
-
-  //-   .panel.panel-default
-  //-     .panel-body
-  //-       #dataset
-  //-   br
 
 script.
 
-    //- make new instance of Model
-    //- var featureModel = new $.eventModel();
-
-    //- var canvas = $('#mycanvas')[0];
     var canvas = document.getElementById("mycanvas");
     var cxt = canvas.getContext("2d");
     var cat = new Image();
@@ -65,6 +47,7 @@ script.
 
     canvas.onmousedown = function(e) {
           var rect = canvas.getBoundingClientRect();
+          cxt.beginPath();
           isDrawing = true;
           cxt.moveTo(e.clientX - rect.left, e.clientY - rect.top);
     };
@@ -79,68 +62,7 @@ script.
           isDrawing = false;
     };
       
-
-    //- document.getElementById('.clearbtn').addEventListener('click', function() {
-    //-     cxt.clearRect(0, 0, canvas.width, canvas.height);
-    //- }, false);
     $(document).on("click", ".clearbtn", function() {
       cxt.clearRect(0,0,canvas.width, canvas.height);
       cxt.drawImage(cat, 0,0,500,300);
-      });
-    // ***** thumbnails 
-
-
-    //- // Listen for when things of this model type are created
-    //- featureModel.on('created', function(info,activity) {
-    //-   var a = activity.data.data
-    //-   $.map(a, function(d){
-    //-     $("#dataset").append($("<span>", {
-    //-       class:"small"
-    //-     }).append($("<img>",{
-    //-       src:d
-    //-     })))
-    //-   })
-    //- });
-
-
-    //- // Listen for when things of this model type are updated
-    //- featureModel.on('updated', function(info,activity) {
-    //-   $.map(activity.data, function(val, attr){
-    //-     if($("#"+activity.id+" #"+attr).text())
-    //-       $("#"+activity.id+" #"+attr).text(val)
-    //-     else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
-    //-   })
-    //- });
-
-
-    //- // bind dom to model with sockets
-    //- function dataset_glue(model){
-
-    //-   io.socket.on( model, function(dataset){
-    //-       featureModel.emit(dataset.verb, dataset);
-    //-   })
-
-    //-   io.socket.get( "/"+model, {type:"featuredetection"}, function(datasets){
-    //-     $.map(datasets, function(dataset){
-    //-       featureModel.emit('created', {
-    //-         id:dataset.id,
-    //-         data:dataset
-    //-       })
-    //-     })
-    //-   })
-
-    //- }
-
-    //- // When document is ready, grab latest things.
-    //$(document).ready(function(){
-
-    //-   dataset_glue("dataset");
-      
-
-
-    //-   //- featureModel.emit('created', {
-    //-   //-   id:5415,
-    //-   //-   data:{name:"Feature Detection"}
-    //-   //- })
-
-    //});
+    });

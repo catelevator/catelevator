@@ -4,34 +4,7 @@ block body
       include navbar
       br
       br
-      
-   //- .container
-   //-    br
-   //-    .col-md-3
-   //-       include sidebar
 
-   //-    .col-md-9.panel.panel-default
-   //-          br
-
-   //-          .tab-content
-   //-             #featurerecognition.tab-pane.bg1
-   //-                include usecases/featurerecognition
-
-   //-             #featuredetection.tab-pane
-   //-                include usecases/featuredetection
-
-   //-             #changedetection.tab-pane
-   //-                include usecases/changedetection
-
-   //-             #captchasolving.tab-pane
-   //-                include usecases/captchasolving
-
-   //-             #videotimetagging.tab-pane
-   //-                include usecases/captchasolving
-
-   //-             #impressionmeasuring.tab-pane
-   //-                include usecases/captchasolving
-   
    .container
       ul.nav.nav-tabs
          li.active: a(href="#featurerecognition", data-toggle="tab") Feature Recognition
@@ -39,10 +12,9 @@ block body
          li: a(href="#changedetection", data-toggle="tab") Change Detection
          li: a(href="#captchasolving", data-toggle="tab") Captcha Solving
          li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
-         li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring
-
+         li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring 
       .tab-content
-         .tab-pane#featurerecognition
+         .tab-pane.active#featurerecognition
             include usecases/featurerecognition
 
          .tab-pane#featuredetection
