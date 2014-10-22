@@ -3,29 +3,29 @@
 
 Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing analysis and pattern identification in multimedia content sets by facilitating rapid development of collaborative services.
 
-#### Templates
+### Templates
 
-* Feature Recognition
+##### Feature Recognition
 
 Peasant decides if the data has a specified object.
 
-* Feature Detection
+##### Feature Detection
 
 Peasant discovers where the specified object is in the data.
 
-* Change Detection
+##### Change Detection
 
 Peasant detects the change between two items of data.
 
-* Captcha Solving
+##### Captcha Solving
 
 Peasant figures out what the data says.
 
-* Video Time Tagging
+##### Video Time Tagging
 
 Peasant determines the time in which a certain event happens in the data.
 
-* Impression Measuring
+##### Impression Measuring
 
 Peasant expresses the level of specified feeling upon looking at the data.
 
