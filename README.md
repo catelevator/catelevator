@@ -13,18 +13,21 @@ Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing a
 
 ***
 
-install
+###install
 
     $ git clone git@github.com:catelevator/catelevator.git
 
-**build**
 
-    $ npm install
-
-**use**
+###use
   
     $ node catelevator.js
   
+  
+###configure
+
+    $ npm install
+
+    
 ***
 Examples: tagging videos base on their containing cats; dogs; or both, searching security footage for suspects, translating languages, or locating that tricky son-of-a-bitch Waldo in a large collection of images. Further applications include producing datasets for comparative analysis against predictive algorithms and for training neural nets with redundant human decisions.
 
