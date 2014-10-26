@@ -1,35 +1,102 @@
-//extends ../layout
 .bg11
   .container
     br
     br
+    #firstDetect
+      .col-sm-6
+        canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
+        
+      .col-sm-6
+        br
+        .text-muted
+          o Points:
+          b  100 
+          o  |  
+          o Congruence:
+          b  100
 
-    .col-sm-6
-      form.form(action='')
-        img(src="http://i.imgur.com/eLmmpdR.jpg")
+        h2 Where is the cat in this photo?
+        h3 Circle it!
+        br
+        .row
+          .col-sm-3
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnDetect Found it!
+          .col-sm-3
+            a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
+          .col-sm-3
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnDetect Can't Find
+          .col-sm-3
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnDetect  Skip 
+              fa.fa.fa-caret-right
+    #yesnoDetect
+      .text-center
+        h1 Job Completed!
+        h4 Click on another tab to try out a different Example Job!
+    #skipDetect
+      .text-center
+        h2 No More Tasks!
+        h4 Click on another tab to try out a different Example Job!
+        h4 OR
+        a.btn.btn-lg.button-royal.reviewbtnDetect Review Skipped Tasks
+          
+    br
+    br
+    br
+
+
+script.
+  $('#yesnoDetect').hide();
+  $('#skipDetect').hide();
+  var canvas = document.getElementById("mycanvas");
+  var cxt = canvas.getContext("2d");
+  var cat = new Image();
+  cat.src = "http://i.imgur.com/qvJuqVV.jpg";
+  var isDrawing;
+
+  cat.onload = function() {
+    cxt.drawImage(cat,0,0, 500, 300);
+  }
+
+  canvas.onmousedown = function(e) {
+    var rect = canvas.getBoundingClientRect();
+    cxt.beginPath();
+    isDrawing = true;
+    cxt.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  };
+  canvas.onmousemove = function(e) {
+    var rect = canvas.getBoundingClientRect();
+    if (isDrawing) {
+      cxt.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+      cxt.stroke();
+    }
+  };
+  canvas.onmouseup = function() {
+    isDrawing = false;
+  };
       
+  $(document).on("click", ".clearbtn", function() {
+    cxt.clearRect(0,0,canvas.width, canvas.height);
+    cxt.drawImage(cat, 0,0,500,300);
+  });
 
-    .col-sm-6
-      br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
+  $(document).on("click", ".yesnobtnDetect", function() {
+    $('#firstDetect').hide();
+    $('#yesnoDetect').show();
+  });
 
-      h2 Is there a cat in this picture?
-      br
-      .row
-        .col-sm-4
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Yes
-        .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block No
-        .col-sm-4
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
+  
 
+  $(document).on("click", ".skipbtnDetect", function() {
+    $('#firstDetect').hide();
+    $('#skipDetect').show();
+  });
 
-    br
-    br
-    br
+  $(document).on("click", ".reviewbtnDetect", function() {
+    $('#skipDetect').hide();
+    $('#firstDetect').show();
+  })
+
+  $(document).ready(function() {
+    $('#yesnoDetect').hide();
+    $('#skipDetect').hide();
+  });

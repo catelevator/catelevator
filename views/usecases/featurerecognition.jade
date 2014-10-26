@@ -1,68 +1,63 @@
+//extends ../layout
 .bg11
   .container
     br
     br
+    #firstRecognit
+      .col-sm-6
+        form.form(action='')
+          img(src="http://i.imgur.com/eLmmpdR.jpg", width='500', height='300')
+        
+      .col-sm-6
+        br
+        .text-muted
+          o Points:
+          b  100 
+          o  |  
+          o Congruence:
+          b  100
 
-    .col-sm-6
-      canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
-      
-    .col-sm-6
-      br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
+        h2 Is there a cat in this picture?
+        br
+        .row
+          .col-sm-4
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnRecognit Yes
+          .col-sm-4
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnRecognit No
+          .col-sm-4
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnRecognit  Skip 
+              fa.fa.fa-caret-right
+    #yesnoRecognit
+      .text-center
+        h1 Job Completed!
+        h4 Click on another tab to try out a different Example Job!
+    #skipRecognit
+      .text-center
+        h2 No More Tasks!
+        h4 Click on another tab to try out a different example Job!
+        h4 OR
+        a.btn.btn-lg.button-royal.reviewbtnRecognit Review Skipped Tasks
 
-      h2 Where is the cat in this photo?
-      h3 Circle it!
-      br
-      .row
-        .col-sm-3
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Found it!
-        .col-sm-3
-          a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
-        .col-sm-3
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block I'm blind
-        .col-sm-3
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
     br
     br
     br
-
 
 script.
+  $('#yesnoRecognit').hide()
+  $('#skipRecognit').hide()
 
-    var canvas = document.getElementById("mycanvas");
-    var cxt = canvas.getContext("2d");
-    var cat = new Image();
-    cat.src = "http://i.imgur.com/qvJuqVV.jpg";
-    var isDrawing;
+  $(document).on("click", ".yesnobtnRecognit", function() {
+    $('#firstRecognit').hide()
+    $('#yesnoRecognit').show()
+  })
 
-    cat.onload = function() {
-      cxt.drawImage(cat,0,0, 500, 300);
-    }
 
-    canvas.onmousedown = function(e) {
-          var rect = canvas.getBoundingClientRect();
-          cxt.beginPath();
-          isDrawing = true;
-          cxt.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-    };
-    canvas.onmousemove = function(e) {
-          var rect = canvas.getBoundingClientRect();
-          if (isDrawing) {
-                cxt.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-                cxt.stroke();
-          }
-    };
-    canvas.onmouseup = function() {
-          isDrawing = false;
-    };
-      
-    $(document).on("click", ".clearbtn", function() {
-      cxt.clearRect(0,0,canvas.width, canvas.height);
-      cxt.drawImage(cat, 0,0,500,300);
-    });
+  $(document).on("click", ".skipbtnRecognit", function() {
+    $('#firstRecognit').hide()
+    $('#skipRecognit').show()
+  })
+
+  $(document).on("click", ".reviewbtnRecognit", function() {
+    $('#skipRecognit').hide()
+    $('#firstRecognit').show()
+  })

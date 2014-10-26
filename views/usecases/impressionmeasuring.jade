@@ -2,34 +2,117 @@
   .container
     br
     br
+    #firstImpress
+      .col-sm-6.text-center
+        img(src="http://i.imgur.com/SpCbHBI.jpg", align="middle",  width="400", height="400")
+   
+      .col-sm-6
+        br
+        .text-muted
+          o Points:
+          b  100 
+          o  |  
+          o Congruence:
+          b  100
 
-    .col-sm-6
-      #img1.thumbnail
-        img(src="http://i.imgur.com/SpCbHBI.jpg")
- 
-
-    .col-sm-6
-      br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
-
-      h2 How happy is this picture?
-      br
-      .md-slider(ng-model='thisthing', min='0', max='10')
-      .row
-        .col-sm-4
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Enter
-        .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block I give up
-        .col-sm-4
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
-
-
+        h2 How happy does this picture make you feel?
+        br
+        //- .md-slider(ng-model='thisthing', min='0', max='10')
+        .row
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 0
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 1
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 2
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 3
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 4
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 5
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 6
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 7
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 8
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 9
+          .col-sm-1
+            .radio.inline
+              label
+                input(type='radio', name='optionsRadios')
+                | 10
+        br
+        .row
+          .col-sm-4
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnImpress Enter
+          .col-sm-4
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnImpress No Comment
+          .col-sm-4
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnImpress  Skip 
+              fa.fa.fa-caret-right
+    #yesnoImpress  
+      .text-center
+        h1 Job Completed!
+        h4 Click on another tab to try out a different Example Job!
+    #skipImpress
+      .text-center
+        h2 No More Tasks!
+        h4 Click on another tab to try out a different Example Job! 
+        h4 OR
+        a.btn.btn-lg.button-royal.reviewbtnImpress Review Skipped Tasks
+        
     br
     br
     br
+script.
+  $('#yesnoImpress').hide()
+  $('#skipImpress').hide()
+
+  $(document).on("click", ".yesnobtnImpress", function() {
+    $('#firstImpress').hide()
+    $('#yesnoImpress').show()
+  })
+
+
+  $(document).on("click", ".skipbtnImpress", function() {
+    $('#firstImpress').hide()
+    $('#skipImpress').show()
+  })
+
+  $(document).on("click", ".reviewbtnImpress", function() {
+    $('#skipImpress').hide()
+    $('#firstImpress').show()
+  })

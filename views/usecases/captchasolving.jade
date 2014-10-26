@@ -2,31 +2,63 @@
   .container
     br
     br
+    #firstCaptcha
+      .col-sm-6
+        img(src="http://i.imgur.com/QyYbqqz.png", width="500", height="300")
+          
 
-    .col-sm-6
-      form.form(action='')
-        img(src="http://i.imgur.com/QyYbqqz.png")
-        input(type='text', placeholder='enter words here').form-control
+      .col-sm-6
+        br
+        .text-muted
+          o Points:
+          b  100 
+          o  |  
+          o Congruence:
+          b  100
 
-    .col-sm-6
-      br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
-
-      h2 What does this say?
-      br
-      .row
-        .col-sm-4
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Enter
-        .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block I give up
-        .col-sm-4
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
+        h2 What does this say?
+        
+        form.form(action='')
+          input(type='text', placeholder='enter words here').form-control
+        br
+        .row
+          .col-sm-4
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnCaptcha Enter
+          .col-sm-4
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnCaptcha No Idea
+          .col-sm-4
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnCaptcha  Skip 
+              fa.fa.fa-caret-right
+    #yesnoCaptcha
+      .text-center
+        h1 Job Completed!
+        h4 Click on another tab to try out a different Example Job!
+    #skipCaptcha
+      .text-center
+        h2 No More Tasks!
+        h4 Click on another tab to try out a different Example Job! 
+        h4 OR
+        a.btn.btn-lg.button-royal.reviewbtnCaptcha Review Skipped Tasks
+        
     br
     br
     br
+script.
+  $('#yesnoCaptcha').hide()
+  $('#skipCaptcha').hide()
+
+  $(document).on("click", ".yesnobtnCaptcha", function() {
+    $('#firstCaptcha').hide()
+    $('#yesnoCaptcha').show()
+  })
+
+
+  $(document).on("click", ".skipbtnCaptcha", function() {
+    $('#firstCaptcha').hide()
+    $('#skipCaptcha').show()
+  })
+
+  $(document).on("click", ".reviewbtnCaptcha", function() {
+    $('#skipCaptcha').hide()
+    $('#firstCaptcha').show()
+  })      
