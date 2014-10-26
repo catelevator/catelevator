@@ -32,8 +32,11 @@ Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing a
 Examples: tagging videos base on their containing cats; dogs; or both, searching security footage for suspects, translating languages, or locating that tricky son-of-a-bitch Waldo in a large collection of images. Further applications include producing datasets for comparative analysis against predictive algorithms and for training neural nets with redundant human decisions.
 
 
-https://github.com/sindresorhus/leven
+Natural Language Processing
+https://github.com/NaturalNode/natural
+
 Measure the distance between two strings with levenshtien algorithm
+https://github.com/sindresorhus/leven
 
 Passwordless authentication.
 https://hacks.mozilla.org/2014/10/passwordless-authentication-secure-simple-and-fast-to-deploy/
