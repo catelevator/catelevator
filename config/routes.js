@@ -42,10 +42,11 @@ module.exports.routes = {
     view: 'profile/createjob'
   },
 
-  '/signup': {
+  'get /signup': {
     view: 'auth/signup'
   },
-
+  
+  'post /signup': "UserController.signup",
   'get /login': "UserController.login",
   'post /login': 'UserController.process',
   'get /logout': 'UserController.logout',
