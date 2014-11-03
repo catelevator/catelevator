@@ -7,23 +7,18 @@
  *
  * Ben Baker 2014
  */
-function generateToken(email, done){
-  done(null, require('sha1')(email+"laksjda2398fj2"))
+
+function generateToken(hash, done){
+  done(null, require('sha1')(hash+"laksjda2398fj2"))
 };
 
 var passport = require("passport");
 module.exports = {
 
   signup: function(req,res){
-    //get the email from req object
     var email = req.body.email;
-    //create verification code
     generateToken(email, function(err, token){
-      //create new user 
       User.create({email:email, token:token}, function(err,user){
-        console.log(err,user);
-
-        //send email with verification code (link)
        
         var link = "http://localhost:1337/user/v?token="+user.token;
         var email = user.email;
@@ -42,7 +37,7 @@ module.exports = {
             from: 'catelevator@gmail.com',
             to: email,
             subject: 'Welcome to Catelevator - Please Complete Registration!',
-            text: textContents,
+            text: textContents, 
             html: messageContents
         });
       });
@@ -51,22 +46,40 @@ module.exports = {
   },
 
   verify: function(req,res){
-    //get token to verify 
+    //gets the username
+    var username = req.body.username;
+    var password = req.body.password;
+    console.log(username);
+    console.log(password);
 
-    //find the user where token = req.token
-    //if no match then view
-    //if yes load passwords view 
-    res.view("auth/passwords");
+    User.find({username:username}, function(err, user){
+      if(user.length != 0) res.view('auth/passwords',{ message:"Username already exists."} );
+      else {
+      //gets the passwords --checks if passwords are the same (in view)
+        //for now
+        if(password[0] != password[1]) res.view('auth/passwords',{ message:"Passwords do not match"} );
+        else{
+          //get token --how?
+          /*
+            User.findOne({token:token}, function(err,user){
+              User.update({token:token},{username:username, password:password}).exec(function(err, user){
+                if(err || (!user) res.view('auth/passwords',{ message:"Something went wrong"} );
+                else res.view('auth/login');
+              })
+            })
+          */
+        }
+      }
+    })
   },
 
   v: function(req,res){
-    //gets the username
-    //check if username exists
-    //gets the passwords --checks if passwords are the same (in view)
-
-    //saves to database
-    //goto login page
-    res.view("auth/passwords");
+    var token = req.query.token;
+    
+    User.find({token:token}, function(err, user){
+      if(user.length == 0) res.view('auth/login');
+      else res.view('auth/passwords')
+    }) 
   }, 
 
   login: function(req,res){
@@ -98,5 +111,3 @@ module.exports = {
   },
   _config: {}
 };
-
-
