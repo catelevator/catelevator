@@ -7,24 +7,24 @@ block body
 
    .container
       ul.nav.nav-tabs
-         li.active: a(href="#featurerecognition", data-toggle="tab") Feature Recognition
-         li: a(href="#featuredetection", data-toggle="tab") Feature Detection
+         li.active: a(href="#inquiry", data-toggle="tab") Inquiry
+         li: a(href="#featurefinding", data-toggle="tab") Feature Finding
          li: a(href="#changedetection", data-toggle="tab") Change Detection
-         li: a(href="#captchasolving", data-toggle="tab") Captcha Solving
+         li: a(href="#evaluation", data-toggle="tab") Evaluation
          li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
          li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring 
       .tab-content
-         .tab-pane.active#featurerecognition
-            include usecases/featurerecognition
+         .tab-pane.active#inquiry
+            include usecases/inquiry
 
-         .tab-pane#featuredetection
-            include usecases/featuredetection
+         .tab-pane#featurefinding
+            include usecases/featurefinding
             
          .tab-pane#changedetection
             include usecases/changedetection
             
-         .tab-pane#captchasolving
-            include usecases/captchasolving
+         .tab-pane#evaluation
+            include usecases/evaluation
 
          .tab-pane#videotimetagging
             include usecases/videotimetagging

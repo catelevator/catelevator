@@ -2,7 +2,7 @@
   .container
     br
     br
-    #firstDetect
+    #firstFind
       .col-sm-6
         canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
         
@@ -20,24 +20,24 @@
         br
         .row
           .col-sm-3
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnDetect Found it!
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnFind Found it!
           .col-sm-3
             a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
           .col-sm-3
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnDetect Can't Find
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnFind Can't Find
           .col-sm-3
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnDetect  Skip 
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnFind  Skip 
               fa.fa.fa-caret-right
-    #yesnoDetect
+    #yesnoFind
       .text-center
         h1 Job Completed!
         h4 Click on another tab to try out a different Example Job!
-    #skipDetect
+    #skipFind
       .text-center
         h2 No More Tasks!
         h4 Click on another tab to try out a different Example Job!
         h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnDetect Review Skipped Tasks
+        a.btn.btn-lg.button-royal.reviewbtnFind Review Skipped Tasks
           
     br
     br
@@ -45,8 +45,8 @@
 
 
 script.
-  $('#yesnoDetect').hide();
-  $('#skipDetect').hide();
+  $('#yesnoFind').hide();
+  $('#skipFind').hide();
   var canvas = document.getElementById("mycanvas");
   var cxt = canvas.getContext("2d");
   var cat = new Image();
@@ -79,24 +79,24 @@ script.
     cxt.drawImage(cat, 0,0,500,300);
   });
 
-  $(document).on("click", ".yesnobtnDetect", function() {
-    $('#firstDetect').hide();
-    $('#yesnoDetect').show();
+  $(document).on("click", ".yesnobtnFind", function() {
+    $('#firstFind').hide();
+    $('#yesnoFind').show();
   });
 
   
 
-  $(document).on("click", ".skipbtnDetect", function() {
-    $('#firstDetect').hide();
-    $('#skipDetect').show();
+  $(document).on("click", ".skipbtnFind", function() {
+    $('#firstFind').hide();
+    $('#skipFind').show();
   });
 
-  $(document).on("click", ".reviewbtnDetect", function() {
-    $('#skipDetect').hide();
-    $('#firstDetect').show();
+  $(document).on("click", ".reviewbtnFind", function() {
+    $('#skipFind').hide();
+    $('#firstFind').show();
   })
 
   $(document).ready(function() {
-    $('#yesnoDetect').hide();
-    $('#skipDetect').hide();
+    $('#yesnoFind').hide();
+    $('#skipFind').hide();
   });
