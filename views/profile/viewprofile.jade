@@ -1,0 +1,28 @@
+extends ../layout
+block body
+  include navbar
+  .container-fluid(style="background-color:#f7f7f8;vertical-align:middle;")
+      .col-md-10.col-md-offset-2(style="vertical-align:middle;")
+         br
+         br
+         .row.well-md   
+            .col-md-4.text-right.text-primary
+               p USERNAME
+            .col-md-6
+               b.text-info.lead= user.username
+         .row.well-md
+            .col-md-4.text-right.text-primary
+               p POINTS
+            .col-md-6
+               b.text-info.lead= user.points
+         .row.well-md
+            .col-md-4.text-right.text-primary
+               p BTC
+            .col-md-6
+               b.text-info.lead= user.btc
+         .row.well-md
+            .col-md-4.text-right.text-primary
+               p EXPERT LEVEL
+            .col-md-6
+               b.text-info.lead= user.expert_level
+

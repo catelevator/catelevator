@@ -25,5 +25,12 @@ module.exports = {
       content.user = req.user[0]
   		res.view("profile/createjob", content)
   },
+
+  viewprofile:function(req,res){
+      console.log(req.params)
+      var content = {}
+      content.user = req.user[0]
+      res.view("profile/viewprofile", content)
+  }
 };
 

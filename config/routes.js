@@ -42,6 +42,10 @@ module.exports.routes = {
     view: 'profile/createjob'
   },
 
+  '/viewprofile': {
+    view: 'profile/viewprofile'
+  },
+
   '/signup': {
     view: 'auth/signup'
   },

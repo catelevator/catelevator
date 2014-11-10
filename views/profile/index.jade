@@ -1,3 +1,6 @@
+//- this is techincally the page that shows all the users' unfinished jobs...
+
+
 extends ../layout
 block body
   include navbar
@@ -7,8 +10,25 @@ block body
       
         .col-md-3
           br
+          br
           .nav-sidebar.panel
             ul.nav.nav-stacked.actions
+              li.active
+                a(href='/u') 
+                  p Unfinished Jobs
+              li
+                a(href='#') 
+                  p Browse Available Jobs
+              li
+                a(href='#')
+                  p Previously Completed Jobs
+              hr
+              li
+                a(href='#') 
+                  p View Progress of Uploaded Jobs
+              li
+                a(href='#') 
+                  p View Completed Uploaded Jobs
 
 
         .col-md-9
