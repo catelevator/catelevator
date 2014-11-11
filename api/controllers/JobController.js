@@ -59,17 +59,17 @@ module.exports = {
       Task.create([
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featurefinding",
+          type:"evaluation",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/NOGJwjbb.jpg',
-          type:"featurefinding",
+          type:"evaluation",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featurefinding",
+          type:"evaluation",
           job_id:job.id
         }
       ]).exec(function(a,b){ 
@@ -87,7 +87,7 @@ module.exports = {
     Job.create([
       {
         name:"Find the cats", 
-        type:"featurefinding",
+        type:"inquiry",
         reward:0.02,
         desc: "Select whether or not a feature exists in a dataset."
       }
@@ -97,22 +97,22 @@ module.exports = {
       Task.create([
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featurefinding",
+          type:"inquiry",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/X6qwKTU.png',
-          type:"featurefinding",
+          type:"inquiry",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/zS59sKQ.jpg',
-          type:"featurefinding",
+          type:"inquiry",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/xoz937V.jpg',
-          type:"featurefinding",
+          type:"inquiry",
           job_id:job.id
         }
       ]).exec(function(a,b){ 
