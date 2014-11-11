@@ -323,3 +323,15 @@ h1.big{
 
 
 
+table.prettytable {
+  border: 1px solid #ddd !important;
+  width: 100%;
+}
+
+.prettytable tr,
+.prettytable td {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #ddd !important;
+}
+

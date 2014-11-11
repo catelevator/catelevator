@@ -25,11 +25,12 @@ module.exports = {
     passport.authenticate('local', function(err, user, info){
       if ((err) || (!user)) {
         console.log("usercontroller.process",err, user, info)
-        res.view('auth/login',{ message:(info||"Could not authenticate. Try again or something.")} );
+        // res.view('auth/login',{ message:(info||"Could not authenticate. Try again or something.")} );
+        res.view('auth/login',info );
         return;
       }
       req.logIn(user, function(err){
-        if (err) res.view('auth/login',{ message:"Could not authenticate. Try again or something."} );
+        if (err) res.view('auth/login', info );
         res.redirect('/u');
         return;
       });

@@ -31,6 +31,19 @@ module.exports = {
       var content = {}
       content.user = req.user[0]
       res.view("profile/viewprofile", content)
+  },
+
+  browse:function(req,res){
+      var content  = {}
+    content.user = req.user[0]
+
+    Job.find({}).exec(function(err,jobs){
+
+      content.jobs = err || jobs
+      res.view( "profile/browse", content );
+    })
+
+    return;
   }
 };
 

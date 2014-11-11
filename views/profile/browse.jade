@@ -1,22 +1,20 @@
-//- this is techincally the page that shows all the users' unfinished jobs...
-
-
+//- page that shows all available jobs
 extends ../layout
 block body
   include navbar
   .container-fluid(style="background-color:#f7f7f8;")
     .container
       .row.well-sm
-      
+        br
+        br
         .col-md-3
-          br
-          br
+          
           
           ul.nav.nav-sidebar
-            li.active
+            li
               a(href='/u')
                 p Unfinished Jobs
-            li
+            li.active
               a(href='/profile/browse') 
                 p Browse Available Jobs
             li
@@ -32,27 +30,17 @@ block body
 
 
         .col-md-9
-          br
-          ul.nav.nav-justified.text-center
-            li.navbar-text
-              br
-              small Balance   
-              b.text-primary.lead=user.btc
-            li.navbar-text
-              br
-              small Jobs  
-              o.text-primary.lead=jobs.length
-            li.navbar-text
-              br
-              small Level 
-              o.text-primary.lead=user.expert_level||"0"
-          hr
-
+          
           if jobs
             for job in jobs
               .panel
                 .well-sm
-                  h4
-                    a(href="/job/work?job=#{job.id}").btn-link=job.name
+                  .row
+                    .col-md-9
+                      h4
+                        a(href="/job/work?job=#{job.id}").btn-link=job.name
+                    .col-md-3
+                      b=job.taskCount+" tasks"
                   p=job.desc
+                  
 

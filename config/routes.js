@@ -45,6 +45,11 @@ module.exports.routes = {
   '/viewprofile': {
     view: 'profile/viewprofile'
   },
+  
+  '/browse': {
+    view: 'profile/browse'
+  },
+
 
   '/signup': {
     view: 'auth/signup'
