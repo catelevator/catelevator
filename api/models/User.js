@@ -13,7 +13,6 @@ module.exports = {
   attributes: {
     username: {
       type: 'string',
-      required: true,
       unique: true
     },
     points: {
@@ -30,6 +29,13 @@ module.exports = {
     },
     password: {
       type: 'string',
+    },
+    token: {
+      type: 'string',
+      required: true
+    },
+    email: {
+      type: 'string',
       required: true
     },
   },
@@ -41,18 +47,11 @@ module.exports = {
     })
   },
 
-  beforeCreate: function(user, cb) {
-    bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(user.password, salt, function(err, hash) {
-        if (err) {
-          console.log(err);
-          cb(err);
-        } else {
-          user.password = hash;
-          cb(null, user);
-        }
-      });
-    });
+  beforeCreate: function(user, done) {
+    if(!user.password) done(null, user)
+    done(null, require('sha1')(user.email+"laksjda2398fj2"))
+
+    done(null, user);
   }
 };
 
