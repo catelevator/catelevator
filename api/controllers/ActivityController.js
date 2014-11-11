@@ -71,46 +71,46 @@ module.exports = {
 
 
     Dataset.create([
-
+//not sure if we even use this..but i updated it to have the new names of things --mads
       {
-        name:"Detection Test Set", 
-        type:"featuredetection",
-        desc: "Select whether or not a feature exists in a dataset.",
+        name:"Feature Finding Test Set", 
+        type:"featurefinding",
+        desc: "User circles where the specified object is located in the data.",
         data: [{src:'http://i.imgur.com/eLmmpdR.jpg'},{src:'http://i.imgur.com/E3aGgDw.jpg'},{src:'http://i.imgur.com/NOGJwjbb.jpg'},{src:'http://i.imgur.com/40cE648b.jpg'},{src:'http://i.imgur.com/VBjPDH1b.jpg'}]
       },
       
       {
-        name:"Recognition Test Set", 
-        type:"featurerecognition",
-        desc: "Select whether or not a feature exists in a dataset.",
+        name:"Inquiry Test Set", 
+        type:"inquiry",
+        desc: "User selects one of provided answers using the given data. <-- not worded right.",
         data: ['http://i.imgur.com/eLmmpdR.jpg', 'http://i.imgur.com/E3aGgDw.jpg']
       },
 
       {
         name:"Change Detection Test Set", 
         type:"changedetection",
-        desc: "Select whether or not a feature exists in a dataset.",
+        desc: "User detects the change between two items of data.",
         data: ['http://i.imgur.com/eLmmpdR.jpg', 'http://i.imgur.com/E3aGgDw.jpg']
       },
 
       {
-        name:"Captcha Test Set", 
-        type:"captchasolving",
-        desc: "Select whether or not a feature exists in a dataset.",
+        name:"Evaluation Test Set", 
+        type:"evaluation",
+        desc: "User enters text that provides feedback on the given data.",
         data: ['http://i.imgur.com/eLmmpdR.jpg', 'http://i.imgur.com/E3aGgDw.jpg']
       },
 
       {
         name:"Impression Test Set", 
         type:"impressionmeasuring",
-        desc: "Select whether or not a feature exists in a dataset.",
+        desc: "User expresses the level of specified feeling upon looking at the data.",
         data: ['http://i.imgur.com/eLmmpdR.jpg', 'http://i.imgur.com/E3aGgDw.jpg']
       },
 
       {
         name:"Video Tagging Test Set", 
         type:"videotimetagging",
-        desc: "Select whether or not a feature exists in a dataset.",
+        desc: "User determines the time in which a certain event happens in the data.",
         data: ['http://i.imgur.com/eLmmpdR.jpg', 'http://i.imgur.com/E3aGgDw.jpg']
       },
 

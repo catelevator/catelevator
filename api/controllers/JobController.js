@@ -49,7 +49,7 @@ module.exports = {
     Job.create([
       {
         name:"Solve the captcha", 
-        type:"captchasolving",
+        type:"evaluation",
         reward:0.01,
         desc: "Type the letters in the box."
       }
@@ -59,17 +59,17 @@ module.exports = {
       Task.create([
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/NOGJwjbb.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         }
       ]).exec(function(a,b){ 
@@ -87,7 +87,7 @@ module.exports = {
     Job.create([
       {
         name:"Find the cats", 
-        type:"featuredetection",
+        type:"featurefinding",
         reward:0.02,
         desc: "Select whether or not a feature exists in a dataset."
       }
@@ -97,22 +97,22 @@ module.exports = {
       Task.create([
         {
           src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/X6qwKTU.png',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/zS59sKQ.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         },
         {
           src:'http://i.imgur.com/xoz937V.jpg',
-          type:"featuredetection",
+          type:"featurefinding",
           job_id:job.id
         }
       ]).exec(function(a,b){ 
