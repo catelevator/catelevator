@@ -1,0 +1,81 @@
+.bg11
+  .container
+    br
+    br
+    #firstVideo
+      .col-sm-6
+        form.form(action='')
+          video(id="myvideo", width='500', height='300', controls)
+              source(src='images/Snapchat-20140729090148.mp4', type='video/mp4')
+              |Your browser does not supposed the video tag
+          .row
+            .col-sm-10
+              input(id="paused", type='text', placeholder='enter time here').form-control
+            .col-sm-1
+              a.btn.btn-md.btn-warning.clearbtnVideo Clear
+
+      .col-sm-6
+        br
+        .text-muted
+          o Points:
+          b  100 
+          o  |  
+          o Congruence:
+          b  100
+
+        h2 When does a cat appear in this video?
+        br
+        .row
+          .col-sm-4
+            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnVideo Enter
+          .col-sm-4
+            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnVideo No Cat
+          .col-sm-4
+            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnVideo  Skip 
+              fa.fa.fa-caret-right
+    #yesnoVideo
+      .text-center
+        h1 Job Completed!
+        h4 Click on another tab to try out a different Example Job!
+    #skipVideo
+      .text-center
+        h2 No More Tasks!
+        h4 Click on another tab to try out a different Example Job! 
+        h4 OR
+        a.btn.btn-lg.button-royal.reviewbtnVideo Review Skipped Tasks
+    br
+    br
+    br
+
+script.
+
+  var vid = document.getElementById("myvideo");
+
+  vid.onpause = function() {
+    if(vid.duration != vid.currentTime)
+      document.getElementById("paused").value = vid.currentTime;
+  }
+
+  $(document).on("click", ".clearbtnVideo", function() {
+    document.getElementById("paused").value = '';
+  })
+
+
+  $('#yesnoVideo').hide()
+  $('#skipVideo').hide()
+
+  $(document).on("click", ".yesnobtnVideo", function() {
+    $('#firstVideo').hide()
+    $('#yesnoVideo').show()
+  })
+
+
+  $(document).on("click", ".skipbtnVideo", function() {
+    $('#firstVideo').hide()
+    $('#skipVideo').show()
+  })
+
+  $(document).on("click", ".reviewbtnVideo", function() {
+    $('#skipVideo').hide()
+    $('#firstVideo').show()
+  })   
