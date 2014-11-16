@@ -87,7 +87,7 @@ module.exports = {
   },
   
   mads: function(req,res){
-    User.create({username:'mads',password:'shit'},
+    User.create({username:'mads',password:'asdf'},
     function(err,user){res.send(user)});  
   },
 

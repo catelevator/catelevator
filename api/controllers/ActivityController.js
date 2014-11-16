@@ -32,36 +32,28 @@ module.exports = {
 
     Activity.create([
     {
-      name:"Feature Detection", 
-      desc: "Select a particular feature amongst several pieces of content."
+      name:"Feature Finding", 
+      desc: "User circles where the specified object is located in the data."
     },
     {
-      name:"Change detection", 
-      desc: ""
+      name:"Inquiry", 
+      desc: "User selects one of provided answers using the given data. <-- not worded right."
     },
     {
-      name:"Feature Recognition", 
-      desc: ""
+      name:"Change Detection", 
+      desc: "User detects the change between two items of data."
     },
     {
-      name:"Captcha Solving", 
-      desc: ""
+      name:"Evaluation", 
+      desc: "User enters text that provides feedback on the given data."
     },
     {
       name:"Video Time Tagging", 
-      desc: ""
-    },
-    {
-      name:"Review", 
-      desc: ""
-    },
-    {
-      name:"Survey", 
-      desc: ""
+      desc: "User determines the time in which a certain event happens in the data."
     },
     {
       name:"Impression measuring", 
-      desc: ""
+      desc: "User expresses the level of specified feeling upon looking at the data."
     }
 
 

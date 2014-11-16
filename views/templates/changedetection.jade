@@ -1,0 +1,317 @@
+include header
+.container-fluid
+  .col-md-12.text-center
+    #jobDetails.text-center
+      //- i wanna add this back button..but it messes up prettiness
+      //- a.btn.btn-lg.btn-fab.btn-danger.backButton
+      //-   fa.fa.fa-arrow-left
+      //-   b  Back
+
+      if job        
+        h1=job.name
+        p.lead=job.desc
+
+      if tasks
+        each task in tasks
+          .col-sm-2
+            .thumbnail
+              img(src="#{task.src}")
+
+      br
+
+      a.btn.btn-lg.btn-fab.btn-primary.startButton
+        fa.fa.fa-arrow-right
+        b  Start
+
+    #hiddenAtFirst
+      #currentImageContainer
+        #currentImage
+          img.thumbnail
+          hr
+
+      .row
+        .col-sm-4
+          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+        .col-sm-4
+          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+            //- fa.fa.fa-caret-right
+        .col-sm-4
+          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+
+      .row
+        .container-fluid
+          br
+          .bgLightDark
+            #job
+          br  
+
+
+
+  //- #jobDetails.text-center
+  //-   .col-lg-1.text-center(style='margin-top:20%;')
+  //-     a.btn.btn-lg.btn-fab.btn-danger.backButton
+  //-       fa.fa.fa-arrow-left
+  //-       b  Back
+  //-   .col-lg-10.text-center
+        
+  //-       if job        
+  //-         h1=job.name
+  //-         p.lead=job.desc
+
+  //-       if tasks
+  //-         each task in tasks
+  //-           .col-sm-2
+  //-             .thumbnail
+  //-               img(src="#{task.src}",height="100",width="100")
+
+  //-       br
+  //-   .col-lg-1.text-center(style='margin-top:20%;')
+  //-     a.btn.btn-lg.btn-fab.btn-primary.startButton
+  //-       fa.fa.fa-arrow-right
+  //-       b  Start
+
+  //- #hiddenAtFirst
+  //-   #currentImageContainer
+  //-     #currentImage
+  //-       img.thumbnail
+  //-       hr
+
+  //-   .row
+  //-     .col-sm-4
+  //-       a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+  //-     .col-sm-4
+  //-       a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+  //-         //- fa.fa.fa-caret-right
+  //-     .col-sm-4
+  //-       a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+
+  //-   .row
+  //-     .container-fluid
+  //-       br
+  //-       .bgLightDark
+  //-         #job
+  //-       br  
+
+
+  //- #myModal.modal.fade
+  //-   .modal-dialog
+  //-       .modal-content
+  //-         .modal-header
+  //-           button.close(type='button', data-dismiss='modal')
+  //-             span(aria-hidden='true') ×
+  //-             span.sr-only Close
+  //-           h4.modal-title Keyboard Mapping
+  //-         .modal-body
+  //-           table.table.table-bordered
+  //-             tr
+  //-               td 
+  //-                 b a 
+  //-               td Yes
+  //-             tr
+  //-               td 
+  //-                 b s
+  //-               td Maybe
+  //-             tr
+  //-               td 
+  //-                 b d 
+  //-               td No
+  //-             tr
+  //-               td 
+  //-                 b w 
+  //-               td Flag
+
+  //-         .modal-footer
+  //-           button.btn.btn-default(type='button', data-dismiss='modal') Close
+  //-           button.btn.btn-primary(type='button') Save changes
+
+
+
+
+  script.
+    $("#hiddenAtFirst").hide() 
+      //BEN MADE AMAZING COMMENTS
+      //(i didn't actually read them though so they might be shit)
+      //BUT THEY LOOK GOOD -mads
+    /**
+     * Puts a clicked image into the #currentImage div
+     * and links the src and the data-id.
+     * @return null
+     */
+
+    function toCanvas(){
+      var src = $(this).find('img').attr('src')
+      var id  = $(this).attr('data-id')
+      $("#currentImage img").attr('src',src)
+      $("#currentImage img").attr('data-id',id)
+    }
+
+    /**
+     * Processes the option as selected by the user
+     * and parses, normalizes, then submits the change
+     * to the model.
+     * @return null
+     */
+    
+    function select(){
+      var src = $("#currentImage").find('img').attr('src')
+      var id  = $("#currentImage").find('img').attr('data-id')
+      val = $(this).text()
+      console.log(val, id, src)
+    }
+
+    /**
+     * Listens for .selectButton class to be clicked
+     * and binds the event to the select() function
+     * @param  {String}   action    The action listener
+     * @param  {String}   selecter  The DOM id to listen to
+     * @param  {Function} callback  The function to execute
+     * @return null
+     */
+    
+
+    //want this to go back to browse page?
+    //$(document).on("click", ".backButton",)
+
+
+    $(document).on( "click", ".featureImage", toCanvas )
+    $(document).on( "click", ".selectButton", select   )
+
+    $(document).on( "click", ".startButton", function(){ 
+      $(".featureImage").first().click(); 
+      $("#jobDetails").hide() 
+      $("#hiddenAtFirst").show() 
+    })
+
+    /**
+     * Instantiates a model event domain 
+     */
+
+    var featureModel = new $.eventModel();
+
+    /**
+     * Listens for model instance creation and binds  events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info        Event information from emit
+     * @param  {Object} item    The thing that happened.
+     * @return null
+     */
+
+    featureModel.on('created', function(info,item) {
+      var a = item.data.tasks
+      $.map(a, function(d){
+        $("#job").append($("<span>", {
+          "data-id":d.id,
+          class:"small featureImage"
+        }).append($("<img>",{
+          src:d.src
+        })))
+      })
+    });
+
+    /**
+     * Listens for model updates and binds model events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info     Event information from emit
+     * @param  {Object} activity The thing that happened.
+     * @return null
+     */
+    
+    featureModel.on('updated', function(info,item) {
+      $.map(item.data, function(val, attr){
+        if($("#"+item.id+" #"+attr).text())
+          $("#"+item.id+" #"+attr).text(val)
+        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+      })
+    });
+
+    /**
+     * Glues the model events to their respective DOM
+     * elements and gets a specified number of items
+     * with which to first populate the content.
+     * @param  {String} model The name of the model
+     * @return null
+     */
+    
+    function dataset_glue(model){
+
+      io.socket.on( model, function(dataset){
+        featureModel.emit(dataset.verb, dataset);
+      })
+
+      io.socket.get( "/"+model+"/find", {type:"changedetection"}, function(datasets){
+        console.log(datasets);
+        $.map(datasets, function(dataset){
+          featureModel.emit('created', {
+            id:dataset.id,
+            data:dataset
+          })
+        })
+      })
+      $(".featureImage").first().click();
+    }
+
+
+
+    // When document is ready, grab latest things.
+    $(document).ready(function(){
+
+      dataset_glue("job");
+
+      //mads commented out all the whisker things to figure out the picture thing
+
+      /**
+       * Instantiates Joe Folkemer's awesome Whisker.js plugin
+       * for rapid keyboard binding. Big thanks to Joe!
+       * www.github.com/jrfolk
+       * @type {Global Object}
+       * @return Whisker
+       */
+      
+      //whisker = Whisker();
+
+      /**
+       * Maps the keyboard to the specified DOM events.
+       * @param  {Object} keymap
+       * @param  {onkeydown} 'a' : asserts Yes
+       * @param  {onkeydown} 's' : asserts Dunno
+       * @param  {onkeydown} 'd' : asserts No
+       * @return null
+       */
+      
+      //- whisker.map({
+      //-   onkeydown : {
+      //-     'a' : function(event){ $(".yesButton").click()   },
+      //-     's' : function(event){ $(".dunnoButton").click() },
+      //-     'd' : function(event){ $(".noButton").click()    },
+      //-   }
+      //- });
+
+      /**
+       * Binds whisker to the DOM event domain.
+       * @param  {String}   action    The action listener
+       * @param  {Function} callback  The function to execute
+       * @return null
+       */
+      
+      //- $(document).on("keydown", whisker);
+
+      //- $(".navbar-right").prepend("<li><a class='fa fa-lg fa-keyboard-o' data-toggle='modal' data-target='#myModal'></a></li>")
+
+      /**
+       * Various methods for handling whisker scope.
+       */
+        
+        // whisker.unmap(keymap);
+        // whisker.pause();
+        // whisker.resume();
+        // whisker.save('scope_name');
+        // whisker.load('scope_name');
+        // whisker.clear();
+        // whisker.clear('scope_name');
+
+    });
+
+
+
+
+

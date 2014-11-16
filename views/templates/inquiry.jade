@@ -1,8 +1,12 @@
 include header
 .container-fluid
-  .col-lg-12.text-center
+  .col-md-12.text-center
     #jobDetails.text-center
-      
+      //- i wanna add this back button..but it messes up prettiness
+      //- a.btn.btn-lg.btn-fab.btn-danger.backButton
+      //-   fa.fa.fa-arrow-left
+      //-   b  Back
+
       if job        
         h1=job.name
         p.lead=job.desc
@@ -10,7 +14,7 @@ include header
       if tasks
         each task in tasks
           .col-sm-2
-            .thumbnail
+            .thumbnail.featureImage
               img(src="#{task.src}")
 
       br
@@ -27,12 +31,12 @@ include header
 
       .row
         .col-sm-4
-          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Cat
         .col-sm-4
-          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Dunno
             //- fa.fa.fa-caret-right
         .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton No Cat
 
       .row
         .container-fluid
@@ -100,10 +104,10 @@ include header
      * to the model.
      * @return null
      */
-    
+    !
     function select(){
       var src = $("#currentImage").find('img').attr('src')
-      var id  = $("#currentImage").find('img').attr('data-id')
+      var id  = $("#currentImage").attr('data-id')
       val = $(this).text()
       console.log(val, id, src)
     }
@@ -117,6 +121,11 @@ include header
      * @return null
      */
     
+
+    //want this to go back to browse page?
+    //$(document).on("click", ".backButton",)
+
+
     $(document).on( "click", ".featureImage", toCanvas )
     $(document).on( "click", ".selectButton", select   )
 
@@ -182,7 +191,8 @@ include header
         featureModel.emit(dataset.verb, dataset);
       })
 
-      io.socket.get( "/"+model+"/find", {type:"featuredetection"}, function(datasets){
+      io.socket.get( "/"+model+"/find", {type:"inquiry"}, function(datasets){
+        console.log(datasets);
         $.map(datasets, function(dataset){
           featureModel.emit('created', {
             id:dataset.id,
@@ -192,6 +202,8 @@ include header
       })
       $(".featureImage").first().click();
     }
+
+
 
     // When document is ready, grab latest things.
     $(document).ready(function(){
@@ -240,13 +252,13 @@ include header
        * Various methods for handling whisker scope.
        */
         
-        // whisker.unmap(keymap);
-        // whisker.pause();
-        // whisker.resume();
-        // whisker.save('scope_name');
-        // whisker.load('scope_name');
-        // whisker.clear();
-        // whisker.clear('scope_name');
+         whisker.unmap(keymap);
+         whisker.pause();
+         whisker.resume();
+         whisker.save('scope_name');
+         whisker.load('scope_name');
+         whisker.clear();
+         whisker.clear('scope_name');
 
     });
 
