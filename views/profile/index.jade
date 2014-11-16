@@ -8,30 +8,13 @@ block body
     .container
       .row.well-sm
       
-        .col-md-3
-          br
-          br
-          
-          ul.nav.nav-sidebar
-            li.active
-              a(href='/u')
-                p Unfinished Jobs
-            li
-              a(href='/profile/browse') 
-                p Browse Available Jobs
-            li
-              a(href='#')
-                p Previously Completed Jobs
-            hr
-            li
-              a(href='#') 
-                p View Progress of Uploaded Jobs
-            li
-              a(href='#') 
-                p View Completed Uploaded Jobs
+        .col-md-4
+
+          include sidebar
 
 
-        .col-md-9
+
+        .col-md-8
           br
           ul.nav.nav-justified.text-center
             li.navbar-text
