@@ -46,39 +46,34 @@ module.exports = {
   },
 
   verify: function(req,res){
-    //gets the username
     var username = req.body.username;
     var password = req.body.password;
-    console.log(username);
-    console.log(password);
+    var token = req.body.token;
 
     User.find({username:username}, function(err, user){
-      if(user.length != 0) res.view('auth/passwords',{ message:"Username already exists."} );
+      if(user.length != 0) res.view('auth/passwords',{ message:"User already exists."} );
       else {
-      //gets the passwords --checks if passwords are the same (in view)
-        //for now
-        if(password[0] != password[1]) res.view('auth/passwords',{ message:"Passwords do not match"} );
-        else{
-          //get token --how?
-          /*
-            User.findOne({token:token}, function(err,user){
-              User.update({token:token},{username:username, password:password}).exec(function(err, user){
-                if(err || (!user) res.view('auth/passwords',{ message:"Something went wrong"} );
-                else res.view('auth/login');
-              })
-            })
-          */
-        }
+        User.findOne({token:token}, function(err,user){
+          if(!user) res.view('auth/passwords',{ message:"Something went wrong"} );
+          else {
+            console.log(user);
+            User.update( {userame: username}, {password: password} ).exec(function(err, updated){
+              if(err) console.log('User not updated'+err);
+              console.log('Updated user to have username and password');
+            });
+            res.view('auth/login');
+          }
+        });
       }
     })
   },
-
+  
   v: function(req,res){
     var token = req.query.token;
     
     User.find({token:token}, function(err, user){
       if(user.length == 0) res.view('auth/login');
-      else res.view('auth/passwords')
+      else res.view('auth/passwords', {token:token})
     }) 
   }, 
 

@@ -51,7 +51,7 @@ module.exports.routes = {
   },
 
   'get /verify': {
-    view: 'auth/verify'
+    view: 'auth/passwords'
   },
 
   'get /v': "UserController.v",

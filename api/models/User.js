@@ -40,7 +40,6 @@ module.exports = {
     },
   },
 
-
   task_count: function(){
     Tasks.count({user_id:this.id}, function(err,result){
       console.log(result);
