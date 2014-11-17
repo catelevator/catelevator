@@ -13,6 +13,7 @@ function generateToken(hash, done){
 };
 
 var passport = require("passport");
+
 module.exports = {
 
   signup: function(req,res){
@@ -55,17 +56,21 @@ module.exports = {
       else {
         User.findOne({token:token}, function(err,user){
           if(!user) res.view('auth/passwords',{ message:"Something went wrong"} );
-          else {
-            console.log(user);
-            User.update( {userame: username}, {password: password} ).exec(function(err, updated){
-              if(err) console.log('User not updated'+err);
-              console.log('Updated user to have username and password');
-            });
-            res.view('auth/login');
+          else {              
+            var bcrypt = require('bcrypt');
+            var hash = bcrypt.hashSync(password, 10);
+
+            user.username = username;
+            user.password = hash;
+
+            user.save(function(error) {
+                if (error) console.log(error);
+                else res.view('auth/login');
+            });      
           }
-        });
+        })
       }
-    })
+    })        
   },
   
   v: function(req,res){
@@ -87,19 +92,44 @@ module.exports = {
   },
 
   process: function(req,res){
-    passport.authenticate('local', function(err, user, info){
-      if ((err) || (!user)) {
-        console.log("usercontroller.process",err, user, info)
-        // res.view('auth/login',{ message:(info||"Could not authenticate. Try again or something.")} );
-        res.view('auth/login',info );
-        return;
+    var username = req.body.username;
+    var password = req.body.password;
+    var bcrypt = require('bcrypt');
+
+    User.findOne({username:username}).exec(function (err, user, info) {
+      if (err) {
+        console.log("Could not execute fineOne user with username: "+username+" \n"+err);
+        res.view('auth/login',info);
       }
-      req.logIn(user, function(err){
-        if (err) res.view('auth/login', info );
-        res.redirect('/u');
-        return;
-      });
-    })(req, res);
+      if (user) {
+        bcrypt.compare(password, user.password, function (err, match, info) {
+          if (err) {
+            console.log(err);
+            res.view('auth/login',info);
+          }
+          if (match) {
+            console.log("Successfully authenticated user: "+ username);
+          } else console.log("Passwords dont match");
+        });
+      } 
+      else {
+        console.log("User not found");
+        res.view('auth/login',{message: "User does not exist"});
+      }
+   
+      passport.authenticate('local', function(err, user, info){
+        if ((err) || (!user)) {
+          console.log("usercontroller.process",err, user, info)
+          res.view('auth/login',info );
+          return;
+        }
+        req.logIn(user, function(err){
+          if (err) res.view('auth/login', info );
+          res.redirect('/u');
+          return;
+        });
+      })(req, res);
+    });
   },
 
   logout: function (req,res){
@@ -107,4 +137,5 @@ module.exports = {
     res.view("auth/logout");
   },
   _config: {}
+
 };

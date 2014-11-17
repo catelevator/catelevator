@@ -7,12 +7,11 @@
 
 module.exports = {
   index:function(req,res){
-    var content  = {}
-    content.user = req.user[0]
+    var content  = {};
+    content.user = req.user[0];
 
     Job.find({}).exec(function(err,jobs){
-
-      content.jobs = err || jobs
+      content.jobs = err || jobs;
       res.view( "profile/index", content );
     })
 

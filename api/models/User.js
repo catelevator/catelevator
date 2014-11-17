@@ -46,11 +46,11 @@ module.exports = {
     })
   },
 
-  beforeCreate: function(user, done) {
-    if(!user.password) done(null, user)
-    done(null, require('sha1')(user.email+"laksjda2398fj2"))
+  // beforeCreate: function(user, done) {
+  //   if(!user.password) done(null, user)
+  //   done(null, require('sha1')(user.email+"laksjda2398fj2"))
 
-    done(null, user);
-  }
+  //   done(null, user);
+  // }
 };
 
