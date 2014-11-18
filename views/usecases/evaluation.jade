@@ -1,64 +1,63 @@
 .bg11
-  .container
-    br
-    br
+    br 
+    .templateDescription.text-muted In this template you are asked to transcribe the given text. 
+    hr
+
     #firstEval
-      .col-sm-6
-        img(src="http://i.imgur.com/QyYbqqz.png", width="500", height="300")
+      .container
+        .col-sm-6
+          img(src="http://i.imgur.com/QyYbqqz.png", width="500", height="300")
+            
+
+        .col-sm-6
+          br
+          .text-muted
+            o Points:
+            b  100 
+            o  |  
+            o Congruence:
+            b  100
+
+          h2 What does this say?
           
-
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
-
-        h2 What does this say?
-        
-        form.form(action='')
-          input(type='text', placeholder='enter words here').form-control
-        br
-        .row
-          .col-sm-4
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
-          .col-sm-4
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Idea
-          .col-sm-4
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
-              fa.fa.fa-caret-right
+          form.form(action='')
+            input(type='text', placeholder='enter words here').form-control
+          br
+          .row
+            .col-sm-4
+              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
+            .col-sm-4
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Idea
+            .col-sm-4
+              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
+                fa.fa.fa-caret-right
     #yesnoEval
-      .text-center
-        h1 Job Completed!
-        h4 Click on another tab to try out a different Example Job!
+      hr
+      .container
+        .text-center
+          h4 While signed in, users would be given the next item in the dataset
+          h5 Please continue to explore other templates
     #skipEval
-      .text-center
-        h2 No More Tasks!
-        h4 Click on another tab to try out a different Example Job! 
-        h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnEval Review Skipped Tasks
-        
-    br
-    br
+      hr
+      .container
+        .text-center
+          h4 Users can sign up to continue tagging data
+          h5 Click on another tab to explore other templates
+
     br
 script.
   $('#yesnoEval').hide()
   $('#skipEval').hide()
 
   $(document).on("click", ".yesnobtnEval", function() {
-    $('#firstEval').hide()
     $('#yesnoEval').show()
+    $('#skipEval').hide()
+
   })
 
 
   $(document).on("click", ".skipbtnEval", function() {
-    $('#firstEval').hide()
+    $('#yesnoEval').hide()
     $('#skipEval').show()
   })
-
-  $(document).on("click", ".reviewbtnEval", function() {
-    $('#skipEval').hide()
-    $('#firstEval').show()
-  })      
+     

@@ -1,46 +1,49 @@
+//extends ../layout
 .bg11
-  .container
-    br
-    br
-    #firstFind
-      .col-sm-6
-        canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
-        
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
+    
+    br 
+    .templateDescription.text-muted Interact with this template by circling the feature.
+    hr
 
-        h2 Where is the cat in this photo?
-        h3 Circle it!
-        br
-        .row
-          .col-sm-3
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnFind Found it!
-          .col-sm-3
-            a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
-          .col-sm-3
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnFind Can't Find
-          .col-sm-3
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnFind  Skip 
-              fa.fa.fa-caret-right
-    #yesnoFind
-      .text-center
-        h1 Job Completed!
-        h4 Click on another tab to try out a different Example Job!
-    #skipFind
-      .text-center
-        h2 No More Tasks!
-        h4 Click on another tab to try out a different Example Job!
-        h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnFind Review Skipped Tasks
+    #firstFind
+      .container
+        .col-sm-6
+          canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
           
-    br
-    br
+        .col-sm-6
+          br
+          .text-muted
+            o Points:
+            b  100 
+            o  |  
+            o Congruence:
+            b  100
+
+          h2 Can you circle the cat in this photo?
+          br
+          .row
+            .col-sm-3
+              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnFind Found it!
+            .col-sm-3
+              a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
+            .col-sm-3
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnFind Can't Find
+            .col-sm-3
+              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnFind  Skip 
+                fa.fa.fa-caret-right
+   #yesnoFind
+      hr
+      .container.text.center
+        .text-center
+          h4 While signed in, users would be given the next item in the dataset
+          h5 Please continue to explore other templates
+    #skipFind
+      hr
+      .container.text.center  
+        .text-center
+          h4 Users can sign up to continue tagging data
+          h5 Click on another tab to explore other templates
+          
     br
 
 
@@ -80,21 +83,15 @@ script.
   });
 
   $(document).on("click", ".yesnobtnFind", function() {
-    $('#firstFind').hide();
+    //$('#firstFind').hide();
+    $('#skipFind').hide();
     $('#yesnoFind').show();
   });
 
-  
-
   $(document).on("click", ".skipbtnFind", function() {
-    $('#firstFind').hide();
+    $('#yesnoFind').hide();
     $('#skipFind').show();
   });
-
-  $(document).on("click", ".reviewbtnFind", function() {
-    $('#skipFind').hide();
-    $('#firstFind').show();
-  })
 
   $(document).ready(function() {
     $('#yesnoFind').hide();

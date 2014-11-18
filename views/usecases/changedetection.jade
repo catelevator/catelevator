@@ -1,51 +1,53 @@
 .bg11
-  .container
-    br
-    br
+ 
+    br 
+    .templateDescription.text-muted Interact with this template by circling the difference between the two photos.
+    hr
+
+
     #firstChange
-      .col-sm-3
-        canvas(id='mycanvas1', width="275", height="300", style="border:1px solid #000000;")
-      .col-sm-3
-        canvas(id='mycanvas2', width="275", height="300", style="border:1px solid #000000;")
-        
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
-
-        h2 Find the difference in the photos
-        h3 Circle it!
-        br
-        .row
-          .col-sm-3
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnChange Found it!
-          .col-sm-3
-            a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtnChange Clear
-          .col-sm-3
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnChange Can't Find
-          .col-sm-3
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnChange  Skip 
-              fa.fa.fa-caret-right
-    #yesnoChange
-      .text-center
-        h1 Job Completed!
-        h4 Click on another tab to try out a different Example Job!
-    #skipChange
-      .text-center
-        h2 No More Tasks!
-        h4 Click on another tab to try out a different Example Job!
-        h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnChange Review Skipped Tasks
+      .container
+        .col-sm-3
+          canvas(id='mycanvas1', width="275", height="300", style="border:1px solid #000000;")
+        .col-sm-3
+          canvas(id='mycanvas2', width="275", height="300", style="border:1px solid #000000;")
           
-    br
-    br
-    br
+        .col-sm-6
+          br
+          .text-muted
+            o Points:
+            b  100 
+            o  |  
+            o Congruence:
+            b  100
 
-
+          h2 Circle the difference in the photos
+          br
+          .row
+            .col-sm-3
+              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnChange Found it!
+            .col-sm-3
+              a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtnChange Clear
+            .col-sm-3
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnChange Can't Find
+            .col-sm-3
+              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnChange  Skip 
+                fa.fa.fa-caret-right
+          br
+          br
+    #yesnoChange
+      hr
+      .container.text.center
+        .text-center
+          h4 While signed in, users would be given the next item in the dataset
+          h5 Please continue to explore other templates
+    #skipChange
+      hr
+      .container.text.center  
+        .text-center
+          h4 Users can sign up to continue tagging data
+          h5 Click on another tab to explore other templates
+          
 script.
   $('#yesnoChange').hide();
   $('#skipChange').hide();
@@ -124,21 +126,16 @@ script.
   });
 
   $(document).on("click", ".yesnobtnChange", function() {
-    $('#firstChange').hide();
+    $('#skipChange').hide();
     $('#yesnoChange').show();
-  });
 
-  
+  });
 
   $(document).on("click", ".skipbtnChange", function() {
-    $('#firstChange').hide();
+    $('#yesnoChange').hide();
     $('#skipChange').show();
-  });
 
-  $(document).on("click", ".reviewbtnChange", function() {
-    $('#skipChange').hide();
-    $('#firstChange').show();
-  })
+  });
 
   $(document).ready(function() {
     $('#yesnoChange').hide();

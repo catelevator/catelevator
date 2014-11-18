@@ -335,3 +335,8 @@ table.prettytable {
   border: 1px solid #ddd !important;
 }
 
+.templateDescription{
+  width:50%;
+  margin: auto;
+  text-align: center;
+}

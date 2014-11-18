@@ -1,63 +1,60 @@
 //extends ../layout
 .bg11
-  .container
-    br
-    br
+
+      br
+      .templateDescription.text-muted While exploring this template you will be asked to find a feature in a variety of mediums including videos, pictures, and audio. 
+      hr
+  
     #firstInquiry
-      .col-sm-6
-        form.form(action='')
-          img(src="http://i.imgur.com/eLmmpdR.jpg", width='500', height='300')
-        
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
+      .container.text
+        .col-sm-6
+          form.form(action='')
+            img(src="http://i.imgur.com/eLmmpdR.jpg", width='500', height='300')
+          
+        .col-sm-6
+          br
+          .text-muted
+            o Points:
+            b  100 
+            o  |  
+            o Congruence:
+            b  100
 
-        h2 Is there a cat in this picture?
-        br
-        .row
-          .col-sm-4
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnInquiry Yes
-          .col-sm-4
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnInquiry No
-          .col-sm-4
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnInquiry  Skip 
-              fa.fa.fa-caret-right
-    #yesnoInquiry
-      .text-center
-        h1 Job Completed!
-        h4 Click on another tab to try out a different Example Job!
+          h2 Is there a cat in this picture?
+          br
+          .row
+            .col-sm-4
+              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnInquiry Yes
+            .col-sm-4
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnInquiry No
+            .col-sm-4
+              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnInquiry  Skip 
+                fa.fa.fa-caret-right
+
+     #yesnoInquiry
+      hr
+      .container.text.center
+        .text-center
+          h4 While signed in, users would be given the next item in the dataset
+          h5 Please continue to explore other templates
     #skipInquiry
-      .text-center
-        h2 No More Tasks!
-        h4 Click on another tab to try out a different example Job!
-        h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnInquiry Review Skipped Tasks
-
-    br
-    br
-    br
+      hr
+      .container.text.center  
+        .text-center
+          h4 Users can sign up to continue tagging data
+          h5 Click on another tab to explore other templates
 
 script.
   $('#yesnoInquiry').hide()
   $('#skipInquiry').hide()
 
   $(document).on("click", ".yesnobtnInquiry", function() {
-    $('#firstInquiry').hide()
+    $('#skipInquiry').hide()
     $('#yesnoInquiry').show()
   })
 
-
   $(document).on("click", ".skipbtnInquiry", function() {
-    $('#firstInquiry').hide()
+    $('#yesnoInquiry').hide()
     $('#skipInquiry').show()
   })
 
-  $(document).on("click", ".reviewbtnInquiry", function() {
-    $('#skipInquiry').hide()
-    $('#firstInquiry').show()
-  })
