@@ -32,14 +32,6 @@ module.exports = {
 
     Activity.create([
     {
-      name:"Feature Finding", 
-      desc: "User circles where the specified object is located in the data."
-    },
-    {
-      name:"Inquiry", 
-      desc: "User selects one of provided answers using the given data. <-- not worded right."
-    },
-    {
       name:"Change Detection", 
       desc: "User detects the change between two items of data."
     },
@@ -48,13 +40,30 @@ module.exports = {
       desc: "User enters text that provides feedback on the given data."
     },
     {
-      name:"Video Time Tagging", 
-      desc: "User determines the time in which a certain event happens in the data."
+      name:"Feature Finding", 
+      desc: "User circles where the specified object is located in the data."
     },
     {
       name:"Impression measuring", 
       desc: "User expresses the level of specified feeling upon looking at the data."
+    },
+    {
+      name:"Inquiry", 
+      desc: "User selects one of provided answers using the given data. <-- not worded right."
+    },
+    {
+      name:"Survey", 
+      desc: "need words"
+    },
+    {
+      name:"Transcribing", 
+      desc: "need words"
+    },
+    {
+      name:"Video Time Tagging", 
+      desc: "User determines the time in which a certain event happens in the data."
     }
+    
 
 
     ]).exec(function(a,b){ console.log(a,b)})

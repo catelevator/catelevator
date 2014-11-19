@@ -7,27 +7,38 @@ block body
 
    .container
       ul.nav.nav-tabs
-         li.active: a(href="#inquiry", data-toggle="tab") Inquiry
-         li: a(href="#featurefinding", data-toggle="tab") Feature Finding
-         li: a(href="#changedetection", data-toggle="tab") Change Detection
+         li.active: a(href="#changedetection", data-toggle="tab") Change Detection
          li: a(href="#evaluation", data-toggle="tab") Evaluation
-         li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
+         li: a(href="#featurefinding", data-toggle="tab") Feature Finding
          li: a(href="#impressionmeasuring", data-toggle="tab") Impression Measuring 
+         li: a(href="#inquiry", data-toggle="tab") Inquiry
+         li: a(href="#survey", data-toggle="tab") Survey 
+         li: a(href="#transcribing", data-toggle="tab") Transcribing 
+         li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
+         
       .tab-content
-         .tab-pane.active#inquiry
-            include usecases/inquiry
-
-         .tab-pane#featurefinding
-            include usecases/featurefinding
-            
          .tab-pane#changedetection
             include usecases/changedetection
-            
+
          .tab-pane#evaluation
             include usecases/evaluation
 
-         .tab-pane#videotimetagging
-            include usecases/videotimetagging
+         .tab-pane#featurefinding
+            include usecases/featurefinding
 
          .tab-pane#impressionmeasuring
             include usecases/impressionmeasuring
+
+         .tab-pane.active#inquiry
+            include usecases/inquiry
+
+         .tab-pane#survey
+            include usecases/survey
+            
+         .tab-pane#transcribing
+            include usecases/transcribing
+            
+         .tab-pane#videotimetagging
+            include usecases/videotimetagging
+
+         

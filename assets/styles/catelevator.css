@@ -115,6 +115,12 @@ label{
   letter-spacing:1px!important;
 }
 
+label.radioLabel {
+  font-weight:600!important;
+  color:#666;
+  letter-spacing:1px!important;
+}
+
 .btn-superbig {
   padding-top:40px;
   padding-bottom:40px;

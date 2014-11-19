@@ -45,12 +45,16 @@ block body
                   p.lead Template:
                 .col-md-8
                   select.selectpicker
-                    option Inquiry
-                    option Feature Finding
                     option Change Detection
                     option Evaluation
-                    option Video Time Tagging
+                    option Feature Finding
                     option Impression Measuring
+                    option Inquiry
+                    option Survey
+                    option Transcribing
+                    option Video Time Tagging
+                //- .col-md-4
+                //-   button#help.btn.button.button-flat Help
 
               .col-md-12
                 .col-md-4
@@ -65,49 +69,178 @@ block body
               
 
             .panel-footer.text-right
-                button.btn.btn-link cancel  
+                //- button.btn.btn-link cancel  
                 button#activate-step-2.btn.button.button-flat-action Next 
                   fa.fa.fa-fw.fa-chevron-right
 
 
           #step-2.setup-content
             .panel-body
+              #changeDetect.config-content
+                .col-md-12
+                  h2.medBrand Change Detection
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="Find the difference between the photos.").form-control
+                  br
+                hr
+              #evaluation.config-content
+                .col-md-12
+                  h3 Evaluation
+                  hr
+                  .col-md-4
+                    p.lead Question:
+                  .col-md-8
+                    textarea(placeholder="i'm not sure what this is exactly supposed to be...do they need to load data??").form-control
+                  br
+                hr
+              #featureFind.config-content
+                .col-md-12
+                  h2.medBrand Feature Finding
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="Find the cat in this photo.").form-control
+                  br
+                hr
+              #impressMeasure.config-content
+                .col-md-12
+                  h2.medBrand Impression Measuring
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="How happy does this picture make you feel?").form-control
+                .col-md-12
+                  .col-md-3
+                    p.lead On a scale from
+                  .col-md-4
+                    input(type="text", placeholder="depressed").form-control
+                  .col-md-1
+                    p.lead to
+                  .col-md-4
+                    input(type="text", placeholder="estatic").form-control
+                  br
+                hr
+              #inquiry.config-content
+                .col-md-12
+                  h2.medBrand Inquiry
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="How happy does this picture make you feel?").form-control
+                .col-md-12
+                  .col-md-4
+                    p.lead Choose answer set:
+                  .col-md-4
+                    .radio.inline
+                      label.radioLabel
+                        input(type='radio', name='inquiryOptions', value='default', checked)
+                        | Default (Yes/No)
+                  .col-md-4
+                    .radio.inline
+                      label.radioLabel
+                        input(type='radio', name='inquiryOptions', value='custom')
+                        | Custom Answer Set
+                #customAnswerSet
+                  .col-md-12
+                    .col-md-4
+                      p.lead Number of Answers
+                    .col-md-2
+                      input(type="number", min="1", max="6", value="2", id="numAnswers", onchange="customAnswers()").form-control
+                    .col-md-6
+                      #answer1
+                        input(type="text", placeholder="Custom Answer 1").form-control
+                      #answer2
+                        input(type="text", placeholder="Custom Answer 2").form-control
+                      #answer3
+                        input(type="text", placeholder="Custom Answer 3").form-control
+                      #answer4
+                        input(type="text", placeholder="Custom Answer 4").form-control
+                      #answer5
+                        input(type="text", placeholder="Custom Answer 5").form-control
+                      #answer6
+                        input(type="text", placeholder="Custom Answer 6").form-control
+                hr
+              #survey.config-content
+                .col-md-12
+                  h2.medBrand Survey
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="THIS NEEDS TO BE FIGURED OUT").form-control
+                  br
+                hr
+              #transcrib.config-content
+                .col-md-12
+                  h2.medBrand Transcribing
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="What does this say?").form-control
+                  br
+                hr
+              #videoTagging.config-content
+                .col-md-12
+                  h2.medBrand Video Time Tagging
+                  hr
+                  .col-md-4
+                    p.lead Prompt for each task:
+                  .col-md-8
+                    input(type="text", placeholder="Where does the cat appear in this video?").form-control
+                  br
+                hr   
               .col-md-12
-                h3 Feature Finding is chosen:
-                p They enter a thing to say what needs to be found in each image
-                p Ex. Circle the cat in this image
+                hr
                 br
-              hr
+                .col-md-6
+                  p.lead Points Rewarded per Task:
+                .col-md-2
+                  input(type='number', placeholder="0.1", step=".1", id="pointsForTask").form-control
               .col-md-12
-                h3 Inquiry is chosen:
-                p They can choose to use Yes/No or enter their own answers...
-                br
-              hr
+                .col-md-6
+                  p.lead Points Rewarded for Job Completion:
+                .col-md-2
+                  input(type='number', placeholder="1", step="1", id="pointsForComplete").form-control
               .col-md-12
-                h3 Change Detection is chosen:
-                p They don't really need to enter anything....It should always say 'circle the difference'
-                br
-              hr
-              .col-md-12
-                h3 Evaluation is chosen:
-                p They enter a specific question in which they want answered in reference to the given data
-                p Ex: What do you think of my website?; what does this captcha say?
-                br
-              hr
-              .col-md-12
-                h3 Video Time Tagging is chosen:
-                p They enter the specific thing that the people should look for in the video
-                br
-              hr
-              .col-md-12
-                h3 Impression Measuring is chosen:
-                p They need to enter the specific feeling they want measured
-                p also need to specific the scale to measure on.
-                br
-              hr
+                hr
+                .col-md-10.col-md-offset-1
+                  p.lead When would you like your job to be closed?
+                  ul.list-group
+                    li.list-group-item
+                      .radio
+                        .col-md-7
+                          label.radioLabel
+                            input(type='radio', name='closeOptions', value='numberTagged', checked)
+                            | After each task has been answered
+                        .col-md-2
+                          input(type='number', min='1').form-control
+                        .col-md-1
+                          label.radioLabel times
+                    li.list-group-item
+                      .radio
+                        .col-md-3
+                          label.radioLabel
+                            input(type='radio', name='closeOptions', value='specificTime')
+                            | At this time: 
+                        .col-md-6
+                          input(type='datetime-local').form-control
+                    li.list-group-item
+                      .radio
+                        .col-md-9
+                          label.radioLabel
+                            input(type='radio', name='closeOptions', value='later')
+                            | Please provide a Close button so I can decide later
+             
 
             .panel-footer.text-right
-                  button.btn.btn-link cancel  
+                  button#cancel-step-2.btn.btn-link Back  
                   button#activate-step-3.btn.button.button-flat-action Next 
                     fa.fa.fa-fw.fa-chevron-right
 
@@ -115,66 +248,136 @@ block body
           #step-3.setup-content
             .panel-body
               .col-md-12
-                .text-center
-                  br
-                  br
-                  br
-                  h4.skinny Lets use 
-                    a(href="http://www.dropzonejs.com/") dropzone.js
-                    |  for this instead.
+                br
+                br
+                form(action="#", class="dropzone dz-clickable", id="my-awesome-dropzone")
 
-                  br
+                br
+                br
 
-                form.form(action='/jobs/create')
+                //- form.form(action='/jobs/create')
 
-                  //- dropdown thing for task type
+                //-   //- dropdown thing for task type
                   
-                  br
-                  #addMoreTasks
-                    hr
-                    .row
-                      .col-md-1
-                        label 1.
-                      .col-md-11
-                        input(type='file', placeholder='things', name='task1').form-control
+                //-   br
+                //-   #addMoreTasks
+                //-     hr
+                //-     .row
+                //-       .col-md-1
+                //-         label 1.
+                //-       .col-md-11
+                //-         input(type='file', placeholder='things', name='task1').form-control
 
-                  hr
-                  .row
-                  a.btn.btn.button-link.addtask
-                    fa.fa.fa-plus.fa-fw
-                    o Add Another Task
-                  br
-                  br
+                //-   hr
+                //-   .row
+                //-   a.btn.btn.button-link.addtask
+                //-     fa.fa.fa-plus.fa-fw
+                //-     o Add Another Task
+                //-   br
+                //-   br
 
             .panel-footer.text-right
-                  button.btn.btn-link cancel  
+                  //- button.btn.btn-link Cancel  
                   button#activate-step-3.btn.button.button-flat-action Finished  
                     fa.fa.fa-chevron-right
 
 
 
   script.
-    var taskcount = 2;
+    //var taskcount = 2;
+    var template;
 
     $('.selectpicker').selectpicker();
 
 
-    $(document).on( "click", ".addtask", function(){ 
-      $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
-        + taskcount + '.</label></div>' 
-        + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
-        + taskcount + '", placeholder="things"></input></div></div>');
-      
-      taskcount++;
+    //- this is definitely not the best way to do this...but it works...
+    function customAnswers() {
+      var x = document.getElementById("numAnswers").value;
+      if( x == '1') {
+        $('#answer1').show();
+        $('#answer2').hide();
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '2') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '3') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '4') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '5') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').show();
+        $('#answer6').hide();
+      }
+      if( x == '6') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').show();
+        $('#answer6').show();
+      }
+    }
+
+
+    $('input[name="inquiryOptions"]').on('change', function() {
+      if($(this).val()=='default') {
+        $('#customAnswerSet').hide();
+      }
+      else {
+        $('#customAnswerSet').show();
+      }
     })
+
+    //- $(document).on( "click", ".addtask", function(){ 
+    //-   $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
+    //-     + taskcount + '.</label></div>' 
+    //-     + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
+    //-     + taskcount + '", placeholder="things"></input></div></div>');
+      
+    //-   taskcount++;
+    //- })
 
 
     $(document).ready(function() {
-        
         var navListItems = $('ul.setup-panel li a'),
             allWells = $('.setup-content');
 
         allWells.hide();
+
+
+        $('.config-content').hide();
+
+        $('#customAnswerSet').hide();
+
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
 
         navListItems.click(function(e)
         {
@@ -193,15 +396,45 @@ block body
         $('ul.setup-panel li.active a').trigger('click');
         
         $('#activate-step-2').on('click', function(e) {
+            
             $('ul.setup-panel li:eq(1)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-2"]').trigger('click');
-            $(this).remove();
+            template = $('.selectpicker').val();
+            $('.config-content').hide();
+            //there is probably a better way to do this....but whatevs
+            if(template == "Change Detection")
+              $('#changeDetect').show();
+            if(template == "Evaluation") 
+              $('#evaluation').show();
+            if(template == "Feature Finding") 
+              $('#featureFind').show();
+            if(template == "Impression Measuring") 
+              $('#impressMeasure').show();
+            if(template == "Inquiry") 
+              $('#inquiry').show();
+            if(template == "Survey") 
+              $('#survey').show();
+            if(template == "Transcribing") 
+              $('#transcrib').show();
+            if(template == "Video Time Tagging") 
+              $('#videoTagging').show();
+            //$(this).remove();
+
+
         })    
+
         $('#activate-step-3').on('click', function(e) {
             $('ul.setup-panel li:eq(2)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
             $(this).remove();
         })
+
+        $('#cancel-step-2').on('click', function(e) {
+          $('ul.setup-panel li:eq(1)').addClass('disabled');
+          $('ul.setup-panel li a[href="#step-1"]').trigger('click');
+          $('.config-content').hide();
+        })
+
 
 
 

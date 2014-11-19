@@ -3,20 +3,20 @@
     .templateDescription.text-muted In this template you are asked to transcribe the given text. 
     hr
 
-    #yesnoEval
+    #yesnoSurvey
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
           h5 Please continue to explore other templates
       hr
-    #skipEval
+    #skipSurvey
       .container
         .text-center
           h4 Users can sign up to continue tagging data
           h5 Click on another tab to explore other templates
       hr
 
-    #firstEval
+    #firstSurvey
       .container
         .col-sm-6
           img(src="http://c22blog.files.wordpress.com/2010/10/input-black.gif", width="500", height="300")
@@ -37,28 +37,28 @@
           br
           .row
             .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
+              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnSurvey Enter
             .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Idea
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnSurvey No Idea
             .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
+              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnSurvey  Skip 
                 fa.fa.fa-caret-right
 
 
     br
 script.
-  $('#yesnoEval').hide()
-  $('#skipEval').hide()
+  $('#yesnoSurvey').hide()
+  $('#skipSurvey').hide()
 
-  $(document).on("click", ".yesnobtnEval", function() {
-    $('#yesnoEval').show()
-    $('#skipEval').hide()
+  $(document).on("click", ".yesnobtnSurvey", function() {
+    $('#yesnoSurvey').show()
+    $('#skipSurvey').hide()
 
   })
 
 
-  $(document).on("click", ".skipbtnEval", function() {
-    $('#yesnoEval').hide()
-    $('#skipEval').show()
+  $(document).on("click", ".skipbtnSurvey", function() {
+    $('#yesnoSurvey').hide()
+    $('#skipSurvey').show()
   })
      

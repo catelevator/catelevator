@@ -6,6 +6,9 @@
  */
 
 module.exports = {
+
+
+
   index:function(req,res){
     var content  = {};
     content.user = req.user[0];
