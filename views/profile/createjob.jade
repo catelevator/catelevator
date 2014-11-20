@@ -53,6 +53,17 @@ block body
                     option Survey
                     option Transcribing
                     option Video Time Tagging
+                    //- option(data-content="<a data-toggle='tooltip' data-placement='right' href='#' title='' data-original-title='Put things here?'>put things hereee</a>") Change Detection
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Change Detection</span>") Change Detection
+                    //- option Change Detection
+                    //- option.tooltip(title='things') Change Detection
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Evaluation</span>") Evaluation
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Feature Finding</span>") Feature Finding
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Impression Measuring</span>") Impression Measuring
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Inquiry</span>") Inquiry
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Survey</span>") Survey
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Transcribing</span>") Transcribing
+                    //- option(data-content="<span class='tooltip right' title='Put things here?'>Video Time Tagging</span>") Video Time Tagging
                 //- .col-md-4
                 //-   button#help.btn.button.button-flat Help
 
@@ -200,12 +211,12 @@ block body
                 hr
                 br
                 .col-md-6
-                  p.lead Points Rewarded per Task:
+                  p.lead Points Awarded per Task:
                 .col-md-2
                   input(type='number', placeholder="0.1", step=".1", id="pointsForTask").form-control
               .col-md-12
                 .col-md-6
-                  p.lead Points Rewarded for Job Completion:
+                  p.lead Points Awarded for Job Completion:
                 .col-md-2
                   input(type='number', placeholder="1", step="1", id="pointsForComplete").form-control
               .col-md-12
@@ -289,6 +300,7 @@ block body
 
     $('.selectpicker').selectpicker();
 
+    
 
     //- this is definitely not the best way to do this...but it works...
     function customAnswers() {
@@ -364,6 +376,9 @@ block body
 
 
     $(document).ready(function() {
+        $('[rel="tooltip"], .tooltip').tooltip();
+
+
         var navListItems = $('ul.setup-panel li a'),
             allWells = $('.setup-content');
 

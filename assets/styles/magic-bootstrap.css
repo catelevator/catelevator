@@ -1739,8 +1739,10 @@ input[type="date"] {
 .checkbox {
   display: block;
   min-height: 20px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /*margin-top: 10px;*/
+  /*margin-bottom: 10px;*/
   padding-left: 20px;
 }
 .radio label,
@@ -4598,7 +4600,8 @@ a.thumbnail.active {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  /*padding: 10px 15px;*/
+  padding: 5px 5px;
   margin-bottom: -1px;
   background-color: #ffffff;
   border: 1px solid #dddddd;

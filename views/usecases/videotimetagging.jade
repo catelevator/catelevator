@@ -58,6 +58,10 @@ script.
 
   var vid = document.getElementById("myvideo");
 
+  vid.onseeking = function() {
+    document.getElementById("paused").value = vid.currentTime;
+  }
+
   vid.onpause = function() {
     if(vid.duration != vid.currentTime)
       document.getElementById("paused").value = vid.currentTime;

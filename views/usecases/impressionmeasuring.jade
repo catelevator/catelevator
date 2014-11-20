@@ -30,8 +30,12 @@
             b  100
 
           h2 How happy does this picture make you feel?
-          br
-          h4.text-muted On a scale from:  So Sad - So Happy 
+          h3.text-muted On a scale from
+          .row
+            .col-sm-6.text-left
+              h4.text-muted So Sad
+            .col-sm-6.text-right
+              h4.text-muted So Happy 
           input(type="range", min="0", max="10", step="0.1")
           br
           .row

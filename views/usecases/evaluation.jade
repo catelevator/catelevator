@@ -1,6 +1,6 @@
 .bg11
     br 
-    .templateDescription.text-muted In this template you are asked to transcribe the given text. 
+    .templateDescription.text-muted In this template you are asked to provide feedback on the given information. 
     hr
 
     #yesnoEval
@@ -19,7 +19,10 @@
     #firstEval
       .container
         .col-sm-6
-          img(src="http://c22blog.files.wordpress.com/2010/10/input-black.gif", width="500", height="300")
+          .well.well-big
+            p I have a website located at 
+              a(href='http://www.facebook.com') www.facebook.com
+            p Please provide me with any thoughts or concerns about my web design, something, and something else.
             
         .col-sm-6
           br
@@ -29,17 +32,15 @@
             o  |  
             o Congruence:
             b  100
-
-          h2 What does this say?
-          
+          br
           form.form(action='')
-            input(type='text', placeholder='enter words here').form-control
+            textarea(placeholder="Enter Comments Here", rows='3').form-control
           br
           .row
             .col-sm-4
               a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
             .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Idea
+              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Comment
             .col-sm-4
               a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
                 fa.fa.fa-caret-right

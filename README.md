@@ -5,14 +5,6 @@ Cat Elevator is a "crowd-source-this-thing-now" web service fir crowd-sourcing a
 
 ### Templates
 
-##### Feature Finding
-
-User circles where the specified object is located in the data.
-
-##### Inquiry
-
-User selects one of provided answers using the given data. <-- not worded right.
-
 ##### Change Detection
 
 User detects the change between two items of data.
@@ -21,13 +13,31 @@ User detects the change between two items of data.
 
 User enters text that provides feedback on the given data.
 
-##### Video Time Tagging
+##### Feature Finding
 
-User determines the time in which a certain event happens in the data.
+User circles where the specified object is located in the data.
 
 ##### Impression Measuring
 
 User expresses the level of specified feeling upon looking at the data.
+
+##### Inquiry
+
+User selects one of provided answers based on the given data.
+
+##### Survey
+
+I DON'T KNOW HOW TO EXPLAIN THIS ONE.
+
+##### Transcribing
+
+User provide their personal translation of the given data.
+
+##### Video Time Tagging
+
+User determines the time in which a certain event happens in the data.
+
+
 
 
 

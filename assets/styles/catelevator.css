@@ -127,6 +127,11 @@ label.radioLabel {
 
 }
 
+.radio {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .bg1{
   background-color:#e5e5e5;
 }
@@ -165,7 +170,8 @@ label.radioLabel {
 }
 
 #jobDetails{
-  padding:82px;
+  padding:50px;
+  padding-top:25px;
 }
 
 .thumbnail{
@@ -345,4 +351,16 @@ table.prettytable {
   width:50%;
   margin: auto;
   text-align: center;
+}
+
+
+
+.well-big {
+  padding: 25px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  border-radius: 10px;
+  background-color: #DDD;
+  /*color: #100029;*/
+  font-size: 125%;
 }

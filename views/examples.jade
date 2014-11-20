@@ -17,7 +17,7 @@ block body
          li: a(href="#videotimetagging", data-toggle="tab") Video Time Tagging
          
       .tab-content
-         .tab-pane#changedetection
+         .tab-pane.active#changedetection
             include usecases/changedetection
 
          .tab-pane#evaluation
@@ -29,7 +29,7 @@ block body
          .tab-pane#impressionmeasuring
             include usecases/impressionmeasuring
 
-         .tab-pane.active#inquiry
+         .tab-pane#inquiry
             include usecases/inquiry
 
          .tab-pane#survey
