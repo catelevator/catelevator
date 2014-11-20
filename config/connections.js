@@ -20,7 +20,7 @@
  */
 
 module.exports.connections = {
- // 'default': 'mongo',
+ 'default': 'mongo',
 
   /***************************************************************************
   *                                                                          *
@@ -30,6 +30,7 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
   localDiskDb: {
+
     adapter: 'sails-disk'
   },
 
@@ -61,9 +62,9 @@ module.exports.connections = {
     adapter: 'sails-mongo',
     host: 'localhost',
     port: 27017,
-   // user: 'catuser',
-   // password: 'catpass',
-   // database: 'catdb'
+    user: 'catuser',
+    password: 'catpass',
+    database: 'catdb'
   },
 
   /***************************************************************************
@@ -75,13 +76,13 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-  /*postgres: {
+  postgres: {
     adapter: 'sails-postgresql',
-    host: 'localhost'
+    host: 'localhost',
     user: 'cepsql',
     password: 'cepsql',
     database: 'catelevator'
-  }*/
+  }
 
 
   /***************************************************************************
