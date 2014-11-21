@@ -7,50 +7,102 @@ block content
           span.icon-bar
           span.icon-bar
           span.icon-bar
-        a.navbar-brand(href='/') 
-          b CatElevator
+        a.navbar-brand(href='/')
+          b.brand CatElevator 
+
       .collapse.navbar-collapse
         ul.nav.navbar-nav
-          if user
+        //- things only users can see
+        if user
+          ul.nav.navbar-nav.navbar-left
+            li.dropdown
+              a(href='/u')
+                fa.fa.fa-fw.fa-home
+                | Home
             li
-              a(href="/j")
-                o Jobs
-        
-        ul.nav.navbar-nav.navbar-right
+              a(href='/profile/createjob')
+                o Create New Job
+                //- li.divider
+            //- I moved this over here cause i was sick of all the submenus
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown') Dev tools
+                fa.fa.fa-fw.fa-caret-down
+              ul.dropdown-menu.multi-level(role='menu', aria-labelledby='dropdownMenu')
+                li
+                  a(href="/user/create?username=admin&password=admin")  Create Admin User
+                li
+                  a(href="/user/bounce")  Create user
+                li.divider
+                li.dropdown-submenu
+                  a(tabindex='-1', href='#') 
+                    fa.fa.fa-fw.fa-database
+                    | Models 
+                  ul.dropdown-menu
+                
+                    li.dropdown-submenu
+                      a(href='#') 
+                        fa.fa.fa-fw.fa-refresh
+                        | Bounce
+                      ul.dropdown-menu
+                        li
+                          a(href="/job/bounce")  Job
+                        li
+                          a(href="/activity/bounce")  Activity
+                        li
+                          a(href="/user/bounce")  User
 
-          li
-            a(href='http://github.com/catelevator') 
-              o Docs
+                    li.dropdown-submenu
+                      a(href='#') 
+                        fa.fa.fa-fw.fa-bomb
+                        | Vomit
+                      ul.dropdown-menu
+                        li
+                          a(href="/job/bounce") 
+                            fa.fa.fa-fw.fa-refresh
+                            | Job
+                        li
+                          a(href="/activity/bounce") 
+                            fa.fa.fa-fw.fa-refresh
+                            | Activity
+                        li
+                          a(href="/user/bounce") 
+                            fa.fa.fa-fw.fa-refresh
+                            | User
+          ul.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown')=user.username+" "
+                fa.fa.fa-caret-down
+            
+              ul.dropdown-menu.multi-level(role='menu', aria-labelledby='dropdownMenu')
+                li
+                  a(href='/profile/viewprofile') 
+                    fa.fa.fa-fw.fa-user
+                    | View Profile
+                li.divider
+                li
+                  a(href='/logout') 
+                    fa.fa.fa-fw.fa-sign-out
+                    | Log out
 
-          li
-            a(href='http://github.com/catelevator/catelevator') 
-              o Code
-
-          
-          //- li.dropdown
-          //-   a.dropdown-toggle(href='#', data-toggle='dropdown')
-          //-     | Development
-          //-     span.caret
-          //-   ul.dropdown-menu(role='menu')
-          //-     li
-          //-       a(href='/activity/examples') 
-          //-         fa.fa.fa-eye.fa-fw(style="margin-right:20px;")
-          //-         o See examples
-          //-     li.divider
-          //-     li
-          //-       a(href='/activity/bounce') 
-          //-         fa.fa.fa-refresh.fa-fw(style="margin-right:20px;")
-          //-         o Bounce database   
-
-          if user
-            a(href="/logout").btn.button-flat-royal.navbar-btn.btn-sm=user.username
-          else
+        else
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='http://github.com/catelevator') 
+                o Docs
+            li
+              a(href='http://github.com/catelevator/catelevator') 
+                o Code
             li
               a(href='/login') SIGN IN
             li
               a(href='/signup') SIGN UP
 
+          
+        
 
-     
-                   
+
+
   div(style="margin-bottom:50px;")
+
+
+

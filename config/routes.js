@@ -38,6 +38,7 @@ module.exports.routes = {
 
   '/j': "JobController.index",
   '/u': "ProfileController.index",
+  // '/': "UserController.homepage",
 
   '/createjob': {
     view: 'profile/createjob'

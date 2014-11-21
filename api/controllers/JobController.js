@@ -46,6 +46,9 @@ module.exports = {
       })
     })
 
+    //change detection example
+
+    //evaluation example
     Job.create([
       {
         name:"Solve the captcha", 
@@ -84,6 +87,12 @@ module.exports = {
     })
 
 
+    //feature finding example
+
+
+    //impression measuring example
+
+    //inquiry example
     Job.create([
       {
         name:"Find the cats", 
@@ -120,13 +129,60 @@ module.exports = {
           job.taskCount = b.length;
           job.save()
         }
-        res.send("bounced jobs")})
+         console.log("bounced jobs")})
 
 
     })
 
 
+    //survey example
 
+
+
+    //transcribing example
+
+
+    //video tagging example
+    Job.create([
+      {
+        name:"Find the cats", 
+        type:"videotimetagging",
+        reward:0.02,
+        desc: "pause video when you see the cat"
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        }
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+        res.send("bounced jobs")})
+
+
+    })
 
 
 

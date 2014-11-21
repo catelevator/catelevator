@@ -132,8 +132,16 @@ module.exports = {
     });
   },
 
+  // homepage:function(req,res){
+  //   if(req.user[0])
+  //     res.view( "homepage", {user:req.user[0]} )
+  //   else
+  //     res.view("homepage")
+  // },
+
   logout: function (req,res){
     req.logout();
+    console.log("logged out");
     res.view("auth/logout");
   },
   _config: {}
