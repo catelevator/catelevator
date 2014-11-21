@@ -4,9 +4,10 @@
  */
 
 module.exports = function(req, res, next){
-  if (req.isAuthenticated()){
+  if (req.isAuthenticated() && req.user){
     return next();
   }else{
-    return res.send(403, { message: 'Not Authorized' });
+  		return res.redirect('/login');
+    //return res.send(403, { message: 'Not Authorized' });
   }
 }

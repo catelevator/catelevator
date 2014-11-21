@@ -13,7 +13,7 @@ block content
       .collapse.navbar-collapse
         ul.nav.navbar-nav
         //- things only users can see
-        if user
+        if req.user
           ul.nav.navbar-nav.navbar-left
             li.dropdown
               a(href='/u')
@@ -70,8 +70,14 @@ block content
                             | User
           ul.nav.navbar-nav.navbar-right
             li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown')=user.username+" "
-                fa.fa.fa-caret-down
+              if user
+                a.dropdown-toggle(href='#', data-toggle='dropdown')=user.username+" "
+                  fa.fa.fa-caret-down
+              else
+                a.dropdown-toggle(href='#', data-toggle='dropdown')=req.user[0].username+" "
+                  fa.fa.fa-caret-down
+             
+
             
               ul.dropdown-menu.multi-level(role='menu', aria-labelledby='dropdownMenu')
                 li

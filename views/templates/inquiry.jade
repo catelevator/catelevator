@@ -1,40 +1,41 @@
-include header
-include ../navbar
-.container
-  br
-  #jobDetails.panel.panel-default
-    .panel-body
-      
-      if job        
-        h1=job.name
-        p.lead=job.desc
-        #jobid.hide=job.id
+extends ../layout
+block body
+  include ../navbar
+  .container
+    br
+    #jobDetails.panel.panel-default
+      .panel-body
+        
+        if job        
+          h1=job.name
+          p.lead=job.desc
+          #jobid.hide=job.id
 
 
-      if tasks
-        each task in tasks
-          .col-sm-2.hide
-            .thumbnail.featureImage
-              img(src="#{task.src}", data-id="#{task.id}")
+        if tasks
+          each task in tasks
+            .col-sm-2.hide
+              .thumbnail.featureImage
+                img(src="#{task.src}", data-id="#{task.id}")
 
 
-      .col-sm-8
-        #currentImageContainer
-          #currentImage
-            img.thumbnail
-            hr
+        .col-sm-8
+          #currentImageContainer
+            #currentImage
+              img.thumbnail
+              hr
 
-      .col-sm-4
+        .col-sm-4
+          .col-sm-12
+            a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Cat
+          .col-sm-12
+            a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Dunno
+          .col-sm-12
+            a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton No Cat
+
         .col-sm-12
-          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Cat
-        .col-sm-12
-          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Dunno
-        .col-sm-12
-          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton No Cat
-
-      .col-sm-12
-        .bgLightDark
-          #job
+          .bgLightDark
+            #job
 
 
   //- #myModal.modal.fade
