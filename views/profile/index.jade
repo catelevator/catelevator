@@ -12,8 +12,6 @@ block body
 
           include sidebar
 
-
-
         .col-md-8
           ul.nav.nav-justified.text-center
             li.navbar-text
@@ -34,7 +32,14 @@ block body
             for job in jobs
               .panel
                 .well-sm
-                  h4
-                    a(href="/job/work?job=#{job.id}").btn-link=job.name
+                  .row
+                    .col-md-6
+                      h4
+                        a(href="/job/work?job=#{job.id}").btn-link=job.name
+                    .col-md-2
+                      b=job.taskCount+" tasks"
+                    .col-md-4
+                      .progress
+                        .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
+                        .progress-completed 60%
                   p=job.desc
-

@@ -8,27 +8,7 @@ block body
         br
         .col-md-4
           include sidebar
-        //- br
-        //- .col-md-3
-          
-          
-        //-   ul.nav.nav-sidebar
-        //-     li
-        //-       a(href='/u')
-        //-         o Unfinished Jobs
-        //-     li.active
-        //-       a(href='/profile/browse') 
-        //-         o Browse Available Jobs
-        //-     li
-        //-       a(href='#')
-        //-         o Previously Completed Jobs
-        //-     hr
-        //-     li
-        //-       a(href='#') 
-        //-         o View Progress of Uploaded Jobs
-        //-     li
-        //-       a(href='#') 
-        //-         o View Completed Uploaded Jobs
+  
 
 
         .col-md-8
@@ -41,7 +21,7 @@ block body
                     .col-md-9
                       h4
                         a(href="/job/work?job=#{job.id}").btn-link=job.name
-                    .col-md-3
+                    .col-md-3.pull-right
                       b=job.taskCount+" tasks"
                   p=job.desc
                   

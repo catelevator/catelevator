@@ -15,13 +15,14 @@ block content
         //- things only users can see
         if req.user
           ul.nav.navbar-nav.navbar-left
-            li.dropdown
+            li
               a(href='/u')
                 fa.fa.fa-fw.fa-home
                 | Home
             li
               a(href='/profile/createjob')
-                o Create New Job
+                fa.fa.fa-fw.fa-plus
+                | Create New Job
                 //- li.divider
             //- I moved this over here cause i was sick of all the submenus
             li.dropdown
