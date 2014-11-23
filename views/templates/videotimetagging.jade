@@ -1,81 +1,197 @@
-.bg11
+extends ../layout
+block body 
+  include ../navbar
   .container
     br
-    br
-    #firstVideo
-      .col-sm-6
-        form.form(action='')
-          video(id="myvideo", width='500', height='300', controls)
-              source(src='images/Snapchat-20140729090148.mp4', type='video/mp4')
-              |Your browser does not supposed the video tag
-          .row
-            .col-sm-10
-              input(id="paused", type='text', placeholder='enter time here').form-control
-            .col-sm-1
-              a.btn.btn-md.btn-warning.clearbtnVideo Clear
+    #jobDetails.panel.panel-default
+      .panel-body
+        
+        if job        
+          h1=job.name
+          p.lead=job.desc
+          #jobid.hide=job.id
 
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
 
-        h2 When does a cat appear in this video?
-        br
-        .row
-          .col-sm-4
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnVideo Enter
-          .col-sm-4
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnVideo No Cat
-          .col-sm-4
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnVideo  Skip 
-              fa.fa.fa-caret-right
-    #yesnoVideo
-      .text-center
-        h1 Job Completed!
-        h4 Click on another tab to try out a different Example Job!
-    #skipVideo
-      .text-center
-        h2 No More Tasks!
-        h4 Click on another tab to try out a different Example Job! 
-        h4 OR
-        a.btn.btn-lg.button-royal.reviewbtnVideo Review Skipped Tasks
-    br
-    br
-    br
+        if tasks
+          each task in tasks
+            .col-sm-2.hide
+              .featureImage
+                iframe(src="#{task.src}", data-id="#{task.id}")
 
-script.
 
-  var vid = document.getElementById("myvideo");
+        .col-sm-8
+          #currentImageContainer
+            #currentVideo
+              iframe(id="myvideo")
+              .row
+                .col-sm-10
+                  input(id="paused", type='text', placeholder='enter time here').form-control
+                .col-sm-1
+                  a.btn.btn-md.btn-warning.clearbtnVideo Clear
+          hr
 
-  vid.onpause = function() {
-    if(vid.duration != vid.currentTime)
+        .col-sm-4
+          .col-sm-12
+            a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Submit
+          .col-sm-12
+            a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton Not Found
+          .col-sm-12
+            a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Skip
+
+        .col-sm-12
+          .bgLightDark
+            #job
+
+
+      br
+      br
+      br
+
+  script.
+
+    var vid = document.getElementById("myvideo");
+
+    vid.onseeking = function() {
       document.getElementById("paused").value = vid.currentTime;
-  }
+    }
 
-  $(document).on("click", ".clearbtnVideo", function() {
-    document.getElementById("paused").value = '';
-  })
+    vid.onpause = function() {
+      if(vid.duration != vid.currentTime)
+        document.getElementById("paused").value = vid.currentTime;
+    }
+
+    $(document).on("click", ".clearbtnVideo", function() {
+      document.getElementById("paused").value = '';
+    })
+
+    /**
+     * Puts a clicked image into the #currentImage div
+     * and links the src and the data-id.
+     * @return null
+     */
+
+    function toCanvas(){
+      var src = $(this).find('iframe').attr('src')
+      var id  = $(this).attr('data-id')
+      $("#currentVideo iframe").attr('src',src)
+      $("#currentVideo iframe").attr('data-id',id)
+    }
+
+    /**
+     * Processes the option as selected by the user
+     * and parses, normalizes, then submits the change
+     * to the model.
+     * @return null
+     */
+
+    function select(){
+
+      var src = $("#currentVideo").find('iframe').attr('src')
+      var task_id  = $("#currentVideo").find('iframe').attr('data-id')
+      var jobid  = $("#jobid").text()
+      var val = $(this).text()
+
+      io.socket.post("/actions/new_do", {task_id:task_id,task_id:task_id,input:val}, function(new_task,info){
+
+        console.log(new_task)
+        console.log(info)
+
+        $("#currentVideo iframe").attr('src',new_task.src)
+        $("#currentVideo iframe").attr('data-id',new_task.id)
+        
+      })
+
+    }
+
+    /**
+     * Listens for .selectButton class to be clicked
+     * and binds the event to the select() function
+     * @param  {String}   action    The action listener
+     * @param  {String}   selecter  The DOM id to listen to
+     * @param  {Function} callback  The function to execute
+     * @return null
+     */
+    
 
 
-  $('#yesnoVideo').hide()
-  $('#skipVideo').hide()
-
-  $(document).on("click", ".yesnobtnVideo", function() {
-    $('#firstVideo').hide()
-    $('#yesnoVideo').show()
-  })
+    $(document).on( "click", ".featureImage", toCanvas )
 
 
-  $(document).on("click", ".skipbtnVideo", function() {
-    $('#firstVideo').hide()
-    $('#skipVideo').show()
-  })
+    $(document).on( "click", ".selectButton", select )
 
-  $(document).on("click", ".reviewbtnVideo", function() {
-    $('#skipVideo').hide()
-    $('#firstVideo').show()
-  })   
+
+    /**
+     * Instantiates a model event domain 
+     */
+
+    var featureModel = new $.eventModel();
+
+    /**
+     * Listens for model instance creation and binds  events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info        Event information from emit
+     * @param  {Object} item    The thing that happened.
+     * @return null
+     */
+
+    featureModel.on('created', function(info,item) {
+      var a = item.data.tasks
+      $.map(a, function(d){
+        console.log("asdasdasdasad")
+        console.log(d)
+        $("#job").append($("<span>", {
+          "data-id":d.id,
+          class:"small featureImage"
+        }).append($("<iframe contenteditable='false'>",{
+          src:d.src
+        })))
+      })
+    });
+
+    /**
+     * Listens for model updates and binds model events
+     * to the DOM with respect to their model and structure.
+     * @param  {Object} info     Event information from emit
+     * @param  {Object} activity The thing that happened.
+     * @return null
+     */
+    
+    featureModel.on('updated', function(info,item) {
+      $.map(item.data, function(val, attr){
+        if($("#"+item.id+" #"+attr).text())
+          $("#"+item.id+" #"+attr).text(val)
+        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+      })
+    });
+
+    /**
+     * Glues the model events to their respective DOM
+     * elements and gets a specified number of items
+     * with which to first populate the content.
+     * @param  {String} model The name of the model
+     * @return null
+     */
+    
+    function dataset_glue(model){
+
+      io.socket.on( model, function(dataset){
+        featureModel.emit(dataset.verb, dataset);
+      })
+
+      io.socket.get( "/"+model+"/find", {type:"videotimetagging"}, function(datasets){
+        console.log(datasets);
+        $.map(datasets, function(dataset){
+          featureModel.emit('created', {
+            id:dataset.id,
+            data:dataset
+          })
+        })
+      })
+      $(".featureImage").first().click();
+    }
+
+
+    $(document).ready(function(){
+
+        dataset_glue("job");
+    });

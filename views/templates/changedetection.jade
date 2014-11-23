@@ -1,128 +1,130 @@
-include header
-.container-fluid
-  .col-md-12.text-center
-    #jobDetails.text-center
-      //- i wanna add this back button..but it messes up prettiness
-      //- a.btn.btn-lg.btn-fab.btn-danger.backButton
-      //-   fa.fa.fa-arrow-left
-      //-   b  Back
+extends ../layout
+block body 
+  include ../navbar
+  .container-fluid
+    .col-md-12.text-center
+      #jobDetails.text-center
+        //- i wanna add this back button..but it messes up prettiness
+        //- a.btn.btn-lg.btn-fab.btn-danger.backButton
+        //-   fa.fa.fa-arrow-left
+        //-   b  Back
 
-      if job        
-        h1=job.name
-        p.lead=job.desc
+        if job        
+          h1=job.name
+          p.lead=job.desc
 
-      if tasks
-        each task in tasks
-          .col-sm-2
-            .thumbnail
-              img(src="#{task.src}")
+        if tasks
+          each task in tasks
+            .col-sm-2
+              .thumbnail
+                img(src="#{task.src}")
 
-      br
+        br
 
-      a.btn.btn-lg.btn-fab.btn-primary.startButton
-        fa.fa.fa-arrow-right
-        b  Start
+        a.btn.btn-lg.btn-fab.btn-primary.startButton
+          fa.fa.fa-arrow-right
+          b  Start
 
-    #hiddenAtFirst
-      #currentImageContainer
-        #currentImage
-          img.thumbnail
-          hr
+      #hiddenAtFirst
+        #currentImageContainer
+          #currentImage
+            img.thumbnail
+            hr
 
-      .row
-        .col-sm-4
-          a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
-        .col-sm-4
-          a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
-            //- fa.fa.fa-caret-right
-        .col-sm-4
-          a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+        .row
+          .col-sm-4
+            a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+          .col-sm-4
+            a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+              //- fa.fa.fa-caret-right
+          .col-sm-4
+            a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
 
-      .row
-        .container-fluid
-          br
-          .bgLightDark
-            #job
-          br  
-
-
-
-  //- #jobDetails.text-center
-  //-   .col-lg-1.text-center(style='margin-top:20%;')
-  //-     a.btn.btn-lg.btn-fab.btn-danger.backButton
-  //-       fa.fa.fa-arrow-left
-  //-       b  Back
-  //-   .col-lg-10.text-center
-        
-  //-       if job        
-  //-         h1=job.name
-  //-         p.lead=job.desc
-
-  //-       if tasks
-  //-         each task in tasks
-  //-           .col-sm-2
-  //-             .thumbnail
-  //-               img(src="#{task.src}",height="100",width="100")
-
-  //-       br
-  //-   .col-lg-1.text-center(style='margin-top:20%;')
-  //-     a.btn.btn-lg.btn-fab.btn-primary.startButton
-  //-       fa.fa.fa-arrow-right
-  //-       b  Start
-
-  //- #hiddenAtFirst
-  //-   #currentImageContainer
-  //-     #currentImage
-  //-       img.thumbnail
-  //-       hr
-
-  //-   .row
-  //-     .col-sm-4
-  //-       a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
-  //-     .col-sm-4
-  //-       a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
-  //-         //- fa.fa.fa-caret-right
-  //-     .col-sm-4
-  //-       a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
-
-  //-   .row
-  //-     .container-fluid
-  //-       br
-  //-       .bgLightDark
-  //-         #job
-  //-       br  
+        .row
+          .container-fluid
+            br
+            .bgLightDark
+              #job
+            br  
 
 
-  //- #myModal.modal.fade
-  //-   .modal-dialog
-  //-       .modal-content
-  //-         .modal-header
-  //-           button.close(type='button', data-dismiss='modal')
-  //-             span(aria-hidden='true') ×
-  //-             span.sr-only Close
-  //-           h4.modal-title Keyboard Mapping
-  //-         .modal-body
-  //-           table.table.table-bordered
-  //-             tr
-  //-               td 
-  //-                 b a 
-  //-               td Yes
-  //-             tr
-  //-               td 
-  //-                 b s
-  //-               td Maybe
-  //-             tr
-  //-               td 
-  //-                 b d 
-  //-               td No
-  //-             tr
-  //-               td 
-  //-                 b w 
-  //-               td Flag
 
-  //-         .modal-footer
-  //-           button.btn.btn-default(type='button', data-dismiss='modal') Close
-  //-           button.btn.btn-primary(type='button') Save changes
+    //- #jobDetails.text-center
+    //-   .col-lg-1.text-center(style='margin-top:20%;')
+    //-     a.btn.btn-lg.btn-fab.btn-danger.backButton
+    //-       fa.fa.fa-arrow-left
+    //-       b  Back
+    //-   .col-lg-10.text-center
+          
+    //-       if job        
+    //-         h1=job.name
+    //-         p.lead=job.desc
+
+    //-       if tasks
+    //-         each task in tasks
+    //-           .col-sm-2
+    //-             .thumbnail
+    //-               img(src="#{task.src}",height="100",width="100")
+
+    //-       br
+    //-   .col-lg-1.text-center(style='margin-top:20%;')
+    //-     a.btn.btn-lg.btn-fab.btn-primary.startButton
+    //-       fa.fa.fa-arrow-right
+    //-       b  Start
+
+    //- #hiddenAtFirst
+    //-   #currentImageContainer
+    //-     #currentImage
+    //-       img.thumbnail
+    //-       hr
+
+    //-   .row
+    //-     .col-sm-4
+    //-       a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton.yesButton Cat
+    //-     .col-sm-4
+    //-       a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton.dunnoButton Dunno
+    //-         //- fa.fa.fa-caret-right
+    //-     .col-sm-4
+    //-       a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton.noButton No Cat
+
+    //-   .row
+    //-     .container-fluid
+    //-       br
+    //-       .bgLightDark
+    //-         #job
+    //-       br  
+
+
+    //- #myModal.modal.fade
+    //-   .modal-dialog
+    //-       .modal-content
+    //-         .modal-header
+    //-           button.close(type='button', data-dismiss='modal')
+    //-             span(aria-hidden='true') ×
+    //-             span.sr-only Close
+    //-           h4.modal-title Keyboard Mapping
+    //-         .modal-body
+    //-           table.table.table-bordered
+    //-             tr
+    //-               td 
+    //-                 b a 
+    //-               td Yes
+    //-             tr
+    //-               td 
+    //-                 b s
+    //-               td Maybe
+    //-             tr
+    //-               td 
+    //-                 b d 
+    //-               td No
+    //-             tr
+    //-               td 
+    //-                 b w 
+    //-               td Flag
+
+    //-         .modal-footer
+    //-           button.btn.btn-default(type='button', data-dismiss='modal') Close
+    //-           button.btn.btn-primary(type='button') Save changes
 
 
 

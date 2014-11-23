@@ -38,6 +38,7 @@ module.exports.routes = {
 
   '/j': "JobController.index",
   '/u': "ProfileController.index",
+  // '/': "UserController.homepage",
 
   '/createjob': {
     view: 'profile/createjob'
@@ -57,9 +58,10 @@ module.exports.routes = {
 
   'get /v': "UserController.v",
   'post /verify': "UserController.verify",
-  'get /verify': "UserController.verify",
+  //'get /verify': "UserController.verify",
   'post /signup': "UserController.signup",
-  'get /login': "UserController.login",
+  //'get /login': "UserController.login",
+  'get /login': { view: 'auth/login'},
   'post /login': 'UserController.process',
   'get /logout': 'UserController.logout',
 

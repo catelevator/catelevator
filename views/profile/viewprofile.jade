@@ -1,6 +1,6 @@
 extends ../layout
 block body
-  include navbar
+  include ../navbar
   .container-fluid(style="background-color:#f7f7f8;")
       br
       br
@@ -15,7 +15,7 @@ block body
                   button.btn-danger Edit Password
             tr
                td Email
-               td are we adding this?
+               td=user.email
             tr
                td Points
                td= user.points

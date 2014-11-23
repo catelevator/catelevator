@@ -1,146 +1,218 @@
-.bg11
+extends ../layout
+block body 
+  include ../navbar
   .container
     br
-    br
+    #jobDetails.panel.panel-default
+      .panel-body
+        
+        if job        
+          h1=job.name
+          p.lead=job.desc
+          #jobid.hide=job.id
 
-    .col-sm-6
-      //-img(src="http://i.imgur.com/eLmmpdR.jpg")
-      canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
-      
 
-    .col-sm-6
+        if tasks
+          each task in tasks
+            .col-sm-2.hide
+              .thumbnail.featureImage
+                img(src="#{task.src}", data-id="#{task.id}")
+
+
+        .col-sm-8
+          #currentImageContainer
+            #currentCanvas
+              canvas(id="mycanvas", width='650px', height='400px',style="border:1px solid #000;")
+          hr
+
+        .col-sm-4
+          .col-sm-12
+            a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Submit
+          .col-sm-12
+            a.btn.btn-lg.button-royal.btn-flat.btn-superbig.btn-block.clearbtn Clear
+          .col-sm-12
+            a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Skip
+          .col-sm-12
+            a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton Not Found
+
+        .col-sm-12
+          .bgLightDark
+            #job
+            
       br
-      .text-muted
-        o Points:
-        b  100 
-        o  |  
-        o Congruence:
-        b  100
-
-      h2 Where is the cat in this photo?
-      h3 Circle it!
-      br
-      .row
-        .col-sm-3
-          a.btn.btn-lg.btn-success.btn-superbig.btn-block Found it!
-        .col-sm-3
-          a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
-        .col-sm-3
-          a.btn.btn-lg.btn-danger.btn-superbig.btn-block I'm blind
-        .col-sm-3
-          a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-            fa.fa.fa-caret-right
 
 
-    br
-    br
-    br
+  script.
 
-
-
-  //- .container
-
-  //-   br
-
-  //-   .panel.panel-default
-  //-     .panel-body
-  //-       #dataset
-  //-   br
-
-script.
-
-    //- make new instance of Model
-    //- var featureModel = new $.eventModel();
-
-    //- var canvas = $('#mycanvas')[0];
     var canvas = document.getElementById("mycanvas");
-    var cxt = canvas.getContext("2d");
-    var cat = new Image();
-    cat.src = "http://i.imgur.com/qvJuqVV.jpg";
-    var isDrawing;
+    var context = canvas.getContext("2d");
+    var currentImg = new Image();
+    //var cat = new Image();
+    //cat.src = "http://i.imgur.com/qvJuqVV.jpg";
+    var isDrawing = false;
 
-    cat.onload = function() {
-      cxt.drawImage(cat,0,0, 500, 300);
+    //- cat.onload = function() {
+    //-   context.drawImage(cat,0,0, 500, 300);
+    //- };
+
+
+    var startX;
+    var startY;
+
+    canvas.onmousedown = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var rect = canvas.getBoundingClientRect();
+      var offsetX = rect.left;
+      var offsetY = rect.top;
+      startX = parseInt(e.clientX - offsetX);
+      startY = parseInt(e.clientY - offsetY);
+      isDrawing = true;
+    };
+
+    canvas.onmousemove = function(e) {
+      if(!isDrawing) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      var rect = canvas.getBoundingClientRect();
+      var offsetX = rect.left;
+      var offsetY = rect.top;
+      var x = parseInt(e.clientX - offsetX);
+      var y = parseInt(e.clientY - offsetY);
+      var moveY = startY + (y - startY) / 2;
+      context.clearRect(0,0,canvas.width, canvas.height);
+      if(currentImg.width > currentImg.height)
+        context.drawImage(currentImg,0,0,600,currentImg.height * (600/currentImg.width));
+      else
+        context.drawImage(currentImg, 200, 0, currentImg.width * (400/currentImg.height), 400);
+      context.lineWidth = 2;
+      context.beginPath();
+
+      context.moveTo(startX, moveY);
+      context.bezierCurveTo(startX, startY, x, startY, x, moveY);
+      context.bezierCurveTo(x, y, startX, y, startX, moveY);
+      context.closePath();
+      context.stroke();
+
+    };
+
+    canvas.onmouseup = function(e) {
+      if(!isDrawing) {
+        return;
+      }
+      e.preventDefault();
+      e.stopPropagation();
+      isDrawing = false;
+    };
+        
+
+    function toCanvas(){
+        var src = $(this).find('img').attr('src')
+        var id  = $(this).attr('data-id')
+        //var img = new Image();
+        currentImg.src = src;
+        context.clearRect(0,0,canvas.width, canvas.height);
+
+        if(currentImg.width > currentImg.height)
+          context.drawImage(currentImg,0,0,600,currentImg.height * (600/currentImg.width));
+        else
+          context.drawImage(currentImg, 200, 0, currentImg.width * (400/currentImg.height), 400);       
+        //$("#currentImage img").attr('src',src)
+        $("#currentImage canvas").attr('data-id',id)
     }
 
-    canvas.onmousedown = function(e) {
-          var rect = canvas.getBoundingClientRect();
-          isDrawing = true;
-          cxt.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-    };
-    canvas.onmousemove = function(e) {
-          var rect = canvas.getBoundingClientRect();
-          if (isDrawing) {
-                cxt.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-                cxt.stroke();
-          }
-    };
-    canvas.onmouseup = function() {
-          isDrawing = false;
-    };
-      
 
-    //- document.getElementById('.clearbtn').addEventListener('click', function() {
-    //-     cxt.clearRect(0, 0, canvas.width, canvas.height);
-    //- }, false);
-    $(document).on("click", ".clearbtn", function() {
-      cxt.clearRect(0,0,canvas.width, canvas.height);
-      cxt.drawImage(cat, 0,0,500,300);
-      });
-    // ***** thumbnails 
+    function select(){
+        //var src = $("#currentImage").find('img').attr('src')
+        var src = currentImg.src;
+        var task_id  = $("#currentImage").find('canvas').attr('data-id')
+        var job_id  = $("#jobid").text()
+        var val = $(this).text()
 
+        io.socket.post("/actions/new_do", {task_id:task_id,job_id:job_id,input:val,type:"featurefinding"}, function(new_task,info){
 
-    //- // Listen for when things of this model type are created
-    //- featureModel.on('created', function(info,activity) {
-    //-   var a = activity.data.data
-    //-   $.map(a, function(d){
-    //-     $("#dataset").append($("<span>", {
-    //-       class:"small"
-    //-     }).append($("<img>",{
-    //-       src:d
-    //-     })))
-    //-   })
-    //- });
+          console.log(new_task)
+          console.log(info)
 
+          //$("#currentImage img").attr('src',new_task.src)
+          currentImg.src = new_task.src;
+          context.clearRect(0,0,canvas.width, canvas.height);
+          if(currentImg.width > currentImg.height)
+            context.drawImage(currentImg,0,0,600,currentImg.height * (600/currentImg.width));
+          else
+            context.drawImage(currentImg, 200, 0, currentImg.width * (400/currentImg.height), 400);
+          $("#currentImage canvas").attr('data-id',new_task.id)
+          
+        })
 
-    //- // Listen for when things of this model type are updated
-    //- featureModel.on('updated', function(info,activity) {
-    //-   $.map(activity.data, function(val, attr){
-    //-     if($("#"+activity.id+" #"+attr).text())
-    //-       $("#"+activity.id+" #"+attr).text(val)
-    //-     else $("#"+activity.id).append($("<div>",{id:attr,text:val}))
-    //-   })
-    //- });
+    }
+
+    $(document).on("click", ".clearbtn", clearCanvas)
+
+    function clearCanvas() {
+      context.clearRect(0,0,canvas.width, canvas.height);
+      if(currentImg.width > currentImg.height)
+        context.drawImage(currentImg,0,0,600,currentImg.height * (600/currentImg.width));
+      else
+        context.drawImage(currentImg, 200, 0, currentImg.width * (400/currentImg.height), 400);      //context.drawImage(cat, 0,0,500,300);
+    }
+
+    $(document).on( "click", ".featureImage", toCanvas )
 
 
-    //- // bind dom to model with sockets
-    //- function dataset_glue(model){
-
-    //-   io.socket.on( model, function(dataset){
-    //-       featureModel.emit(dataset.verb, dataset);
-    //-   })
-
-    //-   io.socket.get( "/"+model, {type:"featuredetection"}, function(datasets){
-    //-     $.map(datasets, function(dataset){
-    //-       featureModel.emit('created', {
-    //-         id:dataset.id,
-    //-         data:dataset
-    //-       })
-    //-     })
-    //-   })
-
-    //- }
-
-    //- // When document is ready, grab latest things.
-    //$(document).ready(function(){
-
-    //-   dataset_glue("dataset");
-      
+    $(document).on( "click", ".selectButton", select )
 
 
-    //-   //- featureModel.emit('created', {
-    //-   //-   id:5415,
-    //-   //-   data:{name:"Feature Detection"}
-    //-   //- })
 
-    //});
+    var featureModel = new $.eventModel();
+
+
+
+    featureModel.on('created', function(info,item) {
+        var a = item.data.tasks
+        $.map(a, function(d){
+          console.log("asdasdasdasad")
+          console.log(d)
+          $("#job").append($("<span>", {
+            "data-id":d.id,
+            class:"small featureImage"
+          }).append($("<img>",{
+            src:d.src
+          })))
+        })
+    });
+
+
+    featureModel.on('updated', function(info,item) {
+        $.map(item.data, function(val, attr){
+          if($("#"+item.id+" #"+attr).text())
+            $("#"+item.id+" #"+attr).text(val)
+          else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+        })
+    });
+
+
+
+    function dataset_glue(model){
+
+        io.socket.on( model, function(dataset){
+          featureModel.emit(dataset.verb, dataset);
+        })
+
+        io.socket.get( "/"+model+"/find", {type:"featurefinding"}, function(datasets){
+          console.log(datasets);
+          $.map(datasets, function(dataset){
+            featureModel.emit('created', {
+              id:dataset.id,
+              data:dataset
+            })
+          })
+        })
+        $(".featureImage").first().click();
+      }
+
+    $(document).ready(function() {
+      dataset_glue("job");
+    });

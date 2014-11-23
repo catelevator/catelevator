@@ -21,6 +21,9 @@ module.exports = {
     return;
   },
 
+
+
+
   createjob:function(req,res){
   		console.log(req.params)
   		var content  = {}

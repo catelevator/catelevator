@@ -63,8 +63,8 @@ script.
   var cat2 = new Image();
   cat2.src = "images/changed.jpg";
 
-  var isDrawing1;
-  var isDrawing2;
+  var isDrawing1 = false;
+  var isDrawing2 = false;
 
   cat1.onload = function() {
     cxt1.drawImage(cat1,0,0, 275, 300);
@@ -74,21 +74,56 @@ script.
     cxt2.drawImage(cat2,0,0, 275, 300);
   }
 
+  var startX;
+  var startY;
+  //var startX2;
+  //var startY2;
+
   canvas1.onmousedown = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
     var rect1 = canvas1.getBoundingClientRect();
-    cxt1.beginPath();
-    cxt2.beginPath();
+    var offsetX = rect1.left;
+    var offsetY = rect1.top;
+    //cxt1.beginPath();
+    //cxt2.beginPath();
+    startX = parseInt(e.clientX - offsetX);
+    startY = parseInt(e.clientY - offsetY);
     isDrawing1 = true;
     isDrawing2 = true;
-    cxt1.moveTo(e.clientX - rect1.left, e.clientY - rect1.top);
-    cxt2.moveTo(e.clientX - rect1.left, e.clientY - rect1.top);
+    //cxt1.moveTo(e.clientX - rect1.left, e.clientY - rect1.top);
+    //cxt2.moveTo(e.clientX - rect1.left, e.clientY - rect1.top);
   };
   canvas1.onmousemove = function(e) {
     var rect1 = canvas1.getBoundingClientRect();
     if (isDrawing1 && isDrawing2) {
-      cxt1.lineTo(e.clientX - rect1.left, e.clientY - rect1.top);
+      var offsetX = rect1.left;
+      var offsetY = rect1.top;
+      var x = parseInt(e.clientX - offsetX);
+      var y = parseInt(e.clientY - offsetY);
+      var moveY = startY + (y - startY) / 2;
+      cxt1.clearRect(0,0,canvas1.width, canvas1.height);
+      cxt1.drawImage(cat1,0,0,275,300);
+      cxt1.lineWidth = 2;
+      cxt2.clearRect(0,0,canvas2.width, canvas2.height);
+      cxt2.drawImage(cat2,0,0,275,300);
+      cxt2.lineWidth = 2;
+
+      cxt1.beginPath();
+      cxt2.beginPath();
+
+      cxt1.moveTo(startX, moveY);
+      cxt1.bezierCurveTo(startX, startY, x, startY, x, moveY);
+      cxt1.bezierCurveTo(x, y, startX, y, startX, moveY);
+
+      cxt2.moveTo(startX, moveY);
+      cxt2.bezierCurveTo(startX, startY, x, startY, x, moveY);
+      cxt2.bezierCurveTo(x, y, startX, y, startX, moveY);
+
+      cxt1.closePath();
+      cxt2.closePath();
+
       cxt1.stroke();
-      cxt2.lineTo(e.clientX - rect1.left, e.clientY - rect1.top);
       cxt2.stroke();
     }
   };
@@ -98,20 +133,51 @@ script.
   };
 
   canvas2.onmousedown = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
     var rect2 = canvas2.getBoundingClientRect();
-    cxt1.beginPath();
-    cxt2.beginPath();
+    var offsetX = rect2.left;
+    var offsetY = rect2.top;
+    //cxt1.beginPath();
+    //cxt2.beginPath();
+    startX = parseInt(e.clientX - offsetX);
+    startY = parseInt(e.clientY - offsetY);
+
     isDrawing1 = true;
     isDrawing2 = true;
-    cxt1.moveTo(e.clientX - rect2.left, e.clientY - rect2.top);
-    cxt2.moveTo(e.clientX - rect2.left, e.clientY - rect2.top);
+    //cxt1.moveTo(e.clientX - rect2.left, e.clientY - rect2.top);
+    //cxt2.moveTo(e.clientX - rect2.left, e.clientY - rect2.top);
   };
   canvas2.onmousemove = function(e) {
     var rect2 = canvas2.getBoundingClientRect();
     if (isDrawing1 && isDrawing2) {
-      cxt1.lineTo(e.clientX - rect2.left, e.clientY - rect2.top);
+      var offsetX = rect2.left;
+      var offsetY = rect2.top;
+      var x = parseInt(e.clientX - offsetX);
+      var y = parseInt(e.clientY - offsetY);
+      var moveY = startY + (y - startY) / 2;
+      cxt1.clearRect(0,0,canvas1.width, canvas1.height);
+      cxt1.drawImage(cat1,0,0,275,300);
+      cxt1.lineWidth = 2;
+      cxt2.clearRect(0,0,canvas2.width, canvas2.height);
+      cxt2.drawImage(cat2,0,0,275,300);
+      cxt2.lineWidth = 2;
+
+      cxt1.beginPath();
+      cxt2.beginPath();
+
+      cxt1.moveTo(startX, moveY);
+      cxt1.bezierCurveTo(startX, startY, x, startY, x, moveY);
+      cxt1.bezierCurveTo(x, y, startX, y, startX, moveY);
+
+      cxt2.moveTo(startX, moveY);
+      cxt2.bezierCurveTo(startX, startY, x, startY, x, moveY);
+      cxt2.bezierCurveTo(x, y, startX, y, startX, moveY);
+
+      cxt1.closePath();
+      cxt2.closePath();
+
       cxt1.stroke();
-      cxt2.lineTo(e.clientX - rect2.left, e.clientY - rect2.top);
       cxt2.stroke();
     }
   };

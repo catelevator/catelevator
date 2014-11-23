@@ -1,6 +1,6 @@
 extends ../layout
 block body
-  include navbar
+  include ../navbar
   .container
     .col-md-10.col-md-offset-1
       br
@@ -143,7 +143,7 @@ block body
                   .col-md-4
                     p.lead Prompt for each task:
                   .col-md-8
-                    input(type="text", placeholder="How happy does this picture make you feel?").form-control
+                    input(type="text", placeholder="Is there a cat?").form-control
                 .col-md-12
                   .col-md-4
                     p.lead Choose answer set:
@@ -299,8 +299,6 @@ block body
     var template;
 
     $('.selectpicker').selectpicker();
-
-    
 
     //- this is definitely not the best way to do this...but it works...
     function customAnswers() {

@@ -46,6 +46,9 @@ module.exports = {
       })
     })
 
+    //change detection example
+
+    //evaluation example
     Job.create([
       {
         name:"Solve the captcha", 
@@ -84,9 +87,56 @@ module.exports = {
     })
 
 
+    //feature finding example
     Job.create([
       {
-        name:"Find the cats", 
+        name:"Where are the cats?", 
+        type:"featurefinding",
+        reward:0.01,
+        desc: "circle the cats in the pictures"
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://i.imgur.com/5F1Vfw5.jpg',
+          type:"featurefinding",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/foHaLPC.jpg?1',
+          type:"featurefinding",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/MByLD.jpg',
+          type:"featurefinding",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/e1daLmo.jpg',
+          type:"featurefinding",
+          job_id:job.id
+        }
+
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+
+        console.log("bounced jobs")
+      })
+
+    })
+
+    //impression measuring example
+
+    //inquiry example
+    Job.create([
+      {
+        name:"Are there any cats?", 
         type:"inquiry",
         reward:0.02,
         desc: "Select whether or not a feature exists in a dataset."
@@ -120,13 +170,60 @@ module.exports = {
           job.taskCount = b.length;
           job.save()
         }
-        res.send("bounced jobs")})
+         console.log("bounced jobs")})
 
 
     })
 
 
+    //survey example
 
+
+
+    //transcribing example
+
+
+    //video tagging example
+    Job.create([
+      {
+        name:"when do cats appear", 
+        type:"videotimetagging",
+        reward:0.02,
+        desc: "pause video when you see the cat"
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        }
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+        res.send("bounced jobs")})
+
+
+    })
 
 
 
