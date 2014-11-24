@@ -24,7 +24,12 @@ process.chdir(__dirname);
 
 // Ensure a "sails" can be located:
 (function() {
-  require('newrelic');
+  var newrelic = require('newrelic');
+  var app = require('express')();
+
+  app.locals.newrelic = newrelic;
+  app.listen(process.env.PORT);
+
   var sails;
   try {
     sails = require('sails');
