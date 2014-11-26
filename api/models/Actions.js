@@ -17,14 +17,12 @@ module.exports = {
     },
     user_id: {
       model: 'user'
-    },
+    }
+   
 
-    // toJSON: function(){
-    //   var o = this.toObject();
-    //   o.password = null;
-    //   return o;
-    // }
+  },
 
-  }
+
+
 };
 

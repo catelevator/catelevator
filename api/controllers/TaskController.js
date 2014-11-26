@@ -20,23 +20,46 @@ module.exports = {
       console.log(uploadedFiles);
       if (err) return res.send(500, err)
     
-
-        var new_task = merge (uploadedFiles[0], {
-          name:"cbr_search", 
-          filename:path.basename(uploadedFiles[0].fd), 
-          location:path.dirname(uploadedFiles[0].fd), 
-          src:"/images/"+path.basename(uploadedFiles[0].fd)
-        })
+      var new_task = merge (uploadedFiles[0], {
+        filename:path.basename(uploadedFiles[0].fd), 
+        location:path.dirname(uploadedFiles[0].fd), 
+        src:"/images/"+path.basename(uploadedFiles[0].fd)
+      })
 
 
-        Task.create(new_task, function(err,task){
-            res.send(task);
-        })
-
-
+      Task.create(new_task, function(err,task){
+          res.send(task);
+      })
 
     })
   },
+
+
+
+  allActions: function(req,res){
+
+    Task.findOne({type:"featurefinding",skip:1}).exec(function(err,task){
+      Actions.find({task_id:task.id}).exec(function(err,actions){
+        task.actions = actions
+        console.log(actions);
+        res.view( "tasks/tasks", { tasks:[task] });
+      })
+    })
+  },
+
+
+
+  render: function(req,res){
+
+    Actions.find({input_type:"circle",limit:10}).exec(function(err,actions){
+      console.log(actions)
+      res.view( "actions/circle", { actions:actions } );
+    })
+
+  },
+
+
+
 
 };
 
