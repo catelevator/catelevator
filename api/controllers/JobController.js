@@ -81,7 +81,7 @@ module.exports = {
           job.save()
         }
 
-        console.log("bounced jobs")
+        console.log("bounced jobs for eval")
       })
 
     })
@@ -126,13 +126,60 @@ module.exports = {
           job.save()
         }
 
-        console.log("bounced jobs")
+        console.log("bounced jobs for feature find")
       })
 
     })
 
     //impression measuring example
+    Job.create([
+      {
+        name:"How does this make you feel?", 
+        type:"impressionmeasuring",
+        reward:0.02,
+        desc: "on the provided scale, submit how the data makes you feel, i'm making this description really long so i can see how the dashboard looks if a description for one of the things is really long like this one."
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://i.imgur.com/eLmmpdR.jpg',
+          type:"impressionmeasuring",
+          job_id:job.id,
+          min:"sad",
+          max:"happy"
+        },
+        {
+          src:'http://i.imgur.com/X6qwKTU.png',
+          type:"impressionmeasuring",
+          job_id:job.id,
+          min:"sad",
+          max:"happy"
+        },
+        {
+          src:'http://i.imgur.com/zS59sKQ.jpg',
+          type:"impressionmeasuring",
+          job_id:job.id,
+          min:"sad",
+          max:"happy"
+        },
+        {
+          src:'http://i.imgur.com/xoz937V.jpg',
+          type:"impressionmeasuring",
+          job_id:job.id,
+          min:"sad",
+          max:"happy"
+        }
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+         console.log("bounced jobs for impressionmeasuring")})
 
+
+    })
     //inquiry example
     Job.create([
       {
@@ -170,7 +217,7 @@ module.exports = {
           job.taskCount = b.length;
           job.save()
         }
-         console.log("bounced jobs")})
+         console.log("bounced jobs for inquiry")})
 
 
     })
@@ -220,7 +267,7 @@ module.exports = {
           job.taskCount = b.length;
           job.save()
         }
-        res.send("bounced jobs")})
+        res.send("bounced jobs for video")})
 
 
     })

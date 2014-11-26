@@ -18,23 +18,24 @@ block body
               .thumbnail.featureImage
                 img(src="#{task.src}", data-id="#{task.id}")
 
+        .row
+          .col-sm-9
+            #currentImageContainer
+              #currentCanvas
+                canvas(id="mycanvas", width='650px', height='400px',style="border:1px solid #000;")
+          
 
-        .col-sm-8
-          #currentImageContainer
-            #currentCanvas
-              canvas(id="mycanvas", width='650px', height='400px',style="border:1px solid #000;")
-          hr
-
-        .col-sm-4
-          .col-sm-12
-            a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Submit
-          .col-sm-12
-            a.btn.btn-lg.button-royal.btn-flat.btn-superbig.btn-block.clearbtn Clear
-          .col-sm-12
-            a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Skip
-          .col-sm-12
-            a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton Not Found
-
+          .col-sm-3
+            .col-sm-12
+              a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Submit
+            .col-sm-12
+              a.btn.btn-lg.button-royal.btn-flat.btn-superbig.btn-block.clearbtn Clear
+            .col-sm-12
+              a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton Not Found
+            .col-sm-12
+              a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Skip
+            
+        hr
         .col-sm-12
           .bgLightDark
             #job
