@@ -23,6 +23,12 @@ block body
                         a(href="/job/work?job=#{job.id}").btn-link=job.name
                     .col-md-3.pull-right
                       b=job.taskCount+" tasks"
-                  p=job.desc
+                  .row
+                    .col-md-9
+                      p=job.desc
+                    //- this is just for mads ocd purposes to make sure all templates are made
+                    .col-md-3
+                      p=job.type
+
                   
 
