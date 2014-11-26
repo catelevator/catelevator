@@ -129,12 +129,16 @@ block body
        */
       function select(){
         // Isolates the values we need
-        var src =  featureCanvas.canvas.src
-        var task_id  = $("#currentImageContainer").find('img').attr('data-id')
+        //- var src =  featureCanvas.canvas.src
+        var src = $(".featureImage.active").find("img").attr("src")
+        //- var task_id  = $("#currentImageContainer").find('img').attr('data-id')
+        var task_id = $(".featureImage.active").find('img').attr('data-id')
         var job_id  = $("#jobid").text()
         var val = $(this).text()
         // logs the circles we have.
-        console.log( featureCanvas.canvas.circles )
+        //console.log( featureCanvas.canvas.circles )
+        console.log(src)
+        console.log(task_id)
         // Posts this action to the server.
         io.socket.post("/actions/create", {task_id:task_id,
           job_id:job_id,

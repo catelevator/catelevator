@@ -68,7 +68,7 @@ block body
        */
       function toCanvas(){
 
-        var src = $(this).find('img').attr('src')
+        var src = $(this).find('img').attr('vidsrc')
         var id  = $(this).find('img').attr('data-id')
         $(".featureImage.active").removeClass("active")
         $(this).addClass("active")
@@ -81,24 +81,24 @@ block body
          * @param  {Image} img The image object
          * @return {[type]}     [description]
          */
-        //- fabric.Image.fromURL(src, function(img) {
+        fabric.Image.fromURL(src, function(img) {
 
-        //-   var w = img.width
-        //-   var h = img.height
-        //-   var cw = $("#currentImageContainer").width()
-        //-   scale_factor = cw/w
-        //-   var ch = h * scale_factor
+          var w = img.width
+          var h = img.height
+          var cw = $("#currentImageContainer").width()
+          scale_factor = cw/w
+          var ch = h * scale_factor
 
-        //-   // sets the new w and h for the image
-        //-   img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
-        //-   // sets the new w and h for the canvas
-        //-   featureCanvas.canvas.setWidth(cw);
-        //-   featureCanvas.canvas.setHeight(ch);
-        //-   // sets the canvas backgrouns as the image and binds the dimensions.
-        //-   featureCanvas.canvas.setBackgroundImage( img, 
-        //-     featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
-        //-   );
-        //- })
+          // sets the new w and h for the image
+          img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
+          // sets the new w and h for the canvas
+          featureCanvas.canvas.setWidth(cw);
+          featureCanvas.canvas.setHeight(ch);
+          // sets the canvas backgrouns as the image and binds the dimensions.
+          featureCanvas.canvas.setBackgroundImage( img, 
+            featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
+          );
+        })
       }
 
       /**
@@ -162,7 +162,8 @@ block body
               class:"small featureImage"
             }).append($("<img>",{
               "data-id":d.id,
-                src:d.src
+                src:"http://img.youtube.com/vi/m2UszPwHvXE/default.jpg",
+                "vidsrc":d.src
             })))
           })
       });
