@@ -53,6 +53,7 @@ block body
         this.canvas = new fabric.Canvas('mycanvas');
         this.canvas.selection = false;
         this.canvas.circles = [];
+        this.canvas.scale_factor = [];
 
 
 
@@ -103,7 +104,36 @@ block body
          */
 
         this.canvas.on('mouse:up', function(o){
-          featureCanvas.canvas.circles.push(circle)
+          var scaled_circle= {
+            type: 'circle',
+            originX: 'center',
+            originY: 'center',
+            left: circle.left*featureCanvas.scale_factor,
+            top:circle.top*featureCanvas.scale_factor,
+            width:circle.width*featureCanvas.scale_factor,
+            height: circle.height*featureCanvas.scale_factor,
+            fill: 'rgba(10,20,60,0.3)',
+            stroke: 'rgba(40,255,90,1)',
+            strokeWidth: 3,
+            strokeDashArray: null,
+            strokeLineCap: 'butt',
+            strokeLineJoin: 'miter',
+            strokeMiterLimit: 10,
+            angle: 0,
+            flipX: false,
+            flipY: false,
+            opacity: 1,
+            shadow: null,
+            visible: true,
+            clipTo: null,
+            backgroundColor: '',
+            fillRule: 'nonzero',
+            globalCompositeOperation: 'source-over',
+            radius: circle.radius,
+            startAngle: circle.startAngle,
+            endAngle: circle.endAngle
+          }
+          featureCanvas.canvas.circles.push(scaled_circle)
           isDown = false;
         });
 
@@ -130,7 +160,7 @@ block body
         $(this).addClass("active")
 
         featureCanvas.canvas.clear()
-
+        featureCanvas.task_id = id;
         /**
          * Creates an image from the src url, scales it appropriately, 
          * then makes it the background image.
@@ -143,6 +173,7 @@ block body
           var h = img.height
           var cw = $("#currentImageContainer").width()
           scale_factor = cw/w
+          featureCanvas.scale_factor = scale_factor
           var ch = h * scale_factor
 
           // sets the new w and h for the image
@@ -183,10 +214,10 @@ block body
        */
       function select(){
         // Isolates the values we need
-        //- var src =  featureCanvas.canvas.src
-        var src = $(".featureImage.active").find("img").attr("src")
-        //- var task_id  = $("#currentImageContainer").find('img').attr('data-id')
-        var task_id = $(".featureImage.active").find('img').attr('data-id')
+
+        var src =  featureCanvas.canvas.src
+        var task_id  = featureCanvas.task_id
+        console.log("task_id",task_id)
         var job_id  = $("#jobid").text()
         var val = $(this).text()
         // logs the circles we have.
@@ -194,13 +225,14 @@ block body
         console.log(src)
         console.log(task_id)
         // Posts this action to the server.
-        io.socket.post("/actions/create", {task_id:task_id,
+        io.socket.post("/actions/new_do", {
+          task_id:task_id,
           job_id:job_id,
           input_type:"circles",
           input:featureCanvas.canvas.circles,
           type:"featurefinding"
-        }, function(new_task,info){
-
+        
+        },function(new_task,info){
           // Deletes our old circles
           featureCanvas.canvas.circles = []
           // Goes to next task.

@@ -75,7 +75,7 @@ module.exports = {
           job_id:job.id
         }
       ]).exec(function(a,b){ 
-        if(!a) {
+        if(!a){
           job.taskCount = b.length;
           job.save()
         }

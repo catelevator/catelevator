@@ -6,15 +6,15 @@
 */
 
 module.exports = {
-
   attributes: {
-
     name:{type:"string",required:true},
     desc:{type:"string",required:true},
     progress:{type:"string",defaultsTo:0},
-    tasks: { collection:"task", via:"job_id" }
-
+    tasks: { collection:"task", via:"job_id" },
+    task_count: function(){
+      Tasks.count({job_id:this.id}, function(err,result){
+        console.log(result);
+      })
+    },
   }
-    
 };
-

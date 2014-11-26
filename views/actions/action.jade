@@ -1,0 +1,57 @@
+b=action.id 
+p=action.user_id
+b=action.input_type
+if(action.task_id)
+  b=action.task_id.src
+
+if(action.input_type=="circles"&&action.input.length)
+  .convas_container.btn-block
+  canvas(id="#{action.id}")
+  script.
+    var canvas = new fabric.Canvas("#{action.id}");
+    fabric.Image.fromURL("#{action.task_id}", function(img) {
+
+      var w = img.width
+      var h = img.height
+      var cw = $(".convas_container").width()
+      scale_factor = cw/w
+      var ch = h * scale_factor
+
+      // sets the new w and h for the image
+      img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
+      // sets the new w and h for the canvas
+      canvas.setWidth(cw);
+      canvas.setHeight(ch);
+      // sets the canvas backgrouns as the image and binds the dimensions.
+      canvas.setBackgroundImage( img, 
+        canvas.renderAll.bind(canvas)
+      );
+      console.log("#{action.input[0].width}")
+      //- var circle = new fabric.Circle( { 
+      //-   width:"#{action.input[0].width}",  
+      //-   height:"#{action.input[0].height}",
+      //-   left:"#{action.input[0].left}",
+      //-   top:"#{action.input[0].top}",
+      //-   radius:"#{action.input[0].radius}",
+      //-   originX: "center",
+      //-   originY: "center"
+
+      //-   });
+
+      var circle = new fabric.Circle( { 
+        width:"#{action.input[0].width}",  
+        height:"#{action.input[0].height}",
+        left:"#{action.input[0].left}",
+        top:"#{action.input[0].top}",
+        radius:"#{action.input[0].radius}",
+        fill: "rgba(255,0,0,1)",
+        originX: "center",
+        originY: "center"
+
+        });
+
+      canvas.add(circle);
+
+
+
+    })
