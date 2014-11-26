@@ -18,7 +18,6 @@ module.exports = {
     });
   },
 
-
   work:function(req,res){
     Job.findOne({ id:req.param('job') }).exec(function(e,job){
       Task.find({ job_id:job.id, limit:2 }).exec(function(e,tasks){
@@ -82,6 +81,50 @@ module.exports = {
         }
 
         console.log("bounced jobs for eval")
+      })
+
+    })
+
+        
+    //Transcribing example
+    Job.create([
+      {
+        name:"Transcribe This", 
+        type:"transcribing",
+        reward:0.01,
+        desc: "Transcribe the images."
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://i.imgur.com/3xngl5v.jpg',
+          type:"transcribing",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/GEFZL.jpg',
+          type:"transcribing",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/PYC86jN.png',
+          type:"transcribing",
+          job_id:job.id
+        },
+        {
+          src:'http://i.imgur.com/up8GH.jpg',
+          type:"transcribing",
+          job_id:job.id
+        }
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+
+        console.log("bounced jobs for transcribing")
       })
 
     })
