@@ -1,0 +1,378 @@
+extends ../layout
+block body
+  include ../navbar
+  form(target="job/create", method="POST").form.job_form.container
+    
+      .col-md-10.col-md-offset-1
+        br
+        h1.text-center.skinny Crowd source in seconds.
+        .col-xs-12
+          hr
+          ul.nav.nav-tabs.nav-justified.setup-panel
+            li.active
+              a(href='#step-1').skinny
+                b 1  
+                o.list-group-item-heading Define your project.
+            li.disabled
+              a(href='#step-2').skinny
+                b 2  
+                o.list-group-item-heading Configure some settings.
+            li.disabled
+              a(href='#step-3').skinny
+                b 3  
+                o.list-group-item-heading Assimilate the data.
+
+        .col-xs-12
+
+          .panel.panel-default
+            #step-1.setup-content
+              .panel-body
+                .col-md-12
+                  br
+                  br
+
+                .col-md-12
+                  .col-md-4
+                    p.lead Project name:
+                  .col-md-8
+                    input(name="name", type="text", value="test", placeholder="Name")#jobName.form-control
+                  br
+                  br
+
+                    
+                .col-md-12
+                  .col-md-4
+                    p.lead Template:
+                  .col-md-8
+                    select.selectpicker
+                      option Evaluation
+                      option Change Detection
+                      option Feature Finding
+                      option Impression Measuring
+                      option Inquiry
+                      option Survey
+                      option Transcribing
+                      option Video Time Tagging
+                      //- option(data-content="<a data-toggle='tooltip' data-placement='right' href='#' title='' data-original-title='Put things here?'>put things hereee</a>") Change Detection
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Change Detection</span>") Change Detection
+                      //- option Change Detection
+                      //- option.tooltip(title='things') Change Detection
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Evaluation</span>") Evaluation
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Feature Finding</span>") Feature Finding
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Impression Measuring</span>") Impression Measuring
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Inquiry</span>") Inquiry
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Survey</span>") Survey
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Transcribing</span>") Transcribing
+                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Video Time Tagging</span>") Video Time Tagging
+                  //- .col-md-4
+                  //-   button#help.btn.button.button-flat Help
+
+                .col-md-12
+                  .col-md-4
+                    p.lead Description:
+                  .col-md-8
+                    textarea(name="desc", value="test", placeholder="Description").form-control#jobDesc
+                  br
+                  br
+                  br
+                  br
+                  hr
+                
+
+              .panel-footer.text-right
+                  //- button.btn.btn-link cancel  
+                  a#activate-step-2.btn.btn-success.next Next 
+                    fa.fa.fa-fw.fa-chevron-right
+
+
+            #step-2.setup-content
+              .panel-body
+                #changeDetect.config-content
+                  .col-md-12
+                    h2.medBrand Change Detection
+                    hr
+                    .col-md-4
+                      p.lead Prompt for each task:
+                    .col-md-8
+                      input(name="instruction",type="text", value="test", placeholder="Find the difference between the photos.").form-control
+                    br
+                  hr
+             
+                  #customAnswerSet
+                    .col-md-12
+                      .col-md-4
+                        p.lead Number of Answers
+                      .col-md-2
+                        input(name="options",type="number", min="1", max="6", value="2", id="numAnswers", onchange="customAnswers()").form-control
+                      .col-md-6
+                        #answer1
+                          input(name="option1", type="text", value="test", placeholder="Custom Answer 1").form-control
+                        #answer2
+                          input(type="option2", value="test", placeholder="Custom Answer 2").form-control
+
+                  hr
+            
+                .col-md-12
+                  br
+                  .col-md-6
+                    p.lead Points Awarded per Task:
+                  .col-md-2
+                    input(name="points_per_task", type='number', value="test", placeholder="0.1", step=".1", id="pointsForTask").form-control
+                .col-md-12
+                  .col-md-6
+                    p.lead Points Awarded for Job Completion:
+                  .col-md-2
+                    input(name="points_per_job", type='number', value="test", placeholder="1", step="1", id="pointsForComplete").form-control
+                .col-md-12
+                  hr
+                  .col-md-12
+                    p.lead Job expiration
+
+                    .radio
+                      .col-md-7
+                        label.radioLabel
+                          input( type='radio', name='closeOptions', value='numberTagged', checked)
+                          | After each task has been answered
+                      .col-md-2
+                        input(type='number', min='1',value='10').form-control
+                      .col-md-1
+                        label.radioLabel times
+                    br
+                    .radio
+                      .col-md-7
+                        label.radioLabel
+                          input(type='radio', name='closeOptions', value='specificTime')
+                          | When confidence rating reaches
+                      .col-md-2
+                        input(name="confidence_rating", type='number').form-control
+                    br
+
+                    .radio
+                      .col-md-3
+                        label.radioLabel
+                          input(type='radio', name='closeOptions', value='specificTime')
+                          | At this time: 
+                      .col-md-6
+                        input(name="close_date", type='datetime-local').form-control
+                    br
+
+
+
+              .panel-footer.text-right
+                a#cancel-step-2.btn.btn-link Back  
+                a#activate-step-3.btn.btn-success.create_job.next Next 
+                  fa.fa.fa-fw.fa-chevron-right
+
+
+            #step-3.setup-content
+              .panel-body
+                br
+                p.lead Drag and drop files to anywhere on the screen to upload your content.
+                a.dz-clickable.btn.btn-default and here's a button.
+                .dropzone-previews
+                //- form(action="/task/put", class="dropzone dz-clickable", id="dz")
+                //- form(action="http://api.imgur.com/2/upload.json", class="dropzone dz-clickable", id="dz")
+                br
+                br
+
+              .panel-footer.text-right
+                //- button.btn.btn-link Cancel  
+                a#activate-step-3.btn.btn-success.job_submit Finished  
+                  fa.fa.fa-chevron-right
+
+
+  script.
+    var template;
+
+    $('.selectpicker').selectpicker();
+
+    //- this is definitely not the best way to do this...but it works...
+    function customAnswers() {
+      var x = document.getElementById("numAnswers").value;
+      if( x == '1') {
+        $('#answer1').show();
+        $('#answer2').hide();
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '2') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '3') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '4') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').hide();
+        $('#answer6').hide();
+      }
+      if( x == '5') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').show();
+        $('#answer6').hide();
+      }
+      if( x == '6') {
+        $('#answer1').show();
+        $('#answer2').show();
+        $('#answer3').show();
+        $('#answer4').show();
+        $('#answer5').show();
+        $('#answer6').show();
+      }
+    }
+
+
+    $('input[name="inquiryOptions"]').on('change', function() {
+      if($(this).val()=='default') {
+        $('#customAnswerSet').hide();
+      }
+      else {
+        $('#customAnswerSet').show();
+      }
+    })
+
+    //- $(document).on( "click", ".addtask", function(){ 
+    //-   $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
+    //-     + taskcount + '.</label></div>' 
+    //-     + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
+    //-     + taskcount + '", placeholder="things"></input></div></div>');
+      
+    //-   taskcount++;
+    //- })
+
+
+    $(document).ready(function() {
+        $('[rel="tooltip"], .tooltip').tooltip();
+
+
+        var navListItems = $('ul.setup-panel li a'),
+            allWells = $('.setup-content');
+
+        allWells.hide();
+
+
+        $('.config-content').hide();
+
+        $('#customAnswerSet').hide();
+
+        $('#answer3').hide();
+        $('#answer4').hide();
+        $('#answer5').hide();
+        $('#answer6').hide();
+
+        navListItems.click(function(e)
+        {
+            e.preventDefault();
+            var $target = $($(this).attr('href')),
+                $item = $(this).closest('li');
+            
+            if (!$item.hasClass('disabled')) {
+                navListItems.closest('li').removeClass('active');
+                $item.addClass('active');
+                allWells.hide();
+                $target.show();
+            }
+        });
+        
+        $('ul.setup-panel li.active a').trigger('click');
+        
+        $('#activate-step-2').on('click', function(e) {
+            
+            $('ul.setup-panel li:eq(1)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-2"]').trigger('click');
+            template = $('.selectpicker').val();
+            $('.config-content').hide();
+            //there is probably a better way to do this....but whatevs
+            if(template == "Change Detection")
+              $('#changeDetect').show();
+            if(template == "Evaluation") 
+              $('#evaluation').show();
+            if(template == "Feature Finding") 
+              $('#featureFind').show();
+            if(template == "Impression Measuring") 
+              $('#impressMeasure').show();
+            if(template == "Inquiry") 
+              $('#inquiry').show();
+            if(template == "Survey") 
+              $('#survey').show();
+            if(template == "Transcribing") 
+              $('#transcrib').show();
+            if(template == "Video Time Tagging") 
+              $('#videoTagging').show();
+            //$(this).remove();
+
+
+        })    
+
+        $('#activate-step-3').on('click', function(e) {
+            $('ul.setup-panel li:eq(2)').removeClass('disabled');
+            $('ul.setup-panel li a[href="#step-3"]').trigger('click');
+            $(this).remove();
+        })
+
+        $('#cancel-step-2').on('click', function(e) {
+          $('ul.setup-panel li:eq(1)').addClass('disabled');
+          $('ul.setup-panel li a[href="#step-1"]').trigger('click');
+          $('.config-content').hide();
+        })
+
+
+
+
+    });
+
+
+    $('.selectpicker').selectpicker();
+
+    $('.create_job').on("click", function(){
+      io.socket.post("/job/create?"+ $(".job_form").serialize(), function(res){
+        console.log(res.id)
+      });
+    })
+    
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone(document.body, {
+      previewsContainer: ".dropzone-previews",
+      url:"/task/put",
+      clickable: ".dz-clickable"
+    });
+
+    myDropzone.on("addedfile", function(file) {
+      console.log(file)
+    });
+
+    myDropzone.on("complete", function(file) {
+      // Here's the source in case you nede it. :)
+      var src = JSON.parse(file.xhr.response).src;
+    });
+
+
+    Dropzone.options.Dz = {
+      paramName: "file", // The name that will be used to transfer the file
+      maxFilesize: 4, // MB
+      //- headers: { "Authorization": "Client-ID 64052e56afb5289" },
+      accept: function(file, done) {
+      done();
+      }
+    };
+
+
+

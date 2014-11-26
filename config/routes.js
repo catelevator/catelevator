@@ -67,7 +67,11 @@ module.exports.routes = {
 
   '/examples': {
     view: 'examples'
+  },
+  '/create_job': {
+    view: 'job/create_job'
   }
+
 
   /***************************************************************************
   *                                                                          *
