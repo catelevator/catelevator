@@ -1,3 +1,106 @@
 extends ../layout
-block body 
+block body
   include ../navbar
+  .container
+    br
+    #jobDetails.panel.panel-default
+      .panel-body
+        
+        if job        
+          h1=job.name
+          p.lead=job.desc
+          #jobid.hide=job.id
+
+
+        if tasks
+          each task in tasks
+            .col-sm-2.hide
+              .thumbnail.featureImage
+                img(src="#{task.src}", data-id="#{task.id}")
+
+        .row
+          .col-sm-8
+            #currentImageContainer
+              #currentImage
+                img.thumbnail
+          .col-sm-4
+            .col-sm-12
+              textarea#imageTranscription.transcribingTextarea(name="imageTranscription" width="100%")
+            .col-sm-12
+              input#submitTranscription(type="submit" name="submitTranscription").btn.btn-flat.btn-block.submitButton
+        hr
+        .row
+          .col-sm-12
+            .bgLightDark
+              #job
+
+  script.
+
+    function select(){
+
+      var src = $("#currentImage").find('img').attr('src')
+      var taskid  = $("#currentImage").find('img').attr('data-id')
+
+      var jobid  = $("#jobid").text()
+      var val = $('#imageTranscription').val();
+      console.log(val)
+      io.socket.post("/actions/new_do", {task_id:taskid, job_id:jobid, input:val, type:"transcribing"}, function(new_task,info){
+
+        console.log(new_task)
+        console.log(info)
+
+        $("#currentImage img").attr('src',new_task.src)
+        $("#currentImage img").attr('data-id',new_task.id)
+        
+      })
+
+    }
+
+    $(document).on( "click", ".submitButton", select )
+
+    var featureModel = new $.eventModel();
+
+    featureModel.on('created', function(info,item) {
+      var a = item.data.tasks
+      $.map(a, function(d){
+        console.log(d)
+        $("#job").append($("<span>", {
+          "data-id":d.id,
+          class:"small featureImage"
+        }).append($("<img>",{
+          src:d.src
+        })))
+      })
+    });
+
+    featureModel.on('updated', function(info,item) {
+      $.map(item.data, function(val, attr){
+        if($("#"+item.id+" #"+attr).text())
+          $("#"+item.id+" #"+attr).text(val)
+        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+      })
+    });
+
+    function dataset_glue(model){
+
+      io.socket.on( model, function(dataset){
+        featureModel.emit(dataset.verb, dataset);
+      })
+
+      io.socket.get( "/"+model+"/find", {type:"transcribing"}, function(datasets){
+        console.log(datasets);
+        $.map(datasets, function(dataset){
+          featureModel.emit('created', {
+            id:dataset.id,
+            data:dataset
+          })
+        })
+      })
+      $(".featureImage").first().click();
+    }
+
+    $(document).ready(function(){
+
+      dataset_glue("job");
+
+    });

@@ -418,5 +418,13 @@ table.prettytable {
 }
 
 ::-webkit-input-placeholder {
-  color: #d3d3d3 !important;
+  color: gray !important;
+}
+
+.transcribingTextarea {
+  width:100% !important;
+  height:250px !important;
+  overflow-y: scroll;
+  overflow-x:hidden;
+  resize: none;
 }
