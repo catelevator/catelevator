@@ -416,3 +416,7 @@ table.prettytable {
   /*color: #100029;*/
   font-size: 125%;
 }
+
+::-webkit-input-placeholder {
+  color: #d3d3d3 !important;
+}
