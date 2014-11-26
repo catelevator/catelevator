@@ -215,11 +215,7 @@ block body
         //context.drawImage(cat, 0,0,500,300);
       }
 
-
-
       var featureModel = new $.eventModel();
-
-
 
       featureModel.on('created', function(info,item) {
           var a = item.data.tasks
@@ -262,21 +258,14 @@ block body
               })
             })
             $(".featureImage").first().click();
-          
           })
-        }
+      }
 
       $(document).on( "click", ".featureImage", toCanvas )
       $(document).on( "click", ".selectButton", select )
 
 
-
-
-
-
-
       $(document).ready(function() {
-
 
         dataset_glue("job");
 

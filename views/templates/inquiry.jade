@@ -1,274 +1,214 @@
 extends ../layout
 block body
   include ../navbar
+  script(src="/js/fabric.min.js")
+
   .container
-    br
-    #jobDetails.panel.panel-default
+    .panel.panel-default
+      .panel-heading
+        #job
       .panel-body
-        
-        if job        
-          h1=job.name
-          p.lead=job.desc
-          #jobid.hide=job.id
+        .col-md-3
+          .row
+            if job        
+              h4=job.name
+              p=job.desc
+              #jobid.hide=job.id
+              hr
 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+              b Yes
 
-        if tasks
-          each task in tasks
-            .col-sm-2.hide
-              .thumbnail.featureImage
-                img(src="#{task.src}", data-id="#{task.id}")
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+              b No
 
-        .row
-          .col-sm-9
-            #currentImageContainer
-              #currentImage
-                img.thumbnail
-          .col-sm-3
-            .col-sm-12
-              a.btn.btn-lg.btn-success.btn-flat.btn-superbig.btn-block.selectButton Yes
-            .col-sm-12
-              a.btn.btn-lg.btn-danger.btn-flat.btn-superbig.btn-block.selectButton No
-            .col-sm-12
-              a.btn.btn-lg.btn-default.btn-flat.btn-superbig.btn-block.selectButton Skip
-        hr
-        .row
-          .col-sm-12
-            .bgLightDark
-              #job
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+              b Skip this task
 
-
-  //- #myModal.modal.fade
-  //-   .modal-dialog
-  //-       .modal-content
-  //-         .modal-header
-  //-           button.close(type='button', data-dismiss='modal')
-  //-             span(aria-hidden='true') ×
-  //-             span.sr-only Close
-  //-           h4.modal-title Keyboard Mapping
-  //-         .modal-body
-  //-           table.table.table-bordered
-  //-             tr
-  //-               td 
-  //-                 b a 
-  //-               td Yes
-  //-             tr
-  //-               td 
-  //-                 b s
-  //-               td Maybe
-  //-             tr
-  //-               td 
-  //-                 b d 
-  //-               td No
-  //-             tr
-  //-               td 
-  //-                 b w 
-  //-               td Flag
-
-  //-         .modal-footer
-  //-           button.btn.btn-default(type='button', data-dismiss='modal') Close
-  //-           button.btn.btn-primary(type='button') Save changes
-
-
+        .col-md-9
+            #currentImageContainer.btn-block
+            #currentImage
+            #currentCanvas(style="border:1px solid rgba(50,50,150,0.5);")
+              canvas#mycanvas
+            #job
 
 
   script.
 
-    /**
-     * Puts a clicked image into the #currentImage div
-     * and links the src and the data-id.
-     * @return null
-     */
+    // wraps it all in a clojure
+    (function(){
 
-    function toCanvas(){
-      var src = $(this).find('img').attr('src')
-      var id  = $(this).attr('data-id')
-      $("#currentImage img").attr('src',src)
-      $("#currentImage img").attr('data-id',id)
-    }
+      /**
+       * Example of a constructor -- the feature canvas. Thought I'd show oop and procedural
+       * stuff so you guys can see the fundamental patterns in a variety of ways and continue
+       * it however you like.
+       * @param {Object} ops options parameters
+       */
+      function FeatureCanvas(ops){
+        for(op in ops)
+          this[op]= ops[op]
 
-    /**
-     * Processes the option as selected by the user
-     * and parses, normalizes, then submits the change
-     * to the model.
-     * @return null
-     */
-
-    function select(){
-
-      var src = $("#currentImage").find('img').attr('src')
-      var task_id  = $("#currentImage").find('img').attr('data-id')
-      var jobid  = $("#jobid").text()
-      var val = $(this).text()
-
-      io.socket.post("/actions/new_do", {task_id:task_id,task_id:task_id,input:val}, function(new_task,info){
-
-        console.log(new_task)
-        console.log(info)
-
-        $("#currentImage img").attr('src',new_task.src)
-        $("#currentImage img").attr('data-id',new_task.id)
-        
-      })
-
-    }
-
-    /**
-     * Listens for .selectButton class to be clicked
-     * and binds the event to the select() function
-     * @param  {String}   action    The action listener
-     * @param  {String}   selecter  The DOM id to listen to
-     * @param  {Function} callback  The function to execute
-     * @return null
-     */
-    
-
-    //want this to go back to browse page?
-    //$(document).on("click", ".backButton",)
+        this.canvas = new fabric.Canvas('mycanvas');
+        this.canvas.selection = false;
 
 
-    $(document).on( "click", ".featureImage", toCanvas )
+      
+      }
+
+      /**
+       * Instantiates a new instance of that Class.
+       * @type {FeatureCanvas}
+       */
+      var featureCanvas = new FeatureCanvas()
 
 
-    $(document).on( "click", ".selectButton", select )
+      /**
+       * Sends an image to the main canvas and resizes it appropriately.
+       * We set the background image of the canvas -- instead of adding the image
+       * itself, so we can't bind the aspect ratio to it globally. So our circles relate
+       * to the right pixels on the image.
+       */
+      function toCanvas(){
 
+        var src = $(this).find('img').attr('src')
+        var id  = $(this).find('img').attr('data-id')
+        $(".featureImage.active").removeClass("active")
+        $(this).addClass("active")
 
-    //- $(document).on( "click", ".startButton", function(){ 
-    //-   $(".featureImage").first().click(); 
-    //-   $("#jobDetails").hide() 
-    //-   $("#hiddenAtFirst").show() 
-    //- })
+        featureCanvas.canvas.clear()
 
-    /**
-     * Instantiates a model event domain 
-     */
+        /**
+         * Creates an image from the src url, scales it appropriately, 
+         * then makes it the background image.
+         * @param  {Image} img The image object
+         * @return {[type]}     [description]
+         */
+        fabric.Image.fromURL(src, function(img) {
 
-    var featureModel = new $.eventModel();
+          var w = img.width
+          var h = img.height
+          var cw = $("#currentImageContainer").width()
+          scale_factor = cw/w
+          var ch = h * scale_factor
 
-    /**
-     * Listens for model instance creation and binds  events
-     * to the DOM with respect to their model and structure.
-     * @param  {Object} info        Event information from emit
-     * @param  {Object} item    The thing that happened.
-     * @return null
-     */
-
-    featureModel.on('created', function(info,item) {
-      var a = item.data.tasks
-      $.map(a, function(d){
-        console.log("asdasdasdasad")
-        console.log(d)
-        $("#job").append($("<span>", {
-          "data-id":d.id,
-          class:"small featureImage"
-        }).append($("<img>",{
-          src:d.src
-        })))
-      })
-    });
-
-    /**
-     * Listens for model updates and binds model events
-     * to the DOM with respect to their model and structure.
-     * @param  {Object} info     Event information from emit
-     * @param  {Object} activity The thing that happened.
-     * @return null
-     */
-    
-    featureModel.on('updated', function(info,item) {
-      $.map(item.data, function(val, attr){
-        if($("#"+item.id+" #"+attr).text())
-          $("#"+item.id+" #"+attr).text(val)
-        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
-      })
-    });
-
-    /**
-     * Glues the model events to their respective DOM
-     * elements and gets a specified number of items
-     * with which to first populate the content.
-     * @param  {String} model The name of the model
-     * @return null
-     */
-    
-    function dataset_glue(model){
-
-      io.socket.on( model, function(dataset){
-        featureModel.emit(dataset.verb, dataset);
-      })
-
-      io.socket.get( "/"+model+"/find", {type:"inquiry"}, function(datasets){
-        console.log(datasets);
-        $.map(datasets, function(dataset){
-          featureModel.emit('created', {
-            id:dataset.id,
-            data:dataset
-          })
+          // sets the new w and h for the image
+          img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
+          // sets the new w and h for the canvas
+          featureCanvas.canvas.setWidth(cw);
+          featureCanvas.canvas.setHeight(ch);
+          // sets the canvas backgrouns as the image and binds the dimensions.
+          featureCanvas.canvas.setBackgroundImage( img, 
+            featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
+          );
         })
-      })
-      $(".featureImage").first().click();
-    }
+      }
 
+      /**
+       * When the window is resized -- we want to also resize the canvas to fit.
+       */
+      function resizeCanvas() {
+          var w = featureCanvas.canvas.width
+          var h = featureCanvas.canvas.height
+          var cw = $("#currentImageContainer").width()
+          scale_factor = cw/w
+          var ch = h * scale_factor
+          featureCanvas.canvas.setWidth(cw);
+          featureCanvas.canvas.setHeight(ch);
+          featureCanvas.canvas.renderAll();
+      }
+      // Adds a listener for canvas resize
+      window.addEventListener('resize', resizeCanvas, false);
 
-
-    // When document is ready, grab latest things.
-    $(document).ready(function(){
-
-      dataset_glue("job");
+      // resize on init
+      resizeCanvas();
 
 
       /**
-       * Instantiates Joe Folkemer's awesome Whisker.js plugin
-       * for rapid keyboard binding. Big thanks to Joe!
-       * www.github.com/jrfolk
-       * @type {Global Object}
-       * @return Whisker
+       * Submits whatever stuff you want to submit relating to the user input
+       * upon completion of this task. Can retrieve next tasks here too.
        */
-      
-      //- whisker = Whisker();
+      function select(){
+        // Isolates the values we need
+        var src =  featureCanvas.canvas.src
+        var task_id  = $("#currentImageContainer").find('img').attr('data-id')
+        var job_id  = $("#jobid").text()
+        var val = $(this).text()
+        // logs the circles we have.
+        console.log( featureCanvas.canvas.circles )
+        // Posts this action to the server.
+        io.socket.post("/actions/create", {task_id:task_id,
+          job_id:job_id,
+          input_type:"yesno",
+          input:val,
+          type:"inquiry"
+        }, function(new_task,info){
 
-      /**
-       * Maps the keyboard to the specified DOM events.
-       * @param  {Object} keymap
-       * @param  {onkeydown} 'a' : asserts Yes
-       * @param  {onkeydown} 's' : asserts Dunno
-       * @param  {onkeydown} 'd' : asserts No
-       * @return null
-       */
-      
-      //- whisker.map({
-      //-   onkeydown : {
-      //-     'a' : function(event){ $(".yesButton").click()   },
-      //-     's' : function(event){ $(".dunnoButton").click() },
-      //-     'd' : function(event){ $(".noButton").click()    },
-      //-   }
-      //- });
-
-      /**
-       * Binds whisker to the DOM event domain.
-       * @param  {String}   action    The action listener
-       * @param  {Function} callback  The function to execute
-       * @return null
-       */
-      
-      //- $(document).on("keydown", whisker);
-
-      //- $(".navbar-right").prepend("<li><a class='fa fa-lg fa-keyboard-o' data-toggle='modal' data-target='#myModal'></a></li>");
-
-      /**
-       * Various methods for handling whisker scope.
-       */
-        
-         //- whisker.unmap(keymap);
-         //- whisker.pause();
-         //- whisker.resume();
-         //- whisker.save('scope_name');
-         //- whisker.load('scope_name');
-         //- whisker.clear();
-         //- whisker.clear('scope_name');
-
-    });
+          // Deletes our old circles
+          //featureCanvas.canvas.circles = []
+          // Goes to next task.
+          $(".featureImage.active").next().click()
+        })
+      }
 
 
+      var featureModel = new $.eventModel();
 
 
+      featureModel.on('created', function(info,item) {
+          var a = item.data.tasks
+          $.map(a, function(d){
+            console.log("asdasdasdasad")
+            console.log(d)
+            $("#job").append($("<span>", {
+              "data-id":d.id,
+              class:"small featureImage"
+            }).append($("<img>",{
+              "data-id":d.id,
+                src:d.src
+            })))
+          })
+      });
+
+
+      featureModel.on('updated', function(info,item) {
+          $.map(item.data, function(val, attr){
+            if($("#"+item.id+" #"+attr).text())
+              $("#"+item.id+" #"+attr).text(val)
+            else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+          })
+      });
+
+
+
+      function dataset_glue(model){
+
+          io.socket.on( model, function(dataset){
+            featureModel.emit(dataset.verb, dataset);
+          })
+
+          io.socket.get( "/"+model+"/find", {type:"inquiry"}, function(datasets){
+            console.log(datasets);
+            $.map(datasets, function(dataset){
+              featureModel.emit('created', {
+                id:dataset.id,
+                data:dataset
+              })
+            })
+            $(".featureImage").first().click();
+          
+          })
+        }
+
+      $(document).on( "click", ".featureImage", toCanvas )
+      $(document).on( "click", ".selectButton", select )
+
+
+
+      $(document).ready(function() {
+
+        dataset_glue("job");
+
+      });
+
+    })()
 
