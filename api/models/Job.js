@@ -9,7 +9,8 @@ module.exports = {
 
   attributes: {
 
-    name:"string",
+    name:{type:"string",required:true},
+    desc:{type:"string",required:true},
     progress:{type:"string",defaultsTo:0},
     tasks: { collection:"task", via:"job_id" }
 
