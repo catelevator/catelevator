@@ -109,7 +109,7 @@ module.exports = {
           job_id:job.id
         },
         {
-          src:'http://i.imgur.com/p4kYq.jpg',
+          src:'http://i.imgur.com/PYC86jN.png',
           type:"transcribing",
           job_id:job.id
         },
@@ -124,7 +124,7 @@ module.exports = {
           job.save()
         }
 
-        console.log("bounced jobs")
+        console.log("bounced jobs for transcribing")
       })
 
     })

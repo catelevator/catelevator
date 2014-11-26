@@ -49,11 +49,11 @@ block body
         console.log(new_task)
         console.log(info)
 
+
         $("#currentImage img").attr('src',new_task.src)
         $("#currentImage img").attr('data-id',new_task.id)
-        
       })
-
+        $('#imageTranscription').val("");
     }
 
     $(document).on( "click", ".submitButton", select )
