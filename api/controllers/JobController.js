@@ -46,6 +46,49 @@ module.exports = {
     })
 
     //change detection example
+    Job.create([
+      {
+        name:"Find the differences", 
+        type:"changedetection",
+        reward:0.01,
+        desc: "circle the difference"
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          //i used the same images for each one because 
+          //i'm assuming the images for each task will
+          // be the same size and such...
+          src1:'http://i.imgur.com/RjIIKPCb.jpg',
+          src2: 'http://i.imgur.com/RjIIKPCb.jpg',
+          type:"changedetection",
+          job_id:job.id
+        },
+        {
+          src1:'http://i.imgur.com/tLbXeb.jpg',
+          src2: 'http://i.imgur.com/tLbXeb.jpg',
+          type:"changedetection",
+          job_id:job.id
+        },
+        {
+          src1:'http://i.imgur.com/BJxFeb.jpg',
+          src2:'http://i.imgur.com/BJxFeb.jpg',
+          type:"changedetection",
+          job_id:job.id
+        }
+      ]).exec(function(a,b){ 
+        if(!a){
+          job.taskCount = b.length;
+          job.save()
+        }
+
+        console.log("bounced jobs for change detection")
+      })
+
+    })
+
 
     //evaluation example
     Job.create([
@@ -287,21 +330,25 @@ module.exports = {
       Task.create([
         {
           src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          video_id: 'm2UszPwHvXE',
           type:"videotimetagging",
           job_id:job.id
         },
         {
           src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          video_id: 'm2UszPwHvXE',
           type:"videotimetagging",
           job_id:job.id
         },
         {
           src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          video_id: 'm2UszPwHvXE',
           type:"videotimetagging",
           job_id:job.id
         },
         {
           src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          video_id: 'm2UszPwHvXE',
           type:"videotimetagging",
           job_id:job.id
         }

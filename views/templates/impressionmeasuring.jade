@@ -20,7 +20,7 @@ block body
                 h4.text-muted min value
               .col-sm-6.text-right
                 h4.text-muted max value 
-            input(type="range", min="0", max="10", step="0.1")
+            input(type="range", min="0", max="10", step="0.1")#rangeval
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Enter
 
@@ -134,17 +134,22 @@ block body
        */
       function select(){
         // Isolates the values we need
-        var src =  featureCanvas.canvas.src
+        //- var src =  featureCanvas.canvas.src
         var task_id  = $("#currentImageContainer").find('img').attr('data-id')
         var job_id  = $("#jobid").text()
         var val = $(this).text()
+        //- var inputval = $("#rangeval").value;
+        var inputval = document.getElementById("rangeval").value;
+        console.log(inputval)
         // logs the circles we have.
-        console.log( featureCanvas.canvas.circles )
+        //- console.log( featureCanvas.canvas.circles )
         // Posts this action to the server.
-        io.socket.post("/actions/create", {task_id:task_id,
+        io.socket.post("/actions/new_do", {task_id:task_id,
           job_id:job_id,
-          input_type:"value",
-          input:val,
+          //input_type is the button that is pressed...(enter, no value, skip)
+          input_type:val,
+          //input should only be taken into account if the input_type is ENTER
+          input:inputval,
           type:"impressionmeasuring"
         }, function(new_task,info){
 
