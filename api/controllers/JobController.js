@@ -19,7 +19,8 @@ module.exports = {
   },
 
   work:function(req,res){
-    Job.findOne({ id:req.param('job') }).exec(function(e,job){
+    Job.find({ id:req.param('job') }).exec(function(e,jobs){
+      var job = jobs[0]
       Task.find({ job_id:job.id, limit:2 }).exec(function(e,tasks){
         res.view( "templates/"+job.type, { job:job, tasks:tasks } );
       })
