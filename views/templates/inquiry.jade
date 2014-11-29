@@ -140,9 +140,9 @@ block body
         console.log(src)
         console.log(task_id)
         // Posts this action to the server.
-        io.socket.post("/actions/create", {task_id:task_id,
+        io.socket.post("/actions/new_do", {task_id:task_id,
           job_id:job_id,
-          input_type:"yesno",
+          //- input_type:"yesno",
           input:val,
           type:"inquiry"
         }, function(new_task,info){
