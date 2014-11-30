@@ -1,0 +1,52 @@
+extends ../layout
+block body
+  include ../navbar
+  script(type="text/javascript").
+    var net = !{neural_net}
+
+  .container
+    if job        
+      h3=job.name    
+        b    Analysis   
+      hr
+      #jobid.hide=job.id
+
+      if(tasks)
+        each task in tasks
+          #tasks.col-md-3
+            code.hide
+              o  r: 
+                o=task.data.r
+              o  , g: 
+                o=task.data.g
+              o  , b: 
+                o=task.data.b
+              o  
+              i.small.text-muted.pull-right="("+task.id+")   "
+
+            .panel.panel-default(style="background-color:#{task.rgb}!important;")
+              .panel-body
+
+                if(task.actions)
+                  if(task.id)
+                    div(class="#{task.id}")
+                    script.
+                      $(document).ready(function(){
+
+                        var prediction = net({r:!{task.data.r},g:!{task.data.g},b:!{task.data.b} })
+                        console.log(prediction)
+                        var text_color = (prediction.white > prediction.black ? "white" : "black")
+                        console.log(text_color)
+                        $("."+"#{task.id}")
+                          .append($("<small>", { text:"neural net prediction: " + text_color, style:"color:"+text_color+"!important;"}) )
+                      })
+                    each action in task.actions
+                      .well-sm(style="color:#{(action.input == 0 ? 'black' : 'white')}!important;")
+                        tr
+                          td
+                            fa.fa.fa-fw.fa-user
+                            b=action.user_id+"  "
+                          td #{(action.input == 0 ? 'black' : 'white')}
+      if(neural_net)
+        pre=neural_net
+        br
