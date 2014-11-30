@@ -5,6 +5,9 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
+var merge = require("merge")
+var brain = require("brain")
+
 module.exports = {
 
   index:function(req,res){
@@ -23,6 +26,44 @@ module.exports = {
       var job = jobs[0]
       Task.find({ job_id:job.id, limit:2 }).exec(function(e,tasks){
         res.view( "templates/"+job.type, { job:job, tasks:tasks } );
+      })
+    })
+  },
+
+  analyze:function(req,res){
+    Job.find(req.param('job')).exec(function(e,jobs){
+      var job = jobs[0]
+      Task.find({ job_id:job.id}).populate("actions").exec(function(e,tasks){
+
+        var training_set = []
+
+        _.map(tasks, function(task){
+          _.map(task.actions, function(action){
+            if(action){
+              var output = {}
+              output[(action.input == 0 ? 'black' : 'white')] = 1
+              training_set.push( {input:task.data, output:output })
+            }
+          })
+        })
+        if(tasks[0].actions){
+          
+          console.log(training_set)
+          var net = new brain.NeuralNetwork();
+
+          net.train( training_set );
+
+          // var output = net.run({ r: 1, g: 0.4, b: 0 });
+          var run = net.toFunction();
+          var output = run({ r: 1, g: 0.4, b: 0 });
+
+          var trained_neural_net = run.toString()
+          console.log("trained_neural_net",trained_neural_net); 
+        }
+
+        res.view( "analysis/"+job.type, { job:job, tasks:tasks, neural_net:(trained_neural_net || null) } );
+        // console.log(tasks)
+
       })
     })
   },
@@ -89,6 +130,10 @@ module.exports = {
       })
 
     })
+
+
+
+
 
 
     //evaluation example
@@ -267,6 +312,9 @@ module.exports = {
 
 
     })
+
+
+
     //inquiry example
     Job.create([
       {
@@ -311,7 +359,102 @@ module.exports = {
 
 
     //survey example
+    
 
+      // compare utils
+      
+      /**
+       * Gets a random color in rgb format as a JSON object
+       * @return {[type]} [description]
+       */
+      var randomColor = function() {
+        return {  r: Math.round(Math.random() * 255),
+                  g: Math.round(Math.random() * 255),
+                  b: Math.round(Math.random() * 255) };
+      }
+      /**
+       * Converts rgb json into a rgb() string
+       * @param  {Object} color {r,g,b}
+       * @return {rgb(r,g,b)}       
+       */
+      var toRGB = function(color) {
+        return "rgb(" + color.r + "," + color.g + "," + color.b + ")";
+      }
+      /**
+       * Normalizes rgb values from 255 to 0-1 by 
+       * dividing by 255 
+       * *** and rounding so the neural nets have quilibrium.
+       * @param  {Object} color 
+       * @return {Object}       normalized
+       */
+      var normalize = function(color) {
+        return { r: Math.floor(color.r*10000 / 255)/10000, g: Math.floor(color.g*10000 / 255)/10000, b: Math.floor(color.b*10000 / 255)/10000 };
+        // return { r: Math.floor(color.r / 255), g: Math.floor(color.g / 255), b: Math.floor(color.b / 255) };
+
+      }
+      /**
+       * Makes the sample html for the thing.
+       * @param  {color} rgb [description]
+       * @return {[type]}     [description]
+       */
+      toHTML = function(rgb){
+        return [ 
+            {style:'background-color:'+rgb+';color:black;', html: "<br /> This one <br />"},
+            {style:'background-color:'+rgb+';color:white;', html: "<br /> This one <br />"}
+          ]
+      }
+      /**
+       * Coolor content constructor
+       * @param {[type]} props [description]
+       */
+      function ColorContent(props){
+        for(prop in props)
+          this[prop] = props[prop]
+        this.type    = "compare"
+        this.color   = randomColor()
+        this.rgb     = toRGB( this.color )
+        this.data    = normalize( this.color )
+        this.html    = toHTML( this.rgb )
+      }
+
+    /**
+     * Array constructor
+     * @param  {Number} job_id 
+     * @param  {Integer} count  number of items to populate into array
+     * @return {Array[Object]}        Array of colorContent Objects
+     */
+    function colorContentArray(job_id, count){
+      var arr = []
+      count = count || 20
+      while(count--){
+        var colorContent =  new ColorContent({job_id:job_id})
+        arr.push( colorContent )
+      }
+      return arr;
+    }
+
+    //compare example
+    // views: templates/compare
+    //        analysis/compare
+    Job.create([
+      {
+        name:"Color contrast", 
+        type:"compare",
+        reward:0.005,
+        desc: "Select which color combination is bestest."
+      }
+    ]).exec(function(err,jobs){
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create(
+        colorContentArray( job.id,250 )
+      ).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+        console.log("bounced jobs for compare")})
+    })
 
 
     //transcribing example
@@ -359,7 +502,6 @@ module.exports = {
           job.save()
         }
         res.send("bounced jobs for video")})
-
 
     })
 
