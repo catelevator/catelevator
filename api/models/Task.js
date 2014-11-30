@@ -11,6 +11,10 @@ module.exports = {
 
     job_id: {
       model: 'job'
+    },
+    actions: {
+      collection: 'actions',
+      via: 'task_id'
     }
   }
 };
