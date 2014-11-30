@@ -313,9 +313,6 @@ module.exports = {
 
 
 
-    //transcribing example
-
-
     //video tagging example
     Job.create([
       {
@@ -335,20 +332,20 @@ module.exports = {
           job_id:job.id
         },
         {
-          src:'http://www.youtube.com/embed/m2UszPwHvXE',
-          video_id: 'm2UszPwHvXE',
+          src:'https://www.youtube.com/watch?v=pRLTqdn52AI',
+          video_id: 'pRLTqdn52AI',
           type:"videotimetagging",
           job_id:job.id
         },
         {
-          src:'http://www.youtube.com/embed/m2UszPwHvXE',
-          video_id: 'm2UszPwHvXE',
+          src:'https://www.youtube.com/watch?v=KdxEAt91D7k',
+          video_id: 'KdxEAt91D7k',
           type:"videotimetagging",
           job_id:job.id
         },
         {
-          src:'http://www.youtube.com/embed/m2UszPwHvXE',
-          video_id: 'm2UszPwHvXE',
+          src:'http://youtu.be/KdxEAt91D7k',
+          video_id: 'KdxEAt91D7k',
           type:"videotimetagging",
           job_id:job.id
         }

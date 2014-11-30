@@ -29,15 +29,16 @@ block body
         .col-md-9
             #currentImageContainer.btn-block
             #currentVideo
-              iframe(id="myvideo")
+              #player
+              //- iframe(id="myvideo")
               //- .row
               //-   a.btn.btn-md.btn-warning.videobutton Play
               //-   a.btn.btn-md.btn-warning.videobutton Pause
-              .row
-                .col-sm-10
-                  input(id="paused", type='text', placeholder='enter time here').form-control
-                .col-sm-1
-                  a.btn.btn-md.btn-warning.clearbtnVideo Clear
+            .row
+              .col-sm-10
+                input(id="paused", type='text', placeholder='enter time here').form-control
+              .col-sm-1
+                a.btn.btn-md.btn-warning.clearbtnVideo Clear
 
             //- #currentImage
             //- #currentCanvas(style="border:1px solid rgba(50,50,150,0.5);")
@@ -47,77 +48,11 @@ block body
 
     // wraps it all in a clojure
     (function(){
-
-      //- var iframe = $('#myvideo')[0],
-      //-     player = $(iframe);
-    
-      //- // When the player is ready, add listeners for pause, finish, and playProgress
-      //- player.addEvent('ready', function() {
-      //-     //- status.text('ready');
-          
-      //-     player.addEvent('pause', onPause);
-      //-     player.addEvent('finish', onFinish);
-      //-     player.addEvent('playProgress', onPlayProgress);
-      //- });
-
-      //- // Call the API when a button is pressed
-      //- $('.videobutton').bind('click', function() {
-      //-     player.api($(this).text().toLowerCase());
-      //- });
-
-      //- function onPause(id) {
-      //-   document.getElementById("paused").value = "paused";
-      //-     //- status.text('paused');
-      //- }
-
-      //- function onFinish(id) {
-      //-   document.getElementById("paused").value = "finished";
-      //-     //- status.text('finished');
-      //- }
-
-      //- function onPlayProgress(data, id) {
-      //-   document.getElementById("paused").value = "this";
-      //-     //- status.text(data.seconds + 's played');
-      //- }
-
-      //- var vid = document.getElementById("myvideo");
-
-      //- vid.onseeking = function() {
-      //-   document.getElementById("paused").value = vid.currentTime;
-      //- }
-
-      //- vid.onpause = function() {
-      //-   if(vid.duration != vid.currentTime)
-      //-     document.getElementById("paused").value = vid.currentTime;
-      //- }
-
-      //- $(document).on("click", ".clearbtnVideo", function() {
-      //-   document.getElementById("paused").value = '';
-      //- })
-
-      /**
-       * Example of a constructor -- the feature canvas. Thought I'd show oop and procedural
-       * stuff so you guys can see the fundamental patterns in a variety of ways and continue
-       * it however you like.
-       * @param {Object} ops options parameters
-       */
-      //- function FeatureCanvas(ops){
-      //-   for(op in ops)
-      //-     this[op]= ops[op]
-
-      //-   this.canvas = new fabric.Canvas('mycanvas');
-      //-   //- this.canvas.selection = false;
-      //-   //- this.canvas.circles = [];
-
-      //- }
-
-      /**
-       * Instantiates a new instance of that Class.
-       * @type {FeatureCanvas}
-       */
-      //- var featureCanvas = new FeatureCanvas()
-
-
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api"
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player;
       /**
        * Sends an image to the main canvas and resizes it appropriately.
        * We set the background image of the canvas -- instead of adding the image
@@ -126,60 +61,48 @@ block body
        */
       function toCanvas(){
 
-        var src = $(this).find('img').attr('vidsrc')
+        var src = $(this).find('img').attr('vidid')
         var id  = $(this).find('img').attr('data-id')
         $(".featureImage.active").removeClass("active")
         $(this).addClass("active")
+        if(player != null) player.destroy();
+        document.getElementById("paused").value = '';
+        onYouTubeIframeAPIReady(src);
 
-        $("#currentVideo iframe").attr('src',src)
-        $("#currentVideo iframe").attr('data-id',id)
 
-        //- featureCanvas.canvas.clear()
+        //- var src = $(this).find('img').attr('vidsrc')
+        //- var src = $(this).find('img').attr('vidid')
+        //- src = "http://www.youtube.com/embed/"+src;
+        //- var id  = $(this).find('img').attr('data-id')
+        //- $(".featureImage.active").removeClass("active")
+        //- $(this).addClass("active")
 
-        /**
-         * Creates an image from the src url, scales it appropriately, 
-         * then makes it the background image.
-         * @param  {Image} img The image object
-         * @return {[type]}     [description]
-         */
-        //- fabric.Image.fromURL(src, function(img) {
+        //- $("#currentVideo iframe").attr('src',src)
+        //- $("#currentVideo iframe").attr('data-id',id)
 
-        //-   var w = img.width
-        //-   var h = img.height
-        //-   var cw = $("#currentImageContainer").width()
-        //-   scale_factor = cw/w
-        //-   var ch = h * scale_factor
-
-        //-   // sets the new w and h for the image
-        //-   img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
-        //-   // sets the new w and h for the canvas
-        //-   featureCanvas.canvas.setWidth(cw);
-        //-   featureCanvas.canvas.setHeight(ch);
-        //-   // sets the canvas backgrouns as the image and binds the dimensions.
-        //-   featureCanvas.canvas.setBackgroundImage( img, 
-        //-     featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
-        //-   );
-        //- })
       }
 
-      /**
-       * When the window is resized -- we want to also resize the canvas to fit.
-       */
-      //- function resizeCanvas() {
-      //-     var w = featureCanvas.canvas.width
-      //-     var h = featureCanvas.canvas.height
-      //-     var cw = $("#currentImageContainer").width()
-      //-     scale_factor = cw/w
-      //-     var ch = h * scale_factor
-      //-     featureCanvas.canvas.setWidth(cw);
-      //-     featureCanvas.canvas.setHeight(ch);
-      //-     featureCanvas.canvas.renderAll();
-      //- }
-      //- // Adds a listener for canvas resize
-      //- window.addEventListener('resize', resizeCanvas, false);
+      function onYouTubeIframeAPIReady(src) {
+            player = new YT.Player('player', {
+              height: '390',
+              width: '640',
+              videoId: src,
+              //- 'data-id': id,
+              events: {
+                'onStateChange': onPlayerStateChange
+              }
+            });
+        }
 
-      //- // resize on init
-      //- resizeCanvas();
+
+      //- var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PAUSED) {
+          //- setTimeout(stopVideo, 6000);
+          document.getElementById("paused").value = player.getCurrentTime();
+          //- done = true;
+        }
+      }
 
 
       /**
@@ -193,19 +116,20 @@ block body
         var src = $("#currentVideo").find('iframe').attr('src')
         var task_id  = $("#currentVideo").find('iframe').attr('data-id')
         var job_id  = $("#jobid").text()
-        var val = $(this).text()
+        var inputbtn = $(this).text()
+        var val = document.getElementById("paused").value;
         // logs the circles we have.
         //- console.log( featureCanvas.canvas.circles )
         // Posts this action to the server.
         io.socket.post("/actions/new_do", {task_id:task_id,
           job_id:job_id,
+          input_type:inputbtn,
+          input:val,
           //- input_type:"circles",
           //- input:featureCanvas.canvas.circles,
           type:"videotimetagging"
         }, function(new_task,info){
-
-          // Deletes our old circles
-          //- featureCanvas.canvas.circles = []
+          //- player.destroy();
           // Goes to next task.
           $(".featureImage.active").next().click()
         })
@@ -225,6 +149,7 @@ block body
               class:"small featureImage"
             }).append($("<img>",{
               "data-id":d.id,
+              "vidid":d.video_id,
                 src:"http://img.youtube.com/vi/"+d.video_id+"/default.jpg",
                 "vidsrc":d.src
             })))
