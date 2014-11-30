@@ -1,7 +1,7 @@
 extends ../layout
 block body
   include ../navbar
-  .container
+  form(target="job/create", method="POST").form.job_form.container
     .col-md-10.col-md-offset-1
       br
       h1.text-center.skinny Crowd source in seconds.
@@ -71,7 +71,7 @@ block body
                 .col-md-4
                   p.lead Description:
                 .col-md-8
-                  textarea(placeholder="Description").form-control#jobDesc
+                  textarea(name="desc", value="test", placeholder="Description").form-control#jobDesc
                 br
                 br
                 br
@@ -81,7 +81,7 @@ block body
 
             .panel-footer.text-right
                 //- button.btn.btn-link cancel  
-                button#activate-step-2.btn.button.button-flat-action Next 
+                a#activate-step-2.btn.btn-success.next Next 
                   fa.fa.fa-fw.fa-chevron-right
 
 
@@ -94,7 +94,7 @@ block body
                   .col-md-4
                     p.lead Prompt for each task:
                   .col-md-8
-                    input(type="text", placeholder="Find the difference between the photos.").form-control
+                    input(name="instruction",type="text", value="test", placeholder="Find the difference between the photos.").form-control
                   br
                 hr
               #evaluation.config-content
@@ -160,22 +160,15 @@ block body
                 #customAnswerSet
                   .col-md-12
                     .col-md-4
-                      p.lead Number of Answers
-                    .col-md-2
-                      input(type="number", min="1", max="6", value="2", id="numAnswers", onchange="customAnswers()").form-control
-                    .col-md-6
-                      #answer1
-                        input(type="text", placeholder="Custom Answer 1").form-control
-                      #answer2
-                        input(type="text", placeholder="Custom Answer 2").form-control
-                      #answer3
-                        input(type="text", placeholder="Custom Answer 3").form-control
-                      #answer4
-                        input(type="text", placeholder="Custom Answer 4").form-control
-                      #answer5
-                        input(type="text", placeholder="Custom Answer 5").form-control
-                      #answer6
-                        input(type="text", placeholder="Custom Answer 6").form-control
+                      p.lead Custom Answers:
+                    .col-md-8
+                      form
+                        .form-group.multiple-form-group(data-max='8')
+                          .form-group.input-group
+                            input.form-control(type='text', name='multiple[]')
+                            span.input-group-btn
+                              button.btn.btn-default.btn-add(type='button') 
+                                | +
                 hr
               #survey.config-content
                 .col-md-12
@@ -262,30 +255,8 @@ block body
                 br
                 br
                 form(action="#", class="dropzone dz-clickable", id="my-awesome-dropzone")
-
                 br
                 br
-
-                //- form.form(action='/jobs/create')
-
-                //-   //- dropdown thing for task type
-                  
-                //-   br
-                //-   #addMoreTasks
-                //-     hr
-                //-     .row
-                //-       .col-md-1
-                //-         label 1.
-                //-       .col-md-11
-                //-         input(type='file', placeholder='things', name='task1').form-control
-
-                //-   hr
-                //-   .row
-                //-   a.btn.btn.button-link.addtask
-                //-     fa.fa.fa-plus.fa-fw
-                //-     o Add Another Task
-                //-   br
-                //-   br
 
             .panel-footer.text-right
                   //- button.btn.btn-link Cancel  
@@ -298,60 +269,49 @@ block body
     //var taskcount = 2;
     var template;
 
-    $('.selectpicker').selectpicker();
 
-    //- this is definitely not the best way to do this...but it works...
-    function customAnswers() {
-      var x = document.getElementById("numAnswers").value;
-      if( x == '1') {
-        $('#answer1').show();
-        $('#answer2').hide();
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '2') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '3') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '4') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '5') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').show();
-        $('#answer6').hide();
-      }
-      if( x == '6') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').show();
-        $('#answer6').show();
-      }
-    }
+    var addFormGroup = function (event) {
+        event.preventDefault();
+
+        var $formGroup = $(this).closest('.form-group');
+        var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+        var $formGroupClone = $formGroup.clone();
+
+        $(this)
+            .toggleClass('btn-default btn-add btn-danger btn-remove')
+            .html('–');
+
+        $formGroupClone.find('input').val('');
+        $formGroupClone.insertAfter($formGroup);
+
+        var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+        if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+            $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+        }
+    };
+
+    var removeFormGroup = function (event) {
+        event.preventDefault();
+
+        var $formGroup = $(this).closest('.form-group');
+        var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+        var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+        if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+            $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+        }
+
+        $formGroup.remove();
+    };
+
+    var countFormGroup = function ($form) {
+        return $form.find('.form-group').length;
+    };
+
+    $(document).on('click', '.btn-add', addFormGroup);
+    $(document).on('click', '.btn-remove', removeFormGroup);
+
+    $('.selectpicker').selectpicker();
 
 
     $('input[name="inquiryOptions"]').on('change', function() {
@@ -362,15 +322,6 @@ block body
         $('#customAnswerSet').show();
       }
     })
-
-    //- $(document).on( "click", ".addtask", function(){ 
-    //-   $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
-    //-     + taskcount + '.</label></div>' 
-    //-     + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
-    //-     + taskcount + '", placeholder="things"></input></div></div>');
-      
-    //-   taskcount++;
-    //- })
 
 
     $(document).ready(function() {
@@ -387,10 +338,6 @@ block body
 
         $('#customAnswerSet').hide();
 
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
 
         navListItems.click(function(e)
         {
@@ -433,7 +380,6 @@ block body
               $('#videoTagging').show();
             //$(this).remove();
 
-
         })    
 
         $('#activate-step-3').on('click', function(e) {
@@ -448,12 +394,4 @@ block body
           $('.config-content').hide();
         })
 
-
-
-
     });
-
-
-
-
-
