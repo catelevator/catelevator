@@ -90,7 +90,7 @@ module.exports = {
     //change detection example
     Job.create([
       {
-        name:"Find the differences", 
+        name:"Detect changes in satellite imagery", 
         type:"changedetection",
         reward:0.01,
         desc: "circle the difference"
@@ -103,20 +103,20 @@ module.exports = {
           //i used the same images for each one because 
           //i'm assuming the images for each task will
           // be the same size and such...
-          src1:'http://i.imgur.com/RjIIKPCb.jpg',
-          src2: 'http://i.imgur.com/RjIIKPCb.jpg',
+          src1:'http://i.imgur.com/3yAxWNB.jpg',
+          src2: 'http://i.imgur.com/Z50CDpz.jpg',
           type:"changedetection",
           job_id:job.id
         },
         {
-          src1:'http://i.imgur.com/tLbXeb.jpg',
-          src2: 'http://i.imgur.com/tLbXeb.jpg',
+          src1:'http://i.imgur.com/nLo1Nqo.jpg',
+          src2: 'http://i.imgur.com/Uj85y7B.jpg',
           type:"changedetection",
           job_id:job.id
         },
         {
-          src1:'http://i.imgur.com/BJxFeb.jpg',
-          src2:'http://i.imgur.com/BJxFeb.jpg',
+          src1:'http://i.imgur.com/OqkpCg1.jpg',
+          src2:'http://i.imgur.com/2NyrRBp.jpg',
           type:"changedetection",
           job_id:job.id
         }
@@ -125,7 +125,6 @@ module.exports = {
           job.taskCount = b.length;
           job.save()
         }
-
         console.log("bounced jobs for change detection")
       })
 
@@ -139,9 +138,9 @@ module.exports = {
     //evaluation example
     Job.create([
       {
-        name:"Solve the captcha", 
+        name:"Solve captchas for spam bots", 
         type:"evaluation",
-        reward:0.01,
+        reward:0.001,
         desc: "Type the letters in the box."
       }
     ]).exec(function(err,jobs){ 
@@ -178,7 +177,7 @@ module.exports = {
     //Transcribing example
     Job.create([
       {
-        name:"Transcribe This", 
+        name:"Read and transcribe hand written notes", 
         type:"transcribing",
         reward:0.01,
         desc: "Transcribe the images."
@@ -222,10 +221,10 @@ module.exports = {
     //feature finding example
     Job.create([
       {
-        name:"Where are the cats?", 
+        name:"Classify image content semantically", 
         type:"featurefinding",
         reward:0.01,
-        desc: "circle the cats in the pictures"
+        desc: "Find and circle the cats in the picture."
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)
@@ -266,10 +265,10 @@ module.exports = {
     //impression measuring example
     Job.create([
       {
-        name:"How does this make you feel?", 
+        name:"Tell me how fantastic my cat is. ", 
         type:"impressionmeasuring",
         reward:0.02,
-        desc: "on the provided scale, submit how the data makes you feel, i'm making this description really long so i can see how the dashboard looks if a description for one of the things is really long like this one."
+        desc: "Position the slider to indicate how awesome my cat is."
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)
@@ -310,7 +309,6 @@ module.exports = {
         }
          console.log("bounced jobs for impressionmeasuring")})
 
-
     })
 
 
@@ -318,10 +316,10 @@ module.exports = {
     //inquiry example
     Job.create([
       {
-        name:"Are there any cats?", 
+        name:"Filter images by cat presence.", 
         type:"inquiry",
         reward:0.02,
-        desc: "Select whether or not a feature exists in a dataset."
+        desc: "Select whether or not the specified feature exists in the dataset."
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)
@@ -353,7 +351,6 @@ module.exports = {
           job.save()
         }
          console.log("bounced jobs for inquiry")})
-
 
     })
 
@@ -438,7 +435,7 @@ module.exports = {
     //        analysis/compare
     Job.create([
       {
-        name:"Color contrast", 
+        name:"Teach a neural net to optimize color contrasts", 
         type:"compare",
         reward:0.005,
         desc: "Select which color combination is bestest."
@@ -460,10 +457,10 @@ module.exports = {
     //video tagging example
     Job.create([
       {
-        name:"when do cats appear", 
+        name:"Find when cats appear in these videos", 
         type:"videotimetagging",
         reward:0.02,
-        desc: "pause video when you see the cat"
+        desc: "Pause video when you see the cat."
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)

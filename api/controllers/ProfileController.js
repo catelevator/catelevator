@@ -68,14 +68,14 @@ module.exports = {
     return;
   },
 
-  analytics:function(req,res){
-      var content  = {}
+  analyze:function(req,res){
+    var content  = {}
     content.user = req.user[0]
 
     Job.find({}).exec(function(err,jobs){
 
       content.jobs = err || jobs
-      res.view( "profile/anaylitics", content );
+      res.view( "profile/analyze", content );
     })
 
     return;
