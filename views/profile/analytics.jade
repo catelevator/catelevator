@@ -1,0 +1,80 @@
+//- page that shows analytics about uploaded jobs
+extends ../layout
+block body
+  include ../navbar
+  .container-fluid(style="background-color:#f7f7f8;")
+    .container
+      .row.well-sm
+        br
+        .col-md-3
+          include sidebar
+  
+
+
+        .col-md-9
+          
+          if jobs
+            for job in jobs
+              .panel.panel-anay
+                .panel-heading
+                  h4.panel-title=job.name
+                  
+                  span.pull-right.clickable
+                    i.glyphicon.glphicon-minus
+                      
+                  p=job.desc
+
+
+                .panel-body
+                  h3=job.taskCount + " tasks in this job"
+                  h4 20 people have completed this job
+                  p so here we can put analytics about the job and maybe eventually we can make the title of the job a link to an actual page that displays a bigger view of the data.
+                  p feel free to change the colors of these things, i just wanted them to stand out more
+
+
+              //- .panel
+              //-   .well-sm
+              //-     .row
+              //-       .col-md-9
+              //-         h4
+              //-           a(href="/job/work?job=#{job.id}").btn-link=job.name
+              //-       .col-md-3.pull-right
+              //-         b=job.taskCount+" tasks"
+              //-     .row
+              //-       .col-md-9
+              //-         p=job.desc
+              //-       //- this is just for mads ocd purposes to make sure all templates are made
+              //-       .col-md-3
+              //-         p=job.type
+
+
+  script.
+    $(document).on('click', '.panel-heading span.clickable', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        }
+    });
+    $(document).on('click', '.panel div.clickable', function (e) {
+        var $this = $(this);
+        if (!$this.hasClass('panel-collapsed')) {
+            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.addClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
+        } else {
+            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.removeClass('panel-collapsed');
+            $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
+        }
+    });
+    $(document).ready(function () {
+        $('.panel-heading span.clickable').click();
+        $('.panel div.clickable').click();
+    });
+

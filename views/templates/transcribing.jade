@@ -116,7 +116,8 @@ block body
           "data-id":d.id,
           class:"small featureImage"
         }).append($("<img>",{
-          src:d.src
+          src:d.src,
+          "data-id":d.id
         })))
       })
       $(".featureImage").first().click();

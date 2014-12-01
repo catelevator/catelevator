@@ -32,6 +32,57 @@ body {
 }
 
 
+
+
+
+/*this is for the dropdown panels to view analytics*/
+.clickable
+{
+    cursor: pointer;
+}
+
+.clickable .glyphicon
+{
+    background: rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px
+}
+
+.panel-anay {
+  border-color: #dddddd;
+  /*background-color: #777;*/
+
+}
+
+.panel-anay > .panel-heading {
+  color: #000;
+  background-color: #DFE8E8;
+  border-color: #6a7aa6;
+}
+
+.panel-anay > .panel-heading > .panel-title {
+  color: #6a7aa6;
+  font-size: 20px;
+}
+
+.panel-anay > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #6a7aa6;
+}
+
+.panel-heading span
+{
+    margin-top: -23px;
+    font-size: 15px;
+    margin-right: -9px;
+}
+a.clickable { color: inherit; }
+a.clickable:hover { text-decoration:none; }
+
+
+
+
+
 /*this is for the footer thing that doesn't work*/
 .footer {
   position: absolute;
@@ -46,6 +97,7 @@ body {
 hr{
   border-color:#ddd!important;
 }
+
 
 
 

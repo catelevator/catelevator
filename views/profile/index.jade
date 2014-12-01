@@ -8,11 +8,11 @@ block body
     .container
       .row.well-sm
         br
-        .col-md-4
+        .col-md-3
 
           include sidebar
 
-        .col-md-8
+        .col-md-9
           ul.nav.nav-justified.text-center
             li.navbar-text
               br
@@ -30,21 +30,24 @@ block body
 
           if jobs
             for job in jobs
-              .panel
-                .well-sm
-                  .row
-                    .col-md-6
-                      h4
-                        a(href="/job/work?job=#{job.id}").btn-link=job.name
-                    .col-md-2
-                      b=job.taskCount+" tasks"+job.progress
-                    .col-md-4
-                      .progress
-                        .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
-                        .progress-completed 60%
-                  .row
-                    .col-md-9
-                      p=job.desc
-                    //- this is just for mads ocd purposes to make sure all templates are made
-                    .col-md-3
-                      p=job.type
+              if job.progress != 0
+                .panel
+                  .well-sm
+                    .row
+                      .col-md-6
+                        h4
+                          a(href="/job/work?job=#{job.id}").btn-link=job.name
+                      .col-md-2
+                        b=job.taskCount+" tasks"+job.progress
+                      .col-md-4
+                        .progress
+                          .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
+                          .progress-completed 60%
+                    .row
+                      .col-md-9
+                        p=job.desc
+                      //- this is just for mads ocd purposes to make sure all templates are made
+                      .col-md-3
+                        p=job.type
+              else
+                p no active jobs
