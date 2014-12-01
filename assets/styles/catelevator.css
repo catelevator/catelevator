@@ -11,10 +11,17 @@ body {
    margin-bottom: 60px;
 }
 
+.panel,.well,.btn{
+      -webkit-border-radius: 0 0px 0px 0px;
+    -moz-border-radius: 0 0px 0px;
+    border-radius: 0 0px 0px 0px;
+}
+
+
 /*these are for the progress bars on the active jobs page*/
 .progress {
     position: relative;
-  height: 25px;
+    height: 25px;
 }
 .progress > .progress-type {
   position: absolute;
@@ -374,7 +381,7 @@ img:hover.preview  {
 
 /*navbar things*/
 .navbar-custom{
-  background-color:#222222;
+  background-color:#2d2d2d59447c;
   color:#ddd;
 }
 
