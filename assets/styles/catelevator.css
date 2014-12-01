@@ -12,18 +12,20 @@ body {
 }
 
 .panel,.well,.btn, .sidebar li a{
-      -webkit-border-radius: 0 0px 0px 0px;
+    -webkit-border-radius: 0 0px 0px 0px;
     -moz-border-radius: 0 0px 0px;
     border-radius: 0 0px 0px 0px;
+    border-color:#e2e2e2;
 }
 .sidebar{
   margin:0px;
   font-weight:600;
   margin-left:1px;
   border-top:1px solid #f9f9f9;
+  border-bottom:1px solid #f9f9f9;
 }
 .sidebar li a{
-  color:#202024!important;
+  color:#32323f!important;
   font-size:15px;
   padding:13px;
   margin:0px;
@@ -417,7 +419,7 @@ img:hover.preview  {
 .navbar-custom a.navbar-brand {
   color:#fff!important;
   font-weight:400!important;
-  font-size:22px;
+  font-size:20px;
   text-shadow:none!important;
 }
 /*

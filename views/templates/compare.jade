@@ -91,11 +91,14 @@ block body
             "id":task.id,
             "data-id":task.id,
             text:++features_count,
-             class:"btn btn-default btn-link task_instance"
-          })
+             class:"btn task_instance"
+          }).css("background-color",task.rgb+"!important")
         .append( 
 
-          $("<task_content>", {class:"text-center hide" }) 
+          $("<task_content>", {
+            class:"text-center hide" 
+
+            }) 
 
           .append( 
 
