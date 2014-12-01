@@ -6,7 +6,7 @@
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipImpress
       .container
@@ -20,7 +20,7 @@
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted Move the slider to measure the impression
 
           .panel-body
@@ -43,7 +43,7 @@
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnImpress 
                   b No Comment
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnImpress  
-                  b Skip
+                  b Next Template
 
             .col-sm-6.col-md-offset-2
               img(src="http://i.imgur.com/SpCbHBI.jpg", margin="auto",  width="500", height="500", style="margin:auto;float:none;")
@@ -61,7 +61,9 @@ script.
 
   $(document).on("click", ".skipbtnImpress", function() {
     $('#yesnoImpress').hide()
-    $('#skipImpress').show()
+    //- $('#skipImpress').show()
+    $('#exampletabs li a[href="#inquiry"]').trigger('click');
+
   })
 
   $(document).on("click", ".reviewbtnImpress", function() {

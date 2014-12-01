@@ -539,7 +539,10 @@ table.prettytable {
   border: 1px solid #ddd !important;
 }
 
-
+.exampleheading {
+  background-color: #f5f5f5 !important;
+  border-color: #ddd !important;
+}
 
 
 

@@ -8,7 +8,7 @@
       .container.text.center
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipInquiry
       .container.text.center  
@@ -21,7 +21,7 @@
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted While exploring this template you will be asked to find a feature in a variety of mediums including videos, pictures, and audio. 
 
           .panel-body
@@ -34,7 +34,7 @@
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnInquiry 
                   b No
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnInquiry  
-                  b Skip
+                  b Next Template
 
             .col-sm-7.col-sm-offset-1
               img(src="http://i.imgur.com/eLmmpdR.jpg", width='600', height='400')
@@ -53,6 +53,8 @@ script.
 
   $(document).on("click", ".skipbtnInquiry", function() {
     $('#yesnoInquiry').hide()
-    $('#skipInquiry').show()
+    //- $('#skipInquiry').show()
+    $('#exampletabs li a[href="#survey"]').trigger('click');
+
   })
 

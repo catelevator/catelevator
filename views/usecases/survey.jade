@@ -7,7 +7,7 @@
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipSurvey
       .container
@@ -20,7 +20,7 @@
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted In this template you are asked a series of different questions for which you chose specific answers. 
 
           .panel-body
@@ -34,7 +34,7 @@
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnSurvey 
                   b No Answer
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnSurvey  
-                  b Skip
+                  b Next Template
 
             .col-sm-9
               form.form(action='')
@@ -80,6 +80,8 @@ script.
 
   $(document).on("click", ".skipbtnSurvey", function() {
     $('#yesnoSurvey').hide()
-    $('#skipSurvey').show()
+    //- $('#skipSurvey').show()
+    $('#exampletabs li a[href="#transcribing"]').trigger('click');
+
   })
      

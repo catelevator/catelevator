@@ -10,7 +10,7 @@
       .container.text.center
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipFind
       .container.text.center  
@@ -23,7 +23,7 @@
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted Interact with this template by circling the feature.
 
           .panel-body
@@ -38,7 +38,7 @@
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.clearbtn
                   b Clear canvas
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnFind  
-                  b Skip
+                  b Next Template
 
             .col-md-9
               canvas(id='mycanvas', width="800px", height="500px", style="border:1px solid #000000;")
@@ -163,7 +163,8 @@ script.
 
   $(document).on("click", ".skipbtnFind", function() {
     $('#yesnoFind').hide();
-    $('#skipFind').show();
+    //- $('#skipFind').show();
+    $('#exampletabs li a[href="#impressionmeasuring"]').trigger('click');
 
   });
 

@@ -6,22 +6,17 @@
 
     #yesnoChange
       .container.text.center
+        br
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
-      hr
-    #skipChange
-      .container.text.center  
-        .text-center
-          h4 Users can sign up to continue tagging data
-          h5 Click on another tab to explore other templates
+          p Please continue to explore other templates
       hr
 
     #firstChange
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted Interact with this template by circling the difference between the two photos.
 
           .panel-body
@@ -35,8 +30,8 @@
                   b Not Found
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.clearbtnChange
                   b Clear canvas
-                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnInquiry  
-                  b Skip
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnChange  
+                  b Next Template
 
             .col-md-4.col-md-offset-1#can1
               br
@@ -262,8 +257,11 @@ script.
 
   $(document).on("click", ".skipbtnChange", function() {
     $('#yesnoChange').hide();
-    $('#skipChange').show();
-
+    //- $('#skipChange').show();
+    //- document.getElementById("#exampletabs li.active").next().click()
+    $('#exampletabs li a[href="#evaluation"]').trigger('click');
+    //- $('#changedection').next();
+    //- $(this).next();
   });
 
 

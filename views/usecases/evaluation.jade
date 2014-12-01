@@ -7,7 +7,7 @@
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipEval
       .container
@@ -20,7 +20,7 @@
       .container-fluid
         br
         .panel.panel-default
-          .panel-heading
+          .panel-heading.exampleheading
             .templateDescription.text-muted In this template you are asked to provide feedback on the given information. 
 
           .panel-body
@@ -36,7 +36,7 @@
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnEval 
                   b No Comment
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnEval  
-                  b Skip
+                  b Next Template
 
             .col-sm-7.col-sm-offset-1
               .well.well-big
@@ -86,6 +86,8 @@ script.
 
   $(document).on("click", ".skipbtnEval", function() {
     $('#yesnoEval').hide()
-    $('#skipEval').show()
+    //- $('#skipEval').show()
+    $('#exampletabs li a[href="#featurefinding"]').trigger('click');
+
   })
      
