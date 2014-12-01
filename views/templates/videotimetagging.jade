@@ -78,7 +78,7 @@ block body
         //- $(this).addClass("active")
 
         //- $("#currentVideo iframe").attr('src',src)
-        //- $("#currentVideo iframe").attr('data-id',id)
+        $("#currentVideo iframe").attr('data-id',id)
 
       }
 
@@ -115,9 +115,11 @@ block body
         //- var task_id  = $("#currentImageContainer").find('img').attr('data-id')
         var src = $("#currentVideo").find('iframe').attr('src')
         var task_id  = $("#currentVideo").find('iframe').attr('data-id')
+        //- if(task_id == null) alert('task_id = null')
         var job_id  = $("#jobid").text()
         var inputbtn = $(this).text()
         var val = document.getElementById("paused").value;
+        console.log(val)
         // logs the circles we have.
         //- console.log( featureCanvas.canvas.circles )
         // Posts this action to the server.
@@ -129,6 +131,7 @@ block body
           //- input:featureCanvas.canvas.circles,
           type:"videotimetagging"
         }, function(new_task,info){
+            console.log(new_task)
           //- player.destroy();
           // Goes to next task.
           $(".featureImage.active").next().click()
