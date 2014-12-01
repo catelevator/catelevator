@@ -1,18 +1,24 @@
-//- h1=user.username
-table.table.table-condensed
-  tr
-    td points
-    td=user.points
-  tr
-    td rating
-    td 0
-
-ul.nav.nav-pills.nav-stacked
-  li
-    a(href='/u') Active jobs
-  li
-    a(href='/profile/browse') Browse jobs
-  li
-    a(href='/profile/analytics') Created jobs
+.sidebar
+  .row
+    ul.nav.nav-pills.nav-stacked
+      li
+        a(href='/u') 
+          .fa.fa-fw.fa-user
+          o.scootRight Your jobs
+      li
+        a(href='/profile/browse') 
+          .fa.fa-fw.fa-bars
+          o.scootRight All jobs
+      li
+        a(href='/profile/analytics') 
+          .fa.fa-fw.fa-bar-chart
+          o.scootRight Your work
   
 
+    //- table.table.table-condensed
+    //-   tr
+    //-     td(style="padding-left:18px;") points
+    //-     td=user.points||0
+    //-   tr
+    //-     td(style="padding-left:18px;") rating
+    //-     td 0
