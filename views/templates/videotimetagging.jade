@@ -17,8 +17,15 @@ block body
               #jobid.hide=job.id
               hr
 
+            .row
+              .col-sm-8
+                input(id="paused", type='text', placeholder='enter time here').form-control
+              .col-sm-1
+                a.btn.btn-md.btn-warning.clearbtnVideo Clear
+            br    
+
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
-              b Next
+              b Submit
 
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Not Found
@@ -34,11 +41,11 @@ block body
               //- .row
               //-   a.btn.btn-md.btn-warning.videobutton Play
               //-   a.btn.btn-md.btn-warning.videobutton Pause
-            .row
-              .col-sm-10
-                input(id="paused", type='text', placeholder='enter time here').form-control
-              .col-sm-1
-                a.btn.btn-md.btn-warning.clearbtnVideo Clear
+            //- .row
+            //-   .col-sm-10
+            //-     input(id="paused", type='text', placeholder='enter time here').form-control
+            //-   .col-sm-1
+            //-     a.btn.btn-md.btn-warning.clearbtnVideo Clear
 
             //- #currentImage
             //- #currentCanvas(style="border:1px solid rgba(50,50,150,0.5);")

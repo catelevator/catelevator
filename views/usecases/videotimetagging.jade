@@ -1,8 +1,8 @@
 .bg11
 
-    br 
-    .templateDescription.text-muted Tag the time the feature appears in the video or audio clip. Try dragging the video time slider.
-    hr
+    //- br 
+    //- .templateDescription.text-muted Tag the time the feature appears in the video or audio clip. Try dragging the video time slider.
+    //- hr
 
     #yesnoVideo
       .container
@@ -18,54 +18,75 @@
       hr
 
     #firstVideo
-      .container
-        .col-sm-6
-          form.form(action='')
-            video(id="myvideo", width='500', height='300', controls)
-                source(src='images/Snapchat-20140729090148.mp4', type='video/mp4')
-                |Your browser does not supposed the video tag
-            .row
-              .col-sm-10
-                input(id="paused", type='text', placeholder='enter time here').form-control
-              .col-sm-1
-                a.btn.btn-md.btn-warning.clearbtnVideo Clear
+      .container-fluid
+        br
+        .panel.panel-default
+          .panel-heading
+            .templateDescription.text-muted Tag the time the feature appears in the video or audio clip. Try dragging the video time slider.
 
-        .col-sm-6
+          .panel-body
+            .col-md-3
+              .row
+                h4 When does a cat appear in this video?
+                .row
+                  .col-sm-8
+                    input(id="paused", type='text', placeholder='enter time here').form-control
+                  .col-sm-1
+                    a.btn.btn-md.btn-warning.clearbtnVideo Clear
+                br 
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnVideo
+                  b Submit
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnVideo 
+                  b Not Found
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnVideo  
+                  b Skip
+
+            .col-md-8.col-md-offset-1
+              #player
           br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
-
-          h2 When does a cat appear in this video?
           br
-          .row
-            .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnVideo Enter
-            .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnVideo No Cat
-            .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnVideo  Skip 
-                fa.fa.fa-caret-right
-
-    br
-    br
-    br
 
 script.
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  var player;
 
-  var vid = document.getElementById("myvideo");
 
-  vid.onseeking = function() {
-    document.getElementById("paused").value = vid.currentTime;
+
+  function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: 'KdxEAt91D7k',
+          //- 'data-id': id,
+          events: {
+            'onStateChange': onPlayerStateChange
+          }
+        });
+    }
+
+
+  //- var done = false;
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PAUSED) {
+      //- setTimeout(stopVideo, 6000);
+      document.getElementById("paused").value = player.getCurrentTime();
+      //- done = true;
+    }
   }
 
-  vid.onpause = function() {
-    if(vid.duration != vid.currentTime)
-      document.getElementById("paused").value = vid.currentTime;
-  }
+  //- var vid = document.getElementById("myvideo");
+
+  //- vid.onseeking = function() {
+  //-   document.getElementById("paused").value = vid.currentTime;
+  //- }
+
+  //- vid.onpause = function() {
+  //-   if(vid.duration != vid.currentTime)
+  //-     document.getElementById("paused").value = vid.currentTime;
+  //- }
 
   $(document).on("click", ".clearbtnVideo", function() {
     document.getElementById("paused").value = '';

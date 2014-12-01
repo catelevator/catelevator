@@ -1,7 +1,7 @@
 .bg11
-    br 
-    .templateDescription.text-muted In this template you are asked a series of different questions for which you chose specific answers. 
-    hr
+    //- br 
+    //- .templateDescription.text-muted In this template you are asked a series of different questions for which you chose specific answers. 
+    //- hr
 
     #yesnoSurvey
       .container
@@ -17,58 +17,53 @@
       hr
 
     #firstSurvey
-      .container
-        h3 How effective is the teaching within your major at this university?
+      .container-fluid
         br
-        .col-sm-6
-          form.form(action='')
-            ul.list-group.col-sm-8.col-sm-offset-1
-              li.list-group-item
-                .radio
-                  label.radioLabel
-                    input(type='radio', name='answerOptions')
-                    | Extremely effective
-              li.list-group-item
-                .radio
-                  label.radioLabel
-                    input(type='radio', name='answerOptions')
-                    | Very effective 
-              li.list-group-item
-                .radio
-                  label.radioLabel
-                    input(type='radio', name='answerOptions')
-                    | Moderatey effective 
-              li.list-group-item
-                .radio
-                  label.radioLabel
-                    input(type='radio', name='answerOptions')
-                    | Slightly effective 
-              li.list-group-item
-                .radio
-                  label.radioLabel
-                    input(type='radio', name='answerOptions')
-                    | Not at all effective 
-  
-        .col-sm-6
-          br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
+        .panel.panel-default
+          .panel-heading
+            .templateDescription.text-muted In this template you are asked a series of different questions for which you chose specific answers. 
 
-          br
-          br
-          br
-          .row
-            .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnSurvey Enter
-            .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnSurvey No Answer
-            .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnSurvey  Skip 
-                fa.fa.fa-caret-right
+          .panel-body
+            h4 How effective is the teaching within your major at this university?
+            br
+            .col-md-3
+              .row
+              
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnSurvey
+                  b Enter
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnSurvey 
+                  b No Answer
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnSurvey  
+                  b Skip
+
+            .col-sm-9
+              form.form(action='')
+                ul.list-group.col-sm-8.col-sm-offset-1
+                  li.list-group-item
+                    .radio
+                      label.radioLabel
+                        input(type='radio', name='answerOptions')
+                        | Extremely effective
+                  li.list-group-item
+                    .radio
+                      label.radioLabel
+                        input(type='radio', name='answerOptions')
+                        | Very effective 
+                  li.list-group-item
+                    .radio
+                      label.radioLabel
+                        input(type='radio', name='answerOptions')
+                        | Moderatey effective 
+                  li.list-group-item
+                    .radio
+                      label.radioLabel
+                        input(type='radio', name='answerOptions')
+                        | Slightly effective 
+                  li.list-group-item
+                    .radio
+                      label.radioLabel
+                        input(type='radio', name='answerOptions')
+                        | Not at all effective 
 
 
     br

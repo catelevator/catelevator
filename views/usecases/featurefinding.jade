@@ -1,9 +1,10 @@
 //extends ../layout
 .bg11
-    
-    br 
-    .templateDescription.text-muted Interact with this template by circling the feature.
-    hr
+    //- script(src="/js/fabric.min.js")
+
+    //- br 
+    //- .templateDescription.text-muted Interact with this template by circling the feature.
+    //- hr
 
    #yesnoFind
       .container.text.center
@@ -19,133 +20,284 @@
       hr
 
     #firstFind
-      .container
-        .col-sm-6
-          canvas(id='mycanvas', width="500", height="300", style="border:1px solid #000000;")
-          
-        .col-sm-6
-          br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
+      .container-fluid
+        br
+        .panel.panel-default
+          .panel-heading
+            .templateDescription.text-muted Interact with this template by circling the feature.
 
-          h2 Can you circle the cat in this photo?
-          br
-          br
-          .row
-            .col-sm-3
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnFind Found it!
-            .col-sm-3
-              a.btn.btn-lg.button-royal.btn-superbig.btn-block.clearbtn Clear
-            .col-sm-3
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnFind Can't Find
-            .col-sm-3
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnFind  Skip 
-                fa.fa.fa-caret-right
+          .panel-body
+            .col-md-3
+              .row
+                h4 Can you circle the cat in this photo?
+                
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnFind
+                  b Submit
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnFind 
+                  b Not Found
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.clearbtn
+                  b Clear canvas
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnFind  
+                  b Skip
 
-          
-    br
-
+            .col-md-9
+              canvas(id='mycanvas', width="800px", height="500px", style="border:1px solid #000000;")
+          br
 
 script.
+
   $('#yesnoFind').hide();
   $('#skipFind').hide();
-  var canvas = document.getElementById("mycanvas");
-  var context = canvas.getContext("2d");
-  var cat = new Image();
-  cat.src = "http://i.imgur.com/qvJuqVV.jpg";
-  var isDrawing = false;
 
-  cat.onload = function() {
-    context.drawImage(cat,0,0, 500, 300);
-  };
 
-  //- canvas.onmousedown = function(e) {
-  //-   var rect = canvas.getBoundingClientRect();
-  //-   context.beginPath();
-  //-   isDrawing = true;
-  //-   context.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-  //- };
-  //- canvas.onmousemove = function(e) {
-  //-   var rect = canvas.getBoundingClientRect();
-  //-   if (isDrawing) {
-  //-     context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-  //-     context.stroke();
-  //-   }
-  //- };
-  //- canvas.onmouseup = function() {
-  //-   isDrawing = false;
-  //- };
+  function FeatureCanvas(ops){
+        for(op in ops)
+          this[op]= ops[op]
 
-  var startX;
-  var startY;
+        this.canvas = new fabric.Canvas('mycanvas');
+        this.canvas.selection = false;
+        this.canvas.circles = [];
+        this.canvas.scale_factor = [];
 
-  canvas.onmousedown = function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    var rect = canvas.getBoundingClientRect();
-    var offsetX = rect.left;
-    var offsetY = rect.top;
-    startX = parseInt(e.clientX - offsetX);
-    startY = parseInt(e.clientY - offsetY);
-    isDrawing = true;
-  };
 
-  canvas.onmousemove = function(e) {
-    if(!isDrawing) {
-      return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    var rect = canvas.getBoundingClientRect();
-    var offsetX = rect.left;
-    var offsetY = rect.top;
-    var x = parseInt(e.clientX - offsetX);
-    var y = parseInt(e.clientY - offsetY);
-    var moveY = startY + (y - startY) / 2;
-    context.clearRect(0,0,canvas.width, canvas.height);
-    context.drawImage(cat,0,0,500,300);
-    context.lineWidth = 2;
-    context.beginPath();
+      //FOR CANVAS ON LEFT
+      /**
+       * Sets up circle drawing for the canvas.
+       * Listens for mouse events, draws a circle continuously
+       * when mouse is down, stops and saves when mouse comes back up,
+       * the circle here is what is submitted to the model. But that happens later.
+       */
 
-    context.moveTo(startX, moveY);
-    context.bezierCurveTo(startX, startY, x, startY, x, moveY);
-    context.bezierCurveTo(x, y, startX, y, startX, moveY);
-    context.closePath();
-    context.stroke();
+        // declaring vars before you set them makes programs happy.
+        var circle, circles, isDown, origX, origY;
 
-  };
+        // Listens for mouse down on canvas, draws a circle
+        this.canvas.on('mouse:down', function(o){
+          isDown = true;
+          var pointer = featureCanvas.canvas.getPointer(o.e);
+          origX = pointer.x;
+          origY = pointer.y;
+          circle = new fabric.Circle({
+            left: pointer.x,
+            top: pointer.y,
+            fill: 'rgba(10,20,60,0.3)',
+            radius: 1,
+            strokeWidth: 3,
+            stroke: 'rgba(40,255,90,1)',
+            selectable: false,
+            originX: 'center', originY: 'center'
+          });
+          // add the circle to our array.
+          featureCanvas.canvas.add(circle);
+        });
 
-  canvas.onmouseup = function(e) {
-    if(!isDrawing) {
-      return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    isDrawing = false;
-  };
+        /**
+         * Resizes the circle as the mouse moves.
+         * @param  {Event} o 
+         */
+        
+        this.canvas.on('mouse:move', function(o){
+          if (!isDown) return;
+          var pointer = featureCanvas.canvas.getPointer(o.e);
+          circle.set({ radius: Math.abs(origX - pointer.x) });
+          featureCanvas.canvas.renderAll();
+        });
+
+        /**
+         * Saves the circle when user is done drawing.
+         */
+
+        this.canvas.on('mouse:up', function(o){
+          var scaled_circle= {
+            type: 'circle',
+            originX: 'center',
+            originY: 'center',
+            left: circle.left*featureCanvas.scale_factor,
+            top:circle.top*featureCanvas.scale_factor,
+            width:circle.width*featureCanvas.scale_factor,
+            height: circle.height*featureCanvas.scale_factor,
+            fill: 'rgba(10,20,60,0.3)',
+            stroke: 'rgba(40,255,90,1)',
+            strokeWidth: 3,
+            strokeDashArray: null,
+            strokeLineCap: 'butt',
+            strokeLineJoin: 'miter',
+            strokeMiterLimit: 10,
+            angle: 0,
+            flipX: false,
+            flipY: false,
+            opacity: 1,
+            shadow: null,
+            visible: true,
+            clipTo: null,
+            backgroundColor: '',
+            fillRule: 'nonzero',
+            globalCompositeOperation: 'source-over',
+            radius: circle.radius,
+            startAngle: circle.startAngle,
+            endAngle: circle.endAngle
+          }
+          featureCanvas.canvas.circles.push(scaled_circle)
+          isDown = false;
+        });
+
+      }
+
+      /**
+       * Instantiates a new instance of that Class.
+       * @type {FeatureCanvas}
+       */
+      var featureCanvas = new FeatureCanvas()
+ 
       
-
   $(document).on("click", ".clearbtn", function() {
-    context.clearRect(0,0,canvas.width, canvas.height);
-    context.drawImage(cat, 0,0,500,300);
+    featureCanvas.canvas.clear();
+    updateImage();
   });
 
   $(document).on("click", ".yesnobtnFind", function() {
-    //$('#firstFind').hide();
     $('#skipFind').hide();
     $('#yesnoFind').show();
+
   });
 
   $(document).on("click", ".skipbtnFind", function() {
     $('#yesnoFind').hide();
     $('#skipFind').show();
+
   });
+
+
+  function updateImage() {
+    fabric.Image.fromURL('images/qvJuqVV.jpg', function(img) {
+
+          var w = img.width
+          var h = img.height
+          var cw = $("#mycanvas").width()
+          scale_factor = cw/w
+          featureCanvas.scale_factor = scale_factor
+          var ch = h * scale_factor
+
+          // sets the new w and h for the image
+          img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
+          // sets the new w and h for the canvas
+          featureCanvas.canvas.setWidth(cw);
+          featureCanvas.canvas.setHeight(ch);
+          // sets the canvas backgrouns as the image and binds the dimensions.
+          featureCanvas.canvas.setBackgroundImage( img, 
+            featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
+          );
+        })
+
+    
+  }
+
 
   $(document).ready(function() {
     $('#yesnoFind').hide();
     $('#skipFind').hide();
+    //- featureCanvas.canvas1.setBackgroundImage(cat1);
+    //- featureCanvas.canvas2.setBackgroundImage(cat2);
+    featureCanvas.canvas.clear();
+    updateImage();
+    
   });
+
+
+
+  //- var canvas = document.getElementById("mycanvas");
+  //- var context = canvas.getContext("2d");
+  //- var cat = new Image();
+  //- cat.src = "http://i.imgur.com/qvJuqVV.jpg";
+  //- var isDrawing = false;
+
+  //- cat.onload = function() {
+  //-   context.drawImage(cat,0,0, 500, 300);
+  //- };
+
+  //- //- canvas.onmousedown = function(e) {
+  //- //-   var rect = canvas.getBoundingClientRect();
+  //- //-   context.beginPath();
+  //- //-   isDrawing = true;
+  //- //-   context.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  //- //- };
+  //- //- canvas.onmousemove = function(e) {
+  //- //-   var rect = canvas.getBoundingClientRect();
+  //- //-   if (isDrawing) {
+  //- //-     context.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  //- //-     context.stroke();
+  //- //-   }
+  //- //- };
+  //- //- canvas.onmouseup = function() {
+  //- //-   isDrawing = false;
+  //- //- };
+
+  //- var startX;
+  //- var startY;
+
+  //- canvas.onmousedown = function (e) {
+  //-   e.preventDefault();
+  //-   e.stopPropagation();
+  //-   var rect = canvas.getBoundingClientRect();
+  //-   var offsetX = rect.left;
+  //-   var offsetY = rect.top;
+  //-   startX = parseInt(e.clientX - offsetX);
+  //-   startY = parseInt(e.clientY - offsetY);
+  //-   isDrawing = true;
+  //- };
+
+  //- canvas.onmousemove = function(e) {
+  //-   if(!isDrawing) {
+  //-     return;
+  //-   }
+  //-   e.preventDefault();
+  //-   e.stopPropagation();
+  //-   var rect = canvas.getBoundingClientRect();
+  //-   var offsetX = rect.left;
+  //-   var offsetY = rect.top;
+  //-   var x = parseInt(e.clientX - offsetX);
+  //-   var y = parseInt(e.clientY - offsetY);
+  //-   var moveY = startY + (y - startY) / 2;
+  //-   context.clearRect(0,0,canvas.width, canvas.height);
+  //-   context.drawImage(cat,0,0,500,300);
+  //-   context.lineWidth = 2;
+  //-   context.beginPath();
+
+  //-   context.moveTo(startX, moveY);
+  //-   context.bezierCurveTo(startX, startY, x, startY, x, moveY);
+  //-   context.bezierCurveTo(x, y, startX, y, startX, moveY);
+  //-   context.closePath();
+  //-   context.stroke();
+
+  //- };
+
+  //- canvas.onmouseup = function(e) {
+  //-   if(!isDrawing) {
+  //-     return;
+  //-   }
+  //-   e.preventDefault();
+  //-   e.stopPropagation();
+  //-   isDrawing = false;
+  //- };
+      
+
+  //- $(document).on("click", ".clearbtn", function() {
+  //-   context.clearRect(0,0,canvas.width, canvas.height);
+  //-   context.drawImage(cat, 0,0,500,300);
+  //- });
+
+  //- $(document).on("click", ".yesnobtnFind", function() {
+  //-   //$('#firstFind').hide();
+  //-   $('#skipFind').hide();
+  //-   $('#yesnoFind').show();
+  //- });
+
+  //- $(document).on("click", ".skipbtnFind", function() {
+  //-   $('#yesnoFind').hide();
+  //-   $('#skipFind').show();
+  //- });
+
+  //- $(document).ready(function() {
+  //-   $('#yesnoFind').hide();
+  //-   $('#skipFind').hide();
+  //- });

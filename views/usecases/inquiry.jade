@@ -1,9 +1,8 @@
-//extends ../layout
 .bg11
 
-      br
-      .templateDescription.text-muted While exploring this template you will be asked to find a feature in a variety of mediums including videos, pictures, and audio. 
-      hr
+      //- br
+      //- .templateDescription.text-muted While exploring this template you will be asked to find a feature in a variety of mediums including videos, pictures, and audio. 
+      //- hr
   
      #yesnoInquiry
       .container.text.center
@@ -19,31 +18,28 @@
       hr
 
     #firstInquiry
-      .container.text
-        .col-sm-6
-          form.form(action='')
-            img(src="http://i.imgur.com/eLmmpdR.jpg", width='500', height='300')
-          
-        .col-sm-6
-          br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
+      .container-fluid
+        br
+        .panel.panel-default
+          .panel-heading
+            .templateDescription.text-muted While exploring this template you will be asked to find a feature in a variety of mediums including videos, pictures, and audio. 
 
-          h2 Is there a cat in this picture?
-          br
-          .row
-            .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnInquiry Yes
-            .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnInquiry No
-            .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnInquiry  Skip 
-                fa.fa.fa-caret-right
+          .panel-body
+            .col-md-3
+              .row
+                h4 Is there a cat in this picture?
+                
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnInquiry
+                  b Yes
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnInquiry 
+                  b No
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnInquiry  
+                  b Skip
 
+            .col-sm-7.col-sm-offset-1
+              img(src="http://i.imgur.com/eLmmpdR.jpg", width='600', height='400')
+          br
+          br
 
 
 script.
