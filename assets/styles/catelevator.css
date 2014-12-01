@@ -11,12 +11,27 @@ body {
    margin-bottom: 60px;
 }
 
-.panel,.well,.btn{
+.panel,.well,.btn, .sidebar li a{
       -webkit-border-radius: 0 0px 0px 0px;
     -moz-border-radius: 0 0px 0px;
     border-radius: 0 0px 0px 0px;
 }
-
+.sidebar{
+  margin:0px;
+  font-weight:600;
+  margin-left:1px;
+  border-top:1px solid #f9f9f9;
+}
+.sidebar li a{
+  color:#202024!important;
+  font-size:15px;
+  padding:13px;
+  margin:0px;
+  font-weight:600;
+  margin-bottom:-2px;
+  margin-right:2px;
+  border-bottom:1px solid #f9f9f9;
+}
 
 /*these are for the progress bars on the active jobs page*/
 .progress {
@@ -112,14 +127,14 @@ hr{
 .jumbotron{
 
   padding:0px;
-  background: #222239; /* Old browsers */
+  background: #51447c; 
   color:white!important;
 
 }
 
 .jumbotron-blue{
   color:#224!important;
-  background: #2170f9; /* Old browsers */
+  background: #2170f9; 
 }
 
 .jumbotron-blue p{
@@ -179,15 +194,20 @@ hr{
   height:86px;
 
 }
-
-
+ul li{
+  line-height:24px;
+}
+.bigger{
+  font-size:16px;
+}
+.brand-blue{
+  color:#51447c;
+}
 h1.bigBrand{
   margin-left:-1px;
   font-size: 51px;
   font-weight: 300;
   line-height: 68px;
-  color:#fbfffb;
-  text-shadow:0px -1px 9px #001;
 }
 
 h2.bigBrand{
@@ -381,34 +401,35 @@ img:hover.preview  {
 
 /*navbar things*/
 .navbar-custom{
-  background-color:#2d2d2d59447c;
-  color:#ddd;
+  background-color:#51447c;
+  padding-top:3px;
+  border-bottom:#51447c;;
 }
 
-.navbar-custom ul.navbar-nav > li a{
+.navbar-custom ul.navbar-nav > li a:not(.dropdown){
+  color:#eef;
 }
 
 .navbar-custom li a:hover{
-  background-color:#313235;
-  color:#fff!important;
+  color:#dfd!important;
 }
 
 .navbar-custom a.navbar-brand {
-  margin-top:-1px;
-  color:#ddf!important;
-  text-shadow:0px 0px 1px #000;
-  font-weight:100;
+  color:#fff!important;
+  font-weight:400!important;
+  font-size:22px;
+  text-shadow:none!important;
 }
-
+/*
 ul.nav-tabs{
   padding:0px 11px 0px 11px;
   margin-bottom:-2px;
   font-size:15px;
-}
+}*/
 
 .nav-tabs li.active a{
  background-color:#fff!important;
-color:#000;
+  color:#000;
 }
 .nav-tabs li a{
   padding-top:10px;
@@ -418,7 +439,6 @@ color:#000;
   color:#999999;
 }
 .nav-tabs li .disabled{
-
   color:#111;
 }
 .nav-tabs li:nth-child(1) a{
@@ -469,12 +489,44 @@ h1.big{
 .really-skinny{
   font-weight:100!important;
 }
+.scootRight{
+  margin-left: 12px;
+}
+.scootLeft{
+  margin-right: 12px;
+}
+.balance {
+  font-weight:700;
+  font-size:22px;
+  line-height: 28px;
+  color:#51447c;
+  padding-top:2px!important;
+}
+.balance.green{
+  color:#229944;
+}
+
+.button-flat-primary{
+  font-weight:400;
+  letter-spacing: 1;
+}
+.dropdown a, .dropdown li,.dropdownMenu , .dropdownMenu, .dropdown-menu, .dropdown-menu ul, .dropdown-menu li, .dropdown-menu a{
+  background-color:#51447c;
+  color:white;
+  border:1px solid #51447c;
+}
+.dropdownMenu, .dropdown-menu{
+  padding:7px;
+}
 
 .dropdown .fa {
-    margin-right:12px;
+    margin-right:16px;
 }
 .dropdown li a{
     padding-right:40px;
+}
+.dropdown li a:hover{
+  background-color:#51447c;
 }
 .dropdown-submenu {
     position: relative;
@@ -524,6 +576,7 @@ h1.big{
     -moz-border-radius: 0px 0 0px 0px;
     border-radius: 0px 0 0px 0px;
 }
+
 
 
 /*mads made this for something but i forgot*/

@@ -17,7 +17,7 @@ module.exports = {
     Job.find(q).exec(function(err,jobs){
       Actions.find({user_id:content.user.id}).exec(function(err,actions){
         // var actions_json = _.pluck(actions, 'createdAt')
-
+        if(err) return res.view( "profile/index", { jobs:jobs, actions:(actions||[]), user:req.user[0] } );
         actions_json = _.groupBy(actions, function(action) {
           var d = new Date( Date.parse( action.createdAt ) );
           return d.getDay()+"."+d.getHours()

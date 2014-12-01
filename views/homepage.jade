@@ -10,16 +10,18 @@ block body
           br
           br
           br
-          h1.bigBrand Crowd source anything.
-          h2.lead.text-muted 
-          
+          br
+          br
+          h1.bigBrand.skinny Crowd source anything.
+
+          br
           br
           br
             
-          button(onclick="location.href='/signup'").button.button-border-action.button-pill
+          button(onclick="location.href='/signup'",style="margin-right:4px;").button.button-pill.button-large
             o Get Started
-          button(onclick="location.href='/examples'").button.button-border-primary.button-pill
-            o Examples
+          //- button(onclick="location.href='/examples'").button.button-caution.btn-link.button-large
+          //-   o Examples
     br
     br
     br
@@ -32,102 +34,130 @@ block body
   .container.text-center
     br
     //- h2.medBrand Welcoming narrative that segways into basic purposes
-    h2.medBrand An extendable open source platform for democratizing truth.
+    h2.brand
+    h3
+      b  Cat Elevator  
+      o is a friendly platform for crowd-sourcing content analysis.
     br
     br
     br
 
 
   .container.homepage-copy
-    .col-md-12.text-center
+    .col-md-12
 
       .col-md-4
-        .well.well-sm
+        .well
+          h1.brand-blue.text-center
+            //- .fa.fa-fw.fa-flask  
+            b   Data Science
           br
-          fa.fa.fa-fw.fa-4x.fa-flask
-          h1 Data Science
-          p qwe
-          hr
-          .button-wrap
-            a.btn.button.button-flat-royal.button-pill
-              o Enhance your data
+          p.text-left Big data has been moving away from using expensive high-performance equipment and towards redundant affordable hardware. 
+          p.text-left We use virtual machines, virtual networks. Now we can virtualize scientists.
+          br
+          a.btn.btn-default.btn-block
+            b Learn more
       
       .col-md-4
-        .well.well-sm
+        .well
+          h1.brand-blue.text-center
+            //- .fa.fa-fw.fa-eye   
+            b   Hacktivism
           br
-          fa.fa.fa-fw.fa-4x.fa-users
-          h1 Hacktivism
-          p asd
+          p.text-left Events like the American Boston Marathon bombings reveal the benefits of crowd-sourcing data analysis.
+          p.text-left The FBI had access to enough video footage and pictures to kill a horse. People wanted to help, but didn't know what to do.
           hr
-          .button-wrap
-            a.btn.button.button-flat-caution.button-pill
-              o Fight the power
+          a.btn.btn-default.btn-block
+            b Watch the watchers
+          //- button.button.button-flat-caution.btn-block
+            o Fight the power
 
       .col-md-4
-        .well.well-sm
+        .well
+          h1.brand-blue.text-center  
+            //- .fa.fa-fw.fa-code
+            b   Development
           br
-          fa.fa.fa-fw.fa-4x.fa-code
-          h1 Development
-          p asd
-          hr
-          .button-wrap
-            a.btn.button.button-flat-primary.button-pill
-              o Get the code
+          p.text-left We are open to feature requests, and even more-so to pull requests. :)
+          p.text-left And we would love your help. CE has a sister project which is focused on self-optimizing machine learning algorithms. 
+          br
+          a.btn.btn-default.btn-block
+            b Get the code
 
           
 
   
   .container.text-center
     br
-    br
     hr
     br
-    br
 
-    .col-md-4.col-md-offset-1.text-left
+    .col-md-6.text-left
       
       //- fa.fa-fw.fa-share
+      .panel.well-lg
+          h3.brand-blue Much solution
+          p.bigger There are no big problems, only big collections of small problems. 
+            | Cat Elevator includes a collection of templates which help with simplifying problem spaces.
+          hr
+          ul
+            li
+              o Combing through security footage for bad guys and backpacks. 
+            li
+              o Analyzing Jupiter photos which potentially contain spaceships.
+            li
+              o Training neural nets to learn tasks by watching humans.
+            li
+              o Classifying images for supervised machine learning. 
+            li
+              o Getting quick feedback on ideas or designs.
 
-
-      h2 
-        b Many problems.
-      p Maybe you have a million hours of security footage you need checked for bad guys, a billion Jupiter photos which may contain spaceships, 
-        | or just want some feedback on your new website design.
         
-      br
-    .col-md-2.text-center
-      br
+    //- .col-md-3.text-center
       br
       br
-      b.fa.fa-fw.fa-arrow-right.fa-3x
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      br
+      b.fa.fa-fw.fa-arrow-down.fa-3x.brand-blue
 
-    .col-md-4.text-left
+    .col-md-6.text-left
       //- b.fa.fa-fw.fa-sort
-      h2 
-        b One solution.
-      p You can create that job, upload your data, and incentivize your crowd faster than you could eat a monkeys b-hole.
+      .panel.well-lg
+          h3.brand-blue Very business
+          p.bigger Create a 'job' by first selecting a template appropriate for your problem space. Then just upload your data and incentivize your crowd. Faster than barbeque-ing a penguin, garaunteed. 
+          br
+          br
+          .text-center
+            a.btn.btn-default.btn-lg
+              o Check out the examples
 
-  .container
-    .col-md-12
-      br
-      br
-      br
-      h2 Philosophy and details
-      hr
-      p.lead If they're here, we have their attention. Take your time to explain stuff and use pictures!
-      br
-      br
-      br
+    //- .container
+    //-   .col-md-12
+    //-     br
+    //-     br
+    //-     br
+    //-     h2 Philosophy and details
+    //-     hr
+    //-     p.lead If they're here, we have their attention. Take your time to explain stuff and use pictures!
+    //-     br
+    //-     br
+    //-     br
 
 
-  .text-center
-    .panel-body
-      br
-      br
-      a.btn.button.button-flat.button-highlight.button-pill.button-large(href="/examples") See Examples
-      br
-      br
-      br
+    //- .text-center
+    //-   .panel-body
+    //-     br
+    //-     br
+    //-     a.btn.button.button-flat.button-highlight.button-pill.button-large(href="/examples") See Examples
+    //-     br
+    //-     br
+    //-     br
 
 
 

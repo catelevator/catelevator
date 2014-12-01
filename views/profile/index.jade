@@ -1,160 +1,142 @@
 extends ../layout
 block body
   include ../navbar
-  .container-fluid(style="background-color:#f7f7f8;")
-    .container
-      .row.well-sm
-        br
-        .col-md-3
   script(src="/js/HighCharts.js")
+  .container-fluid(style="background-color:#f5f5f8;").row
+    .container
+      .col-md-3.panel.panel-default
+        div(style="height:100pc!important;")
+          h1.skinny Jobs
+          include sidebar
+      .col-md-9.panel.panel-default
+        .row(style="height:100pc!important;")
+          ul.nav.nav-justified.text-left.panel-body
+            li.bigger
+                .skinny Balance:   
+                  b.balance.green
+                    o=user.btc||"0.00" 
+                    o.skinny 
+            li.bigger
+                .skinny Active Jobs:  
+                  o.balance=jobs.length
+            li.bigger
+                .skinny Integrity Rating: 
+                  o.balance=user.expert_level||"00"
+                    o %
 
-  .container
-    
-    .col-md-3.panel
-      div(style="height:100pc!important;")
-        include sidebar
-
-    .col-md-9.panel
-      .row
-        ul.nav.nav-justified.btn-block
-          li
-            a Balance   
-              b.fa-fw.lead=user.btc
-          li
-            a Jobs  
-              b.fa-fw.lead=jobs.length
-          li
-            a Level 
-              b.fa-fw.lead=user.expert_level||"0"
-      div(style="height:100pc!important;")
-          .row#activityChart
-          if(actions)
-            script.
-              console.log(!{ JSON.stringify(actions) })
-              $("#activityChart").highcharts({
-                chart:{animation:false,type:"column",height:202,backgroundColor:"rgba(25,25,49,0.03)"},
-                title:{style:{y:'20px',"fontSize": "10px"},text:("")},
-                legend:{enabled:false},credits: {enabled: false },
-                xAxis: [{ 
-                  gridLineWidth: '0px',
-                   type: 'date',
-                   //- minRange: 7,
-                  labels: {
-                    enabled:false,
-                    style: {
-                      fontSize: '10px',
-                  }}
-                  },{ 
-                    gridLineWidth: '1px',
-                     type: 'category',
+          #activityChart
+            if(actions)
+              script.
+                console.log(!{ JSON.stringify(actions) })
+                $("#activityChart").highcharts({
+                  chart:{animation:false,type:"column",height:118,backgroundColor:"rgba(0,0,120,0.08)"},
+                  title:{style:{y:'20px',"fontSize": "11px"},text:("")},
+                  legend:{enabled:false},credits: {enabled: false },
+                  tooltip:{enabled:false},
+                  xAxis: [{ 
+                    gridLineWidth: '0px',
+                     type: 'date',
                      //- minRange: 7,
                     labels: {
                       enabled:false,
                       style: {
                         fontSize: '10px',
                     }}
-                }],
-                yAxis: [{
-                  title:{text:""},
-                  gridLineWidth: '0px',
-                  labels: {
-                      enabled:false
+                    },{ 
+                      gridLineWidth: '1px',
+                       type: 'category',
+                       //- minRange: 7,
+                      labels: {
+                        enabled:false,
+                        style: {
+                          fontSize: '10px',
+                      }}
+                  }],
+                  yAxis: [{
+                    title:{text:""},
+                    gridLineWidth: '0px',
+                    labels: {
+                        enabled:false
+                    }
+                  },
+                  {
+                    title:{text:""},
+                    gridLineWidth: '0px',
+                    labels: {
+                        enabled:false
+                    }
                   }
-                },
-                {
-                  title:{text:""},
-                  gridLineWidth: '0px',
-                  labels: {
-                      enabled:false
-                  }
-                }
 
-                ],
-                plotOptions: { series: { 
-                  //- borderColor:"none",
-                  //- groupPadding: 0,
-                  marker:{enabled:false},
-                  shadow:{ color:"#ffffff", offsetX:1, offsetY:1, opacity:0.7, width:1},
-                  stacking: null
-                }},
-                series: [{
-                  type:"column",
-                  //- pointInterval: 1,
-                  //- pointStart: 0,
-                  xAxis: 0,
-                  color:"#d2d2d2",
-                  data: !{ JSON.stringify(actions) }
-                },{
-                  //- pointInterval: 1,
-                  //- pointStart: 0,
-                  type:"spline",
-                  xAxis: 1,
-                  yAxis: 1,
-                  color:"#8292b6",
-                  data: !{ JSON.stringify(actions) }
-                }]
-              });
+                  ],
+                  plotOptions: { series: { 
+                    //- borderColor:"none",
+                    //- groupPadding: 0,
+                    marker:{enabled:false},
+                    //- shadow:{ color:"#ffffff", offsetX:0, offsetY:0, opacity:0.7, width:1},
+                    stacking: null
+                  }},
+                  series: [{
+                    type:"column",
+                    //- pointInterval: 1,
+                    //- pointStart: 0,
+                    xAxis: 0,
+                    color:"#51447c",
+                    data: !{ JSON.stringify(actions) }
+                  },{
+                    //- pointInterval: 1,
+                    //- pointStart: 0,
+                    type:"spline",
+                    xAxis: 1,
+                    yAxis: 1,
+                    color:"#3292b2",
+                    //- data: !{ JSON.stringify(actions) }
+                  }]
+                });
 
-        .col-md-9
-          ul.nav.nav-justified.text-center
-            li.navbar-text
-              br
-              small Balance   
-              b.text-primary.lead=user.btc
-            li.navbar-text
-              br
-              small Jobs  
-              o.text-primary.lead=jobs.length
-            li.navbar-text
-              br
-              small Level 
-              o.text-primary.lead=user.expert_level||"0"
-          hr
 
-          if jobs
-            for job in jobs
-              if job.progress != 0
-                .panel
-                  .well-sm
-                    .row
-                      .col-md-6
-                        h4
-                          a(href="/job/work?job=#{job.id}").btn-link=job.name
-                      .col-md-2
-                        b=job.taskCount+" tasks"+job.progress
-                      .col-md-4
-                        .progress
+            //- if jobs
+            //-   for job in jobs
+            //-     if job.progress != 0
+            //-       .panel
+            //-         .well-sm
+            //-           .row
+            //-             .col-md-6
+            //-               h4
+            //-                 a(href="/job/work?job=#{job.id}").btn-link=job.name
+            //-             .col-md-2
+            //-               b=job.taskCount+" tasks"+job.progress
+            //-             .col-md-4
+            //-               .progress
+            //-                 .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
+            //-                 .progress-completed 60%
+            //-           .row
+            //-             .col-md-9
+            //-               p=job.desc
+            //-             //- this is just for mads ocd purposes to make sure all templates are made
+            //-             .col-md-3
+            //-               p=job.type
+            //-     else
+            //-       p no active jobs
+
+            if jobs
+              table.table.table-condensed
+                for job in jobs
+                  tbody
+                    tr
+                      td(style="padding:12px;")
+                        b
+                          a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
+                        div.skinny=job.desc
+                      td(style="padding-top:18px;")
+                        small=job.progress
+                          o % of  
+                          o=job.taskCount 
+                          o  tasks
+                        .progress(style="height:3px;background-color:#d3d3d3;width:100px;")
                           .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
-                          .progress-completed 60%
-                    .row
-                      .col-md-9
-                        p=job.desc
+                          .progress-completed
                       //- this is just for mads ocd purposes to make sure all templates are made
-                      .col-md-3
-                        p=job.type
-              else
-                p no active jobs
-
-          if jobs
-            table.table.table-condensed
-              
-              br
-              for job in jobs
-                tr
-                  td
-                    b
-                      a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
-                    //- p=job.desc
-                  td
-                    b=job.taskCount
-                    o  tasks 
-                    //- td
-                      b=job.progress
-                    .progress(style="height:3px;background-color:#d3d3d3;width:68px;")
-                      .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
-                      .progress-completed
-                  //- this is just for mads ocd purposes to make sure all templates are made
-                  td
-                    a.btn.btn-default.btn-sm Work
+                      td(style="padding-top:11px;")
+                        //- a.btn.btn-default.btn-sm Work
 
 
