@@ -1,13 +1,13 @@
 .bg11
-    br 
-    .templateDescription.text-muted In this template you are asked to provide feedback on the given information. 
-    hr
+    //- br 
+    //- .templateDescription.text-muted In this template you are asked to provide feedback on the given information. 
+    //- hr
 
     #yesnoEval
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipEval
       .container
@@ -17,33 +17,59 @@
       hr
 
     #firstEval
-      .container
-        .col-sm-6
-          .well.well-big
-            p I have a website located at 
-              a(href='http://www.facebook.com') www.facebook.com
-            p Please provide me with any thoughts or concerns about my web design, something, and something else.
+      .container-fluid
+        br
+        .panel.panel-default
+          .panel-heading.exampleheading
+            .templateDescription.text-muted In this template you are asked to provide feedback on the given information. 
+
+          .panel-body
+            br
+            .col-md-3
+              .row
+                //- h4 What does this say?
+                
+                textarea#imageTranscription.exampletranscribingTextarea(name="imageTranscription" width="95%")
+
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnEval
+                  b Submit
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnEval 
+                  b No Comment
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnEval  
+                  b Next Template
+
+            .col-sm-7.col-sm-offset-1
+              .well.well-big
+                p I have a website located at 
+                  a(href='http://www.facebook.com') www.facebook.com
+                p Please provide me with any thoughts or concerns about my web design, something, and something else.
+
+        //- .col-sm-6
+        //-   .well.well-big
+        //-     p I have a website located at 
+        //-       a(href='http://www.facebook.com') www.facebook.com
+        //-     p Please provide me with any thoughts or concerns about my web design, something, and something else.
             
-        .col-sm-6
-          br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
-          br
-          form.form(action='')
-            textarea(placeholder="Enter Comments Here", rows='3').form-control
-          br
-          .row
-            .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
-            .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Comment
-            .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
-                fa.fa.fa-caret-right
+        //- .col-sm-6
+        //-   br
+        //-   .text-muted
+        //-     o Points:
+        //-     b  100 
+        //-     o  |  
+        //-     o Congruence:
+        //-     b  100
+        //-   br
+        //-   form.form(action='')
+        //-     textarea(placeholder="Enter Comments Here", rows='3').form-control
+        //-   br
+        //-   .row
+        //-     .col-sm-4
+        //-       a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnEval Enter
+        //-     .col-sm-4
+        //-       a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnEval No Comment
+        //-     .col-sm-4
+        //-       a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnEval  Skip 
+        //-         fa.fa.fa-caret-right
 
 
     br
@@ -60,6 +86,8 @@ script.
 
   $(document).on("click", ".skipbtnEval", function() {
     $('#yesnoEval').hide()
-    $('#skipEval').show()
+    //- $('#skipEval').show()
+    $('#exampletabs li a[href="#featurefinding"]').trigger('click');
+
   })
      

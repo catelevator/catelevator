@@ -1,12 +1,12 @@
 .bg11
-    br 
-    .templateDescription.text-muted Move the slider to measure the impression
-    hr
+    //- br 
+    //- .templateDescription.text-muted Move the slider to measure the impression
+    //- hr
     #yesnoImpress  
       .container
         .text-center
           h4 While signed in, users would be given the next item in the dataset
-          h5 Please continue to explore other templates
+          p Please continue to explore other templates
       hr
     #skipImpress
       .container
@@ -16,41 +16,39 @@
       hr
 
     #firstImpress
-      .container
-        .col-sm-6.text-center
-          img(src="http://i.imgur.com/SpCbHBI.jpg", align="middle",  width="400", height="400")
-     
-        .col-sm-6
-          br
-          .text-muted
-            o Points:
-            b  100 
-            o  |  
-            o Congruence:
-            b  100
 
-          h2 How happy does this picture make you feel?
-          h3.text-muted On a scale from
-          .row
-            .col-sm-6.text-left
-              h4.text-muted So Sad
-            .col-sm-6.text-right
-              h4.text-muted So Happy 
-          input(type="range", min="0", max="10", step="0.1")
-          br
-          .row
-            .col-sm-4
-              a.btn.btn-lg.btn-success.btn-superbig.btn-block.yesnobtnImpress Enter
-            .col-sm-4
-              a.btn.btn-lg.btn-danger.btn-superbig.btn-block.yesnobtnImpress No Comment
-            .col-sm-4
-              a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block.skipbtnImpress  Skip 
-                fa.fa.fa-caret-right
+      .container-fluid
+        br
+        .panel.panel-default
+          .panel-heading.exampleheading
+            .templateDescription.text-muted Move the slider to measure the impression
 
-        
-    br
-    br
-    br
+          .panel-body
+            .col-md-3
+              .row
+                h4 How happy does this picture make you feel?
+                p.text-muted 
+                  b On a scale from
+                .row
+                  .col-sm-6.text-left
+                    p.text-muted 
+                      b So Sad
+                  .col-sm-6.text-right
+                    p.text-muted 
+                      b So Happy 
+                input(type="range", min="0", max="10", step="0.1")
+                br
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnImpress
+                  b Submit
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnImpress 
+                  b No Comment
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnImpress  
+                  b Next Template
+
+            .col-sm-6.col-md-offset-2
+              img(src="http://i.imgur.com/SpCbHBI.jpg", margin="auto",  width="500", height="500", style="margin:auto;float:none;")
+          br
+
 script.
   $('#yesnoImpress').hide()
   $('#skipImpress').hide()
@@ -63,7 +61,9 @@ script.
 
   $(document).on("click", ".skipbtnImpress", function() {
     $('#yesnoImpress').hide()
-    $('#skipImpress').show()
+    //- $('#skipImpress').show()
+    $('#exampletabs li a[href="#inquiry"]').trigger('click');
+
   })
 
   $(document).on("click", ".reviewbtnImpress", function() {

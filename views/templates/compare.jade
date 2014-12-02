@@ -1,0 +1,334 @@
+extends ../layout
+block body 
+  include ../navbar
+  br
+  .container
+    .panel.panel-default
+      .panel-heading
+        #job
+      .panel-body
+        .col-md-12
+          .row
+            if job        
+              h4=job.name
+              p=job.desc
+              #jobid.hide=job.id
+          hr
+
+
+        .col-md-12
+          .col-md-8.col-md-offset-2
+            .panel.panel-default
+              .panel-body
+                #task_content
+
+
+        .col-md-12
+          hr
+          br
+          #task_list
+
+    #results
+
+
+  script.
+
+    // wraps it all in a clojure
+    (function(){
+
+      /**
+       * Sends an image to the main viewer (not really canvas) and resizes it appropriately.
+       * We set the style of the canvas.
+       */
+
+      function toCanvas(){
+        console.log(this)
+        $(".task_instance.active").removeClass("active")
+        $(this).addClass("active")
+        $("#task_content").html("")
+        $("#task_content").append( $(this).find("task_content").html() ).addClass("btn btn-link btn-block")
+        $("#task_content").attr( 'data-id', $(this).attr('data-id') )
+      }
+
+
+      /**
+       * Submits whatever stuff you want to submit relating to the user input
+       * upon completion of this task. Can retrieve next tasks here too.
+       */
+        // Isolates the values we need
+
+
+      /**
+       * Submits whatever stuff you want to submit relating to the user input
+       * upon completion of this task. Can retrieve next tasks here too.
+       */
+      function select(){
+        // Isolates the values we need
+        var task_id  = $("#task_content").attr("data-id")
+        var job_id  = $("#jobid").text()
+        // logs the circles we have.
+      
+        // Posts this action to the server.
+        io.socket.post("/actions/new_do", {
+          task_id:task_id,
+          job_id:job_id,
+          type:"compare",
+          input:$(this).attr('choice'),
+        
+        },function(new_task,info){
+        console.log(new_task)
+          // Goes to next task.
+          $(".task_instance.active").next().click()
+        })
+      }
+
+
+      var featureModel = new $.eventModel();
+      var features_count = 0;
+      featureModel.on('created', function(info,task) {
+        $("#task_list").append(
+          $("<a>", {
+            "id":task.id,
+            "data-id":task.id,
+            text:++features_count,
+             class:"btn task_instance"
+          }).css("background-color",task.rgb+"!important")
+        .append( 
+
+          $("<task_content>", {
+            class:"text-center hide" 
+
+            }) 
+
+          .append( 
+
+            $("<div>", task.data.html[0] )
+              .addClass("col-sm-6 text-center small selectButton")
+              .attr('choice', 0)
+              .css("border","4px solid white")
+              .css("font-size","16px")
+              .css("padding","30px 0 60px ")
+            )
+
+          .append( 
+            $("<div>", task.data.html[1] )
+              .addClass("col-sm-6 text-center small selectButton")
+              .css("font-size","16px")
+              .attr('choice', 1)
+              .css("border","4px solid white")
+              .css("padding","30px 0 60px ") 
+            )
+
+          )
+        )
+      });
+
+
+      featureModel.on('updated', function(info,item) {
+          $.map(item.data, function(val, attr){
+            if($("#"+item.id+" #"+attr).text())
+              $("#"+item.id+" #"+attr).text(val)
+            else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+          })
+      });
+
+
+
+      function dataset_glue(model){
+
+          io.socket.on( model, function(dataset){
+            featureModel.emit(dataset.verb, dataset);
+          })
+
+          io.socket.get( "/"+model+"/find", { job_id:$("#jobid").text(),limit:200 }, function(datasets){
+            console.log(datasets);
+            $.map(datasets, function(dataset){
+              featureModel.emit('created', {
+                id:dataset.id,
+                data:dataset
+              })
+            })
+            $(".task_instance").first().click();
+          })
+      }
+
+      $(document).on( "click", ".task_instance", toCanvas )
+      $(document).on( "click", ".selectButton", select )
+
+
+      $(document).ready(function() {
+
+        dataset_glue("task");
+
+      });
+
+
+
+    //-   var trainer = {
+    //-     currentColor : utils.randomColor(),
+
+    //-     data : [],
+
+    //-     pickSwatch : function(color) {
+    //-       var result = { input: utils.normalize(this.currentColor),
+    //-                      output: { black : color == 'black' ? 1 : 0}};
+    //-       this.data.push(result);
+
+    //-       this.changeColor();
+
+    //-       // show the "Train network" button after we've selected a few entries
+    //-       if (this.data.length == 5) {
+    //-         $("#test-box").show();
+    //-       }
+    //-     },
+
+    //-     changeColor : function() {
+    //-       this.currentColor = utils.randomColor();
+    //-       var rgb = utils.toRgb(this.currentColor);
+    //-       $(".swatch").css("backgroundColor", rgb);
+    //-     },
+
+    //-     trainNetwork : function() {
+    //-       $("#training-box").hide();
+    //-       $("#progress-box").show();
+
+    //-       if(window.Worker) {
+    //-         var worker = new Worker("training-worker.js");
+    //-         worker.onmessage = this.onMessage;
+    //-         worker.onerror = this.onError;
+    //-         worker.postMessage(JSON.stringify(this.data));
+    //-       }
+    //-       else {
+    //-         var net = new brain.NeuralNetwork();
+    //-         net.train(this.data, {
+    //-           iterations: 9000
+    //-         });
+    //-         tester.show(net);
+    //-       }
+    //-     },
+
+    //-     onMessage : function(event) {
+    //-       var data = JSON.parse(event.data);
+    //-       if(data.type == 'progress') {
+    //-         trainer.showProgress(data);
+    //-       }
+    //-       else if(data.type == 'result') {
+    //-         var net = new brain.NeuralNetwork().fromJSON(data.net);
+    //-         tester.show(net);
+    //-       }
+    //-     },
+
+    //-     onError : function(event) {
+    //-       $("#training-message").text("error training network: " + event.message);
+    //-     },
+
+    //-     showProgress : function(progress) {
+    //-       var completed = progress.iterations / trainer.iterations * 100;
+    //-       $("#progress-completed").css("width", completed + "%");
+    //-     }
+    //-   }
+
+    //-   var tester = {
+    //-     show : function(net) {
+    //-       $("#progress-box").hide();
+    //-       runNetwork = net.toFunction();
+    //-       runNetwork.name = "runNetwork"; // for view code later
+    //-       this.testRandom();
+    //-       $("#testing-box").show();
+    //-     },
+
+    //-     testRandom : function() {
+    //-       this.testColor(utils.randomColor());
+    //-     },
+
+    //-     testColor : function(color) {
+    //-       var rgb = utils.toRgb(color);
+    //-       $(".swatch").css("backgroundColor", rgb);
+
+    //-       var color = utils.normalize(color);
+    //-       $("#nn-swatch").css("color", nnColor(color));
+    //-       $("#wcag-swatch").css("color", wcagColor(color));
+    //-       $("#yiq-swatch").css("color", yiqColor(color));
+    //-     },
+
+    //-     viewCode : function(type) {
+    //-       if(type == 'nn' && !$("#nn-swatch-box").hasClass("selected")) {
+    //-         $("#code-header").text("neural network code:");
+    //-         var code = "var textColor = " + nnColor.toString()
+    //-                     + "\n\nvar runNetwork = " + runNetwork.toString();
+    //-         $("#code").text(code);
+    //-         $(".swatch-box").removeClass("selected");
+    //-         $("#nn-swatch-box").addClass("selected");
+    //-         $("#code-box").show();
+    //-       }
+    //-       else if(type == 'wcag' && !$("#wcag-swatch-box").hasClass("selected")) {
+    //-         $("#code-header").text("luminosity algorithm code:");
+    //-         var code = "var textColor = " + wcagColor.toString()
+    //-                     + "\n\nvar contrast = " + contrast.toString()
+    //-                     + "\n\nvar luminosity = " + luminosity.toString();
+    //-         $("#code").text(code);
+    //-         $(".swatch-box").removeClass("selected");
+    //-         $("#wcag-swatch-box").addClass("selected");
+    //-         $("#code-box").show();
+    //-       }
+    //-       else if(type == 'yiq' && !$("#yiq-swatch-box").hasClass("selected")) {
+    //-         $("#code-header").text("YIQ formula code:");
+    //-         var code = "var textColor = " + yiqColor.toString();
+
+    //-         $("#code").text(code);
+    //-         $(".swatch-box").removeClass("selected");
+    //-         $("#yiq-swatch-box").addClass("selected");
+    //-         $("#code-box").show();
+    //-       }
+    //-       else {
+    //-         $("#code-box").hide();
+    //-         $(".swatch-box").removeClass("selected");
+    //-       }
+    //-     }
+    //-   }
+
+
+    //-   /* these functions are outside so we can just call toString() for 'view code'*/
+    //-   var nnColor = function(bgColor) {
+    //-     var output = runNetwork(bgColor);
+    //-     if (output.black > .5) {
+    //-       return 'black';
+    //-     }
+    //-     return 'white';
+    //-   }
+
+    //-   var wcagColor = function(bgColor) {
+    //-     if(contrast(bgColor, {r: 1, g: 1, b: 1})
+    //-         > contrast(bgColor, {r: 0, g: 0, b: 0}))
+    //-       return 'white';
+    //-     return 'black';
+    //-   }
+
+    //-   var luminosity = function(color) {
+    //-     var r = color.r, g = color.g, b = color.b;
+    //-     var red = (r <= 0.03928) ? r / 12.92 : Math.pow(((r + 0.055)/1.055), 2.4);
+    //-     var green = (g <= 0.03928) ? g / 12.92 : Math.pow(((g + 0.055)/1.055), 2.4);
+    //-     var blue = (b <= 0.03928) ? b / 12.92 : Math.pow(((b + 0.055)/1.055), 2.4);
+
+    //-     return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+    //-   }
+
+    //-   var contrast = function(color1, color2) {
+    //-     var lum1 = luminosity(color1);
+    //-     var lum2 = luminosity(color2);
+    //-     if (lum1 > lum2) {
+    //-       return (lum1 + 0.05) / (lum2 + 0.05);
+    //-     }
+    //-     return (lum2 + 0.05) / (lum1 + 0.05);
+    //-   }
+
+    //-   var yiqColor = function(bgColor) {
+    //-     var r = bgColor.r * 255,
+    //-         g = bgColor.g * 255,
+    //-         b = bgColor.b * 255;
+    //-     var yiq = (r * 299 + g * 587 + b * 114) / 1000;
+    //-     return (yiq >= 128) ? 'black' : 'white';
+    //-   }
+
+
+    })()

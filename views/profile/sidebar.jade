@@ -1,20 +1,19 @@
-.panel.panel-default
-  .panel-body
-    h3=user.username
-    table.table.table-condensed
-      tr
-        td points
-        td=user.points
-      tr
-        td rating
-        td 0
+.sidebar
+  .row
+    ul.nav.nav-pills.nav-stacked
 
-ul.nav.nav-pills.nav-stacked
-  li
-    a(href='/u') Active jobs
-  li
-    a(href='/profile/browse') Browse jobs
-  li
-    a(href='#') Created jobs
-  
+      li
+        a(href='/u') 
+          .fa.fa-fw.fa-user
+          o.scootRight Job subscriptions
+          
+      li
+        a(href='/profile/analyze') 
+          .fa.fa-fw.fa-bar-chart
+          o.scootRight Your jobs
 
+
+      li
+        a(href='/profile/browse') 
+          .fa.fa-fw.fa-bars
+          o.scootRight All jobs

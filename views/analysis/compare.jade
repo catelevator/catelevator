@@ -1,0 +1,96 @@
+extends ../layout
+block body
+  include ../navbar
+  script(src="/js/HighCharts.js")
+  script(type="text/javascript").
+    var net = !{neural_net}
+
+  .container
+    if job        
+      h3=job.name    
+        b    Analysis   
+      hr
+      #jobid.hide=job.id
+
+      if(tasks)
+        each task in tasks
+          
+          #tasks.col-sm-3
+            code.small.hide
+              o  r: 
+                o=task.data.r
+              o  , g: 
+                o=task.data.g
+              o  , b: 
+                o=task.data.b
+              o  
+              i.small.text-muted.pull-right="("+task.id+")   "
+
+            .panel.panel-default(style="background-color:#{task.rgb}!important;")
+              //- .panel-heading
+                div(class="#{task.id}_chart")
+
+
+              if(task.actions)
+                if(task.id)
+                  .well-sm(style="background-color:#{task.rgb}!important;")
+                    o(class="#{task.id}")
+
+                    script.
+                        var prediction = net({r:!{task.data.r},g:!{task.data.g},b:!{task.data.b} })
+                        var text_color = (prediction.white > prediction.black ? "white" : "black")
+                        $("."+"#{task.id}")
+                          .append($("<i>", { class:"fa fa-fw fa-lg fa-share-alt",style:"color:"+text_color+"!important;"}) )
+                          .append($("<o>", { class:"small skinny",html:"neural net: <b>" + text_color+"</b>", style:"color:"+text_color+"!important;"}) )
+                          
+                        //-   $("."+"#{task.id}_chart").prepend("<div>", {}).highcharts({
+                        //-     chart:{animation:false,type:"column",height:42,backgroundColor:"none"},
+                        //-     title:{style:{y:'20px',"fontSize": "10px"},text:("")},
+                        //-     legend:{enabled:false},credits: {enabled: false },
+                        //-     xAxis: { 
+                        //-         gridLineWidth: '0px',
+                        //-         labels: {
+                        //-           enabled:false,
+                        //-           style: {
+                        //-             fontSize: '10px',
+                        //-         }}
+                        //-     },
+                        //-     yAxis: {
+                        //-       title:{text:""},
+                        //-       gridLineWidth: '0px',
+                        //-       labels: {
+                        //-           enabled:false
+                        //-       }
+                        //-     },
+                        //-     plotOptions: { series: { 
+                        //-       borderColor:"none",
+                        //-       //- groupPadding: 0,
+                        //-       marker:{enabled:false},
+                        //-       shadow:{ color:"#ffffff", offsetX:0, offsetY:0, opacity:0.7, width:0},
+                        //-       stacking: null
+                        //-     }},
+                        //-     series: [{
+                        //-       color:"#aa0000",
+                        //-       data: [!{task.data.r}]
+                        //-     },
+                        //-     {
+                        //-     color:"#00aa00",
+                        //-         data: [!{task.data.g}]
+                        //-     },
+                        //-     {
+                        //-     color:"#0000aa",
+                        //-         data: [!{task.data.b}]
+                        //-     }]
+                        //- });
+
+
+                  .panel-body
+                    each action in task.actions
+                      .col-md-1.col-sm-1.col-xs-1
+                        span(style="color:#{(action.input == 0 ? 'black' : 'white')}!important;")
+                          fa.fa.fa-user.fa-fw
+                          //- o.skinny.small=action.user_id+" "
+                          //- o.skinny #{(action.input == 0 ? 'black' : 'white')}
+      if(neural_net)
+        pre=neural_net
+        br
