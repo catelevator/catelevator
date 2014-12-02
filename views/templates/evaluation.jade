@@ -1,39 +1,122 @@
 extends ../layout
-block body 
+block body
   include ../navbar
-  .bg11
-    .container
-      br
-      br
+  script(src="/js/fabric.min.js")
 
-      .col-sm-6
-        form.form(action='')
-          img(src="http://i.imgur.com/QyYbqqz.png")
-          input(type='text', value='enter words here').form-control
-          //-canvas#mycanvas(width="500", height="300", style="border:1px solid #000000;")
-        
+  .container
+    .panel.panel-default
+      .panel-heading
+        #job
+      .panel-body
+        .col-md-3
+          .row
+            if job        
+              h4=job.name
+              p=job.desc
+              #jobid.hide=job.id
+              hr 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+              b Enter
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+              b Skip this task
 
-      .col-sm-6
-        br
-        .text-muted
-          o Points:
-          b  100 
-          o  |  
-          o Congruence:
-          b  100
+        .col-md-9
+          .row
+            .container
+            .col-sm-6
+              .well.well-big
+                .col-sm-2 
+                if tasks
+                  each task in tasks
+                    a#currentTask.featureTask(href="#{task.src}", data-id="#{task.id}", target="_blank") #{task.src}
+          .row
+            .col-sm-6
+              textarea#evaluationTextarea.evaluationTextarea(name="evaluationTextarea" placeholder="Enter comments here")
+              
+  script.
+    $(document).ready(function(){
+      dataset_glue("job");
+    });
 
-        h2 What does this say?
-        br
-        .row
-          .col-sm-4
-            a.btn.btn-lg.btn-success.btn-superbig.btn-block Enter
-          .col-sm-4
-            a.btn.btn-lg.btn-danger.btn-superbig.btn-block I give up
-          .col-sm-4
-            a.btn.col-sm-4.btn-lg.btn-link.btn-superbig.btn-block  Skip 
-              fa.fa.fa-caret-right
+    $(document).on( "click", ".featureTask", selectActiveTask)
+    $(document).on( "click", ".submitButton", select )
 
+    function selectActiveTask(){
+        var src = $(this).find('a').attr('src')
+        var id  = $(this).find('a').attr('data-id')
+        $(".featureTask.active").removeClass("active")
+        $(this).addClass("active")
+        setActiveTaskAsCurrentTask();
+    }
 
-      br
-      br
-      br
+    function setActiveTaskAsCurrentTask(){
+      var task = $(".small.featureTask.active");
+      if(task) {
+        var taskId = task.attr("data-id");
+        var taskSrc = task.find("img").attr("src");
+        $("#currentTask").append("<a>", {
+            "data-id": taskId,
+            "href":taskSrc
+        })
+      }
+    }
+
+    function select(){
+      var src = $("#currentTask").find('a').attr('src')
+      var taskid  = $("#currentTask").find('a').attr('data-id')
+      var jobid  = $("#jobid").text()
+      var val = $('#evaluationTextarea').val();
+      
+      io.socket.post("/actions/new_do", {task_id:taskid, job_id:jobid, input:val, type:"evaluation"}, function(new_task,info){
+        console.log(new_task)
+        console.log(info)
+
+        $("#currentTask a").attr('src',new_task.src)
+        $("#currentTask a").attr('data-id',new_task.id)
+      });
+
+      $('#evaluationTextarea').val("");
+      $(".featureTask").next().click();
+    }
+
+    var featureModel = new $.eventModel();
+
+    featureModel.on('created', function(info,item) {
+      var a = item.data.tasks
+      $.map(a, function(d){
+        console.log(d)
+        $("#job").append($("<span>", {
+          "data-id":d.id,
+          class:"small featureTask"
+        }).append($("<img>",{
+          src:d.src
+        })))
+      })
+    });
+
+    featureModel.on('updated', function(info,item) {
+      $.map(item.data, function(val, attr){
+        if($("#"+item.id+" #"+attr).text())
+          $("#"+item.id+" #"+attr).text(val)
+        else $("#"+item.id).append($("<div>",{id:attr,text:val}))
+        console.log(item.id);
+      })
+    });
+
+    function dataset_glue(model){
+      io.socket.on( model, function(dataset){
+        featureModel.emit(dataset.verb, dataset);
+      })
+
+      io.socket.get( "/"+model+"/find", {type:"evaluation"}, function(datasets){
+        console.log(datasets);
+        $.map(datasets, function(dataset){
+          featureModel.emit('created', {
+            id:dataset.id,
+            data:dataset
+          })
+        })
+      })
+
+      $(".featureTask").first().click();
+    }

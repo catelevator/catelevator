@@ -93,10 +93,10 @@ module.exports = {
     //evaluation example
     Job.create([
       {
-        name:"Solve the captcha", 
+        name:"Tell me what you think", 
         type:"evaluation",
         reward:0.01,
-        desc: "Type the letters in the box."
+        desc: "Tell me what you think of this site."
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)
