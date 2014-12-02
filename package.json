@@ -37,7 +37,7 @@
     "sha1": "~1.1.0",
     "sinon": "^1.12.1",
     "underscore": "~1.7.0",
-    "loadtest": "*"
+    "loadtest": "*",
     "underscore": "~1.7.0"
   },
   "scripts": {
