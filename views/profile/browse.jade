@@ -22,7 +22,7 @@ block body
                       h4
                         a(href="/job/work?job=#{job.id}").btn-link=job.name
                     .col-md-3.pull-right
-                      b=job.taskCount+" tasks"
+                      h5=job.taskCount+" tasks"
                   .row
                     .col-md-9
                       p=job.desc

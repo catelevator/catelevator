@@ -21,6 +21,7 @@ block body
               .col-sm-6.text-right
                 h4.text-muted max value 
             input(type="range", min="0", max="10", step="0.1")#rangeval
+            br
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Enter
 
@@ -155,6 +156,7 @@ block body
 
           // Deletes our old circles
           //featureCanvas.canvas.circles = []
+          document.getElementById("rangeval").value = "5";
           // Goes to next task.
           $(".featureImage.active").next().click()
         })

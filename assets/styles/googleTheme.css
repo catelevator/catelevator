@@ -70,7 +70,7 @@ textarea {
 }
 h3,h4,h5 { 
  border:0 solid #efefef; 
- border-bottom-width:1px;
+ /*border-bottom-width:1px;*/
  padding-bottom:10px;
 }
 .modal-dialog {
