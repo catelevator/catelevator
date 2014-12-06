@@ -11,6 +11,29 @@ body {
    margin-bottom: 60px;
 }
 
+@import url(http://fonts.googleapis.com/css?family=Cookie);
+.cursive{
+  font-family: 'Lobster', cursive;
+}
+.stupidBig{
+  font-size:100px!important;
+}
+
+
+/*
+Brand colors
+*/ 
+.jumbotron,.button-flat-primary, .btn-primary, .panel-heading, .navbar-custom, .dropdown-menu.navbar ul, .dropdown, .bg-brand{
+  background: #43529a; 
+}
+h1,h2, .brand-blue, .balance {
+  color: #43529a;
+}
+
+.panel-body .dropdown-menu{
+  background-color:white;
+}
+
 .panel,.well,.btn, .sidebar li a{
     -webkit-border-radius: 0 0px 0px 0px;
     -moz-border-radius: 0 0px 0px;
@@ -119,19 +142,17 @@ a.clickable:hover { text-decoration:none; }
 }
 
 hr{
-  border-color:#ddd!important;
+  border-color:rgba(202,202,202,0.5)!important;
 }
+
 
 
 
 
 /*i'm assuming these are for the jumbotron on the homepage*/
 .jumbotron{
-
   padding:0px;
-  background: #51447c; 
   color:white!important;
-
 }
 
 .jumbotron-blue{
@@ -157,10 +178,6 @@ hr{
 .jumbotron-orange h1{
   font-size:24px;
   font-weight:600;
-}
-
-.homepage-copy h1{
-  font-size:24px;
 }
 
 
@@ -202,12 +219,10 @@ ul li{
 .bigger{
   font-size:16px;
 }
-.brand-blue{
-  color:#51447c;
-}
+
 h1.bigBrand{
   margin-left:-1px;
-  font-size: 51px;
+  font-size: 130px;
   font-weight: 300;
   line-height: 68px;
 }
@@ -226,7 +241,12 @@ h2.medBrand{
 }
 
 
-
+.reallyBig{
+  font-size:66px;
+}
+.tooBig{
+  font-size:86px;
+}
 
 
 .boxShadow {
@@ -403,9 +423,7 @@ img:hover.preview  {
 
 /*navbar things*/
 .navbar-custom{
-  background-color:#51447c;
-  padding-top:3px;
-  border-bottom:#51447c;;
+  border-bottom:none;
 }
 
 .navbar-custom ul.navbar-nav > li a:not(.dropdown){
@@ -413,15 +431,19 @@ img:hover.preview  {
 }
 
 .navbar-custom li a:hover{
-  color:#dfd!important;
+  color:rgba(255,255,255,0.1);
 }
 
 .navbar-custom a.navbar-brand {
   color:#fff!important;
   font-weight:400!important;
-  font-size:20px;
+  font-size:19px;
+
   text-shadow:none!important;
 }
+
+
+
 /*
 ul.nav-tabs{
   padding:0px 11px 0px 11px;
@@ -430,7 +452,7 @@ ul.nav-tabs{
 }*/
 
 .nav-tabs li.active a{
- background-color:#fff!important;
+  background-color:#fff!important;
   color:#000;
 }
 .nav-tabs li a{
@@ -482,7 +504,7 @@ ul.nav-tabs{
 
 
 h1.big{
-  font-size: 48px!important;
+  font-size: 480px!important;
 }
 
 .skinny{
@@ -501,21 +523,20 @@ h1.big{
   font-weight:700;
   font-size:22px;
   line-height: 28px;
-  color:#51447c;
   padding-top:2px!important;
 }
 .balance.green{
-  color:#229944;
+  color:#229342;
 }
 
 .button-flat-primary{
   font-weight:400;
   letter-spacing: 1;
 }
-.dropdown a, .dropdown li,.dropdownMenu , .dropdownMenu, .dropdown-menu, .dropdown-menu ul, .dropdown-menu li, .dropdown-menu a{
-  background-color:#51447c;
+.dropdown a, .dropdown li, .dropdownMenu , .dropdownMenu, .dropdown-menu,  .dropdown-menu li, .dropdown-menu a{
+  background-color:inherit;
   color:white;
-  border:1px solid #51447c;
+  border:none;
 }
 .dropdownMenu, .dropdown-menu{
   padding:7px;
@@ -528,7 +549,7 @@ h1.big{
     padding-right:40px;
 }
 .dropdown li a:hover{
-  background-color:#51447c;
+  background-color:rgba(255,255,255,0.15);
 }
 .dropdown-submenu {
     position: relative;

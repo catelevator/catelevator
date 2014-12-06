@@ -12,86 +12,49 @@ block body
           br
           br
           br
-          h1.skinny Crowd source anything.
+          br
+          br
 
+          h1.stupidBig.cursive Cat Elevator
+          h1.skinny Crowd-source everything
+              
           br
           br
           br
-            
-          button(onclick="location.href='/signup'",style="margin-right:4px;").button.button-pill.button-large
-            o Get Started
+          br
+          br
+          button.button(onclick="location.href='/signup'",style="margin-right:4px;").button-flat.button-pill
+            b SIGN UP
+          br
+          br
+          br
+          br
+          br
+          br
+          br
+
+
           //- button(onclick="location.href='/examples'").button.button-caution.btn-link.button-large
           //-   o Examples
-    br
-    br
-    br
-    br
-    br
-    br
-    br
+ 
 
 
+  
   .container.text-center
+    b.fa.fa-fw.fa-arrow-down.fa-3x.brand-blue
     br
-    //- h2.medBrand Welcoming narrative that segways into basic purposes
-    h2.brand
     h3.skinny
       o A friendly platform for crowd-sourcing content analysis.
     br
-    br
-    br
 
 
-  .container.homepage-copy
-    .col-md-12
-
-      .col-md-4
-        .well
-          h1.brand-blue.text-center
-            //- .fa.fa-fw.fa-flask  
-            b   Data Science
-          br
-          p.text-left Big data has been moving away from using expensive high-performance equipment and towards redundant affordable hardware. 
-          p.text-left We use virtual machines, virtual networks. Now we can virtualize scientists.
-          br
-          a.btn.btn-default.btn-block
-            b Learn more
-      
-      .col-md-4
-        .well
-          h1.brand-blue.text-center
-            //- .fa.fa-fw.fa-eye   
-            b   Hacktivism
-          br
-          p.text-left Events like the American Boston Marathon bombings reveal the benefits of crowd-sourcing data analysis.
-          p.text-left The FBI had access to enough video footage and pictures to kill a horse. People wanted to help, but didn't know what to do.
-          br
-          a.btn.btn-default.btn-block
-            b Watch the watchers
-          //- button.button.button-flat-caution.btn-block
-            o Fight the power
-
-      .col-md-4
-        .well
-          h1.brand-blue.text-center  
-            //- .fa.fa-fw.fa-code
-            b   Development
-          br
-          p.text-left We are open to feature requests, and even more-so to pull requests. :)
-          p.text-left And we would love your help. CE has a sister project which is focused on self-optimizing machine learning algorithms. 
-
-          br
-          a.btn.btn-default.btn-block
-            b Get the code
-
-          
 
   
   .container.text-center
     br
     hr
     br
-
+    br
     .col-md-6.text-left
       
       //- fa.fa-fw.fa-share
@@ -100,33 +63,95 @@ block body
           p.bigger There are no big problems, only big collections of small problems. 
             | Cat Elevator includes a collection of templates which help with simplifying problem spaces.
           br
-          ul.small
+          ul
             li Analyzing space images which potentially contain spaceships.
             li Getting quick feedback on websites, articles, ideas or designs.
             li Combing through security footage for bad guys and backpacks. 
             li Classifying image sets for supervised machine learning research.
             li Training neural nets to perform simple tasks by watching humans.
 
+
         
   
-      b.fa.fa-fw.fa-arrow-down.fa-3x.brand-blue
 
     .col-md-6.text-left
       //- b.fa.fa-fw.fa-sort
       .panel.well-lg
           h3.brand-blue Very business
           p.bigger Create a 'job' by first selecting a template appropriate for your problem space. Then just upload your data and incentivize your crowd. Faster than barbeque-ing a penguin, garaunteed. 
-          br
-          br
+          .container-fluid
+            br
+            br
+      .text-center
+        br
+        .button-wrap
+          a.button.button-flat-primary.button-pill.button-large(href="/examples") 
+            b See examples
+  br
+  br
 
-          .text-center
-            a.btn.button.button-flat-highlight.button-pill(href="/examples") 
-              b See examples
-      
-      //- .well-sm
-      //-   p We are about to start alpha testing. If you're interested, 
-      //-     a(href="mailto:bpbkt7@mail.missouri.edu") contact us
-    
+  //- .bg-brand
+    br
+    br
+    br
+    br
+    br
+    .container.homepage-copy
+
+          .col-md-4
+            .well
+              h1.brand-blue
+                //- .fa.fa-fw.fa-flask  
+                b   Data Science
+              br
+              p.text-left Big data has been moving away from using expensive high-performance equipment and towards redundant affordable hardware. 
+              p.text-left We use virtual machines, virtual networks. Now we can virtualize scientists.
+              br
+              a.btn.btn-default.btn-block
+                b Learn more
+          
+
+          .col-md-4
+            .well
+              h1.brand-blue
+                //- .fa.fa-fw.fa-code
+                b   Development
+              br
+              p.text-left We are open to feature requests, and even more-so to pull requests. :)
+              p.text-left And we would love your help. CE has a sister project which is focused on self-optimizing machine learning algorithms. 
+
+              br
+              a.btn.btn-default.btn-block
+                b Get the code
+          
+          .col-md-4
+            .well
+              h1.brand-blue
+                //- .fa.fa-fw.fa-eye   
+                b   Hacktivism
+              br
+              p.text-left Events like the American Boston Marathon bombings reveal the benefits of crowd-sourcing data analysis.
+              p.text-left The FBI had access to enough video footage and pictures to kill a horse. People wanted to help, but didn't know what to do.
+              br
+              br
+      br
+
+    //- a.btn.btn-default.btn-block
+      b Watch the watchers
+    //- button.button.button-flat-caution.btn-block
+      o Fight the power
+
+    //- img(src="/images/tb_homepage.png").col-md-12
+    //- img(src="/images/mb_homepage.png").col-md-12
+    //- img(src="/images/ip_homepage.png").col-md-12
+    //- img(src="/images/hand_homepage.png").col-md-5.col-md-offset-3
+
+
+
+    //- .well-sm
+    //-   p We are about to start alpha testing. If you're interested, 
+    //-     a(href="mailto:bpbkt7@mail.missouri.edu") contact us
+  
 
     //- .text-center
     //-   .panel-body
@@ -180,14 +205,9 @@ block body
   .container
 
 
-    br
-    br
-    br
-    br
-    br
-    br
-    br
-    br
+      //- img(src="/images/tb_homepage.png").col-md-5
+      //- img(src="/images/test.png").col-md-4
+      //- img(src="/images/mb_homepage.png").col-md-3
 
   //what are you trying to do with these things?
   script.
