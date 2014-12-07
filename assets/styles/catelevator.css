@@ -251,7 +251,10 @@ h2.medBrand{
   font-size:86px;
 }
 
-
+.boxShadowHard {
+  -webkit-box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.2);
+}
 .boxShadow {
   -webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.2);
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);

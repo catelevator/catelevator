@@ -1,34 +1,31 @@
-//- page that shows all available jobs
 extends ../layout
 block body
   include ../navbar
-  .container-fluid(style="background-color:#f7f7f8;")
-    .container
-      .row.well-sm
-        br
-        .col-md-3
-          include sidebar
+  .container
+    br
+    .col-md-3.panel.panel-default
+      include sidebar
   
 
 
-        .col-md-9
-          
-          if jobs
-            for job in jobs
-              .panel
-                .well-sm
-                  .row
-                    .col-md-9
-                      h4
-                        a(href="/job/work?job=#{job.id}").btn-link=job.name
-                    .col-md-3.pull-right
-                      h5=job.taskCount+" tasks"
-                  .row
-                    .col-md-9
-                      p=job.desc
-                    //- this is just for mads ocd purposes to make sure all templates are made
-                    .col-md-3
-                      p=job.type
+    .col-md-9
+      
+      if jobs
+        for job in jobs
+          .panel
+            .well-sm
+              .row
+                .col-md-9
+                  h4
+                    a(href="/job/work?job=#{job.id}").btn-link=job.name
+                .col-md-3.pull-right
+                  h5=job.taskCount+" tasks"
+              .row
+                .col-md-9
+                  p=job.desc
+                //- this is just for mads ocd purposes to make sure all templates are made
+                .col-md-3
+                  p=job.type
 
-                  
+              
 

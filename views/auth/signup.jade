@@ -1,13 +1,14 @@
 extends ../layout
 block body
-  include ../navbar
+  .text-center
+    br
+    br
+    br
+    br
+    h1.reallyBig.cursive.brand-color Cat Elevator
+    // include ../navbar
   div(style="background-color:#f7f7f8")
     .container
-      br
-      br
-      br
-      .text-center
-        h1.brand-blue Create an account.
       br
       br
       .col-md-4.col-md-offset-4
@@ -15,10 +16,13 @@ block body
           h3=message
         form(action='/user/signup', method='post')
           .panel.panel-default
-            .panel-body
+            .panel-body.text-center.boxShadowHard
               .form-group
                 input.input-lg.form-control.input-lg(type='text', name='email', placeholder='Enter your email address')
               .form-group
                 hr
-              input.btn(type='submit', value='Send Verification Email').button.button-flat-primary.btn-block.btn-lg.button-large
+              input(type='submit', value='Create Account').button.button-flat-primary.button-pill
 
+        .text-center
+          p.text-muted Have an account? 
+            a(href="/login") Sign in

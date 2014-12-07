@@ -2,120 +2,125 @@ extends ../layout
 block body
   include ../navbar
   script(src="/js/HighCharts.js")
-  .container-fluid(style="background-color:#f5f5f8;").row
-    .container
+  .container
+      br
       .col-md-3.panel.panel-default
-        br
-        div(style="height:100pc!important;")
-          include sidebar
+        include sidebar
 
 
-      .col-md-9.panel.panel-default
-        br
-        ul.nav.nav-justified.text-left.panel-body.text-center
-          li.bigger
-              o Wallet Balance:   
-                b.balance.green
-                  o=user.balance||"0.00" 
-                  o.skinny 
-          li.bigger
-              .skinny Active Jobs:  
-                o.balance=jobs.length
-          li.bigger
-              .skinny Integrity Rating: 
-                o.balance=user.expert_level||"00"
-                  o %
-        .row 
+      .col-md-9
+        .panel.panel-default
+          br
+          ul.nav.nav-justified.text-left.panel-body.text-center
+            li.bigger
+                o Wallet Balance:   
+                  b.balance.green
+                    o=user.balance||"0.00" 
+                    o.skinny 
+            li.bigger
+                .skinny Active Jobs:  
+                  o.balance=jobs.length
+            li.bigger
+                .skinny Integrity Rating: 
+                  o.balance=user.expert_level||"00"
+                    o %
+          
+
           hr
-        if jobs
-            table.table.table-condensed
-              for job in jobs
-                tbody
-                  tr
-                    td(style="padding:12px;")
-                      b
-                        a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
-                      div.skinny=job.desc
-                    td(style="padding-top:18px;").text-left
-                      small=job.progress
-                        o  % of   
-                        o=job.taskCount 
-                        o   tasks
-                      .progress(style="height:6px;background-color:#d3d3d3;width:140px;").text-center
-                        .progress-bar(role='progressbar', aria-valuenow="#{job.progress}", aria-valuemin='0', aria-valuemax='100', style='width:#{job.progress}%;')
-                    //- this is just for mads ocd purposes to make sure all templates are made
-   
+          .row.well-sm
+            .panel-body
+                if jobs
+                  h3.skinny.brand-color Jobs you are working.
+                  table.table.table-condensed
+
+                    tbody
+                      for job in jobs
+                        tr
+                          td(style="padding:12px;")
+                            b
+                              a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
+                            div.skinny=job.desc
+                          td(style="padding-top:20px;").text-left
+                            .small=job.progress
+                              o  % of   
+                              o=job.taskCount 
+                              o   tasks
+                          td(style="padding-top:24px;").text-left
+                            .progress(style="height:6px;background-color:#d3d3d3;width:140px;").text-center
+                              .progress-bar(role='progressbar', aria-valuenow="#{job.progress}", aria-valuemin='0', aria-valuemax='100', style='width:#{job.progress}%;')
+                          //- this is just for mads ocd purposes to make sure all templates are made
+           
 
 
 
-          #activityChart.row
-            if(actions)
-              script.
-                console.log(!{ JSON.stringify(actions) })
-                $("#activityChart").highcharts({
-                  chart:{animation:false,type:"column",height:118,backgroundColor:"rgba(0,0,120,0.08)"},
-                  title:{style:{y:'20px',"fontSize": "11px"},text:("")},
-                  legend:{enabled:false},credits: {enabled: false },
-                  tooltip:{enabled:false},
-                  xAxis: [{ 
-                    gridLineWidth: '0px',
-                     type: 'date',
-                     //- minRange: 7,
-                    labels: {
-                      enabled:false,
-                      style: {
-                        fontSize: '10px',
-                    }}
-                    },{ 
-                      gridLineWidth: '1px',
-                       type: 'category',
-                       //- minRange: 7,
-                      labels: {
-                        enabled:false,
-                        style: {
-                          fontSize: '10px',
-                      }}
-                  }],
-                  yAxis: [{
-                    title:{text:""},
-                    gridLineWidth: '0px',
-                    labels: {
-                        enabled:false
-                    }
-                  },
-                  {
-                    title:{text:""},
-                    gridLineWidth: '0px',
-                    labels: {
-                        enabled:false
-                    }
-                  }
+                  #activityChart
+                    if(actions)
+                      script.
+                        console.log(!{ JSON.stringify(actions) })
+                        $("#activityChart").highcharts({
+                          chart:{animation:false,type:"column",height:118,backgroundColor:"rgba(0,0,120,0.08)"},
+                          title:{style:{y:'20px',"fontSize": "11px"},text:("")},
+                          legend:{enabled:false},credits: {enabled: false },
+                          tooltip:{enabled:false},
+                          xAxis: [{ 
+                            gridLineWidth: '0px',
+                             type: 'date',
+                             //- minRange: 7,
+                            labels: {
+                              enabled:false,
+                              style: {
+                                fontSize: '10px',
+                            }}
+                            },{ 
+                              gridLineWidth: '1px',
+                               type: 'category',
+                               //- minRange: 7,
+                              labels: {
+                                enabled:false,
+                                style: {
+                                  fontSize: '10px',
+                              }}
+                          }],
+                          yAxis: [{
+                            title:{text:""},
+                            gridLineWidth: '0px',
+                            labels: {
+                                enabled:false
+                            }
+                          },
+                          {
+                            title:{text:""},
+                            gridLineWidth: '0px',
+                            labels: {
+                                enabled:false
+                            }
+                          }
 
-                  ],
-                  plotOptions: { series: { 
-                    //- borderColor:"none",
-                    //- groupPadding: 0,
-                    marker:{enabled:false},
-                    //- shadow:{ color:"#ffffff", offsetX:0, offsetY:0, opacity:0.7, width:1},
-                    stacking: null
-                  }},
-                  series: [{
-                    type:"column",
-                    //- pointInterval: 1,
-                    //- pointStart: 0,
-                    xAxis: 0,
-                    color:"#51447c",
-                    data: !{ JSON.stringify(actions) }
-                  },{
-                    //- pointInterval: 1,
-                    //- pointStart: 0,
-                    type:"spline",
-                    xAxis: 1,
-                    yAxis: 1,
-                    color:"#3292b2",
-                    //- data: !{ JSON.stringify(actions) }
-                  }]
-                });
+                          ],
+                          plotOptions: { series: { 
+                            //- borderColor:"none",
+                            //- groupPadding: 0,
+                            marker:{enabled:false},
+                            //- shadow:{ color:"#ffffff", offsetX:0, offsetY:0, opacity:0.7, width:1},
+                            stacking: null
+                          }},
+                          series: [{
+                            type:"column",
+                            //- pointInterval: 1,
+                            //- pointStart: 0,
+                            xAxis: 0,
+                            color:"#51447c",
+                            data: !{ JSON.stringify(actions) }
+                          },{
+                            //- pointInterval: 1,
+                            //- pointStart: 0,
+                            type:"spline",
+                            xAxis: 1,
+                            yAxis: 1,
+                            color:"#3292b2",
+                            //- data: !{ JSON.stringify(actions) }
+                          }]
+                        });
 
 
             //- if jobs

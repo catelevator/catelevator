@@ -17,8 +17,10 @@ module.exports = {
     var uploadPath = { dirname: '../public/images'};
 
     req.file('file').upload(uploadPath, function onUploadComplete (err, uploadedFiles) {
+      
       console.log(uploadedFiles);
-      if (err) return res.send(500, err)
+      if (err) 
+        return res.send(500, err);
     
       var new_task = merge (uploadedFiles[0], {
         filename:path.basename(uploadedFiles[0].fd), 

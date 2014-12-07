@@ -101,27 +101,24 @@ module.exports = {
   		console.log(req.params)
   		var content  = {}
       content.user = req.user[0]
-  		res.view("profile/createjob", content)
+  		return res.view("profile/createjob", content)
   },
 
   viewprofile:function(req,res){
-      console.log(req.params)
-      var content = {}
-      content.user = req.user[0]
-      res.view("profile/viewprofile", content)
+    console.log(req.params)
+    var content = {}
+    content.user = req.user[0]
+    return res.view("profile/viewprofile", content)
   },
 
   browse:function(req,res){
-      var content  = {}
+    var content  = {}
     content.user = req.user[0]
-
     Job.find({}).exec(function(err,jobs){
-
       content.jobs = err || jobs
-      res.view( "profile/browse", content );
+      return res.view( "profile/browse", content );
     })
 
-    return;
   },
 
   analyze:function(req,res){

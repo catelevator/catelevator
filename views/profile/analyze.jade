@@ -2,34 +2,31 @@
 extends ../layout
 block body
   include ../navbar
-  .container-fluid(style="background-color:#f7f7f8;")
-    .container
-      .row.well-sm
+  .container
         br
-        .col-md-3
+        .col-md-3.panel.panel-default
           include sidebar
-  
+    
 
 
         .col-md-9
-          
           if jobs
+            h3.skinny.brand-color Jobs you created.
+            hr
             for job in jobs
-              .panel.panel-anay
-                .panel-heading
-                  h4.panel-title=job.name
-                  
-                  span.pull-right.clickable
-                    i.glyphicon.glphicon-minus
-                      
-                  p=job.desc
+              .panel.panel-default
+                .panel-heading.clickable
+                  h4
+                    .fa.fa-fw.fa-chevron-down
+                    b=job.name
+                      .pull-right
+                          .small= (job.taskCount||0) + " tasks"
+                            
 
 
                 .panel-body
-                  h3=job.taskCount + " tasks in this job"
-                  h4 20 people have completed this job
-                  p so here we can put analytics about the job and maybe eventually we can make the title of the job a link to an actual page that displays a bigger view of the data.
-                  p feel free to change the colors of these things, i just wanted them to stand out more
+                  p=job.desc
+
 
 
               //- .panel
