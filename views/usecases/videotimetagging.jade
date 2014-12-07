@@ -7,9 +7,11 @@
     #yesnoVideo
       .container
         .text-center
-          h4 While signed in, users would be given the next item in the dataset
-          p Please continue to explore other template
-      hr
+          br
+          button(onclick="location.href='/signup'",style="margin-right:4px;").button-pill.btn-info.button-large
+            o Sign Up
+          
+      
     #skipVideo
       .container
         .text-center
@@ -38,8 +40,8 @@
                   b Submit
                 a.btn.btn-default.button-flat.btn-superbig.btn-block.yesnobtnVideo 
                   b Not Found
-                //- a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnVideo  
-                //-   b Skip
+                a.btn.btn-default.button-flat.btn-superbig.btn-block.skipbtnVideo  
+                  b Skip
 
             .col-md-8.col-md-offset-1
               #player
