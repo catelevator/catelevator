@@ -20,13 +20,13 @@ block body
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Submit
 
-            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.skipNoButton 
               b Not Found
 
             a.btn.btn-default.button-flat.btn-superbig.btn-block.clearbtn 
               b Clear canvas
 
-            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.skipNoButton 
               b Skip this task
 
         .col-md-9
@@ -340,17 +340,17 @@ block body
         // Isolates the values we need
 
         //this line doesn't work btw...
-        var src =  featureCanvas.canvas.src
+        //- var src =  featureCanvas.canvas.src
 
         var task_id  = featureCanvas.task_id
         console.log("task_id",task_id)
 
         var job_id  = $("#jobid").text()
-        var val = $(this).text()
+        //- var val = $(this).text()
 
         // logs the circles we have.
         console.log( featureCanvas.canvas.circles )
-        console.log(src)
+        //- console.log(src)
         console.log(task_id)
 
         // Posts this action to the server.
@@ -359,6 +359,39 @@ block body
           job_id:job_id,
           input_type:"circles",
           input:featureCanvas.canvas.circles,
+          type:"changedetection"
+        
+        },function(new_task,info){
+          // Deletes our old circles
+          featureCanvas.canvas.circles = []
+          // Goes to next task.
+          $(".featureImage.active").next().click()
+        })
+      }
+
+
+      /*   
+      * this function is for when the user does not want to submit any circles for the task...
+      * or wants to skip the task...
+      */
+      function selectSkipNo() {
+
+        var task_id  = featureCanvas.task_id
+        console.log("task_id",task_id)
+
+        var job_id  = $("#jobid").text()
+        var val = $(this).text()
+
+        // logs the circles we have.
+        //- console.log( featureCanvas.canvas.circles )
+        console.log(task_id)
+
+        // Posts this action to the server.
+        io.socket.post("/actions/new_do", {
+          task_id:task_id,
+          job_id:job_id,
+          //- input_type:"circles",
+          input:val,
           type:"changedetection"
         
         },function(new_task,info){
@@ -428,6 +461,8 @@ block body
 
       $(document).on( "click", ".featureImage", toCanvas )
       $(document).on( "click", ".selectButton", select )
+      $(document).on( "click", ".skipNoButton", selectSkipNo )
+
 
 
       $(document).ready(function() {

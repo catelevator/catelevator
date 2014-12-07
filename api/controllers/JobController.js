@@ -138,30 +138,21 @@ module.exports = {
     //evaluation example
     Job.create([
       {
-        name:"Solve captchas for spam bots", 
+        name:"Please Provide your feedback", 
         type:"evaluation",
         reward:0.001,
-        desc: "Type the letters in the box."
+        desc: "what do you think of my website"
       }
     ]).exec(function(err,jobs){ 
       console.log(err,jobs)
       var job = jobs[0]
       Task.create([
         {
-          src:'http://i.imgur.com/eLmmpdR.jpg',
-          type:"evaluation",
-          job_id:job.id
-        },
-        {
-          src:'http://i.imgur.com/NOGJwjbb.jpg',
-          type:"evaluation",
-          job_id:job.id
-        },
-        {
-          src:'http://i.imgur.com/eLmmpdR.jpg',
+          src:'what do you think of my website at http://www.facebook.com',
           type:"evaluation",
           job_id:job.id
         }
+
       ]).exec(function(a,b){ 
         if(!a){
           job.taskCount = b.length;
@@ -358,7 +349,56 @@ module.exports = {
     //survey example
     
 
-      // compare utils
+    
+
+    //video tagging example
+    Job.create([
+      {
+        name:"Find when cats appear in these videos", 
+        type:"videotimetagging",
+        reward:0.02,
+        desc: "Pause video when you see the cat."
+      }
+    ]).exec(function(err,jobs){ 
+      console.log(err,jobs)
+      var job = jobs[0]
+      Task.create([
+        {
+          src:'http://www.youtube.com/embed/m2UszPwHvXE',
+          video_id: 'm2UszPwHvXE',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'https://www.youtube.com/watch?v=pRLTqdn52AI',
+          video_id: 'pRLTqdn52AI',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'https://www.youtube.com/watch?v=KdxEAt91D7k',
+          video_id: 'KdxEAt91D7k',
+          type:"videotimetagging",
+          job_id:job.id
+        },
+        {
+          src:'http://youtu.be/KdxEAt91D7k',
+          video_id: 'KdxEAt91D7k',
+          type:"videotimetagging",
+          job_id:job.id
+        }
+      ]).exec(function(a,b){ 
+        if(!a) {
+          job.taskCount = b.length;
+          job.save()
+        }
+        res.send("bounced jobs for video")})
+
+    })
+
+
+
+    // compare utils
       
       /**
        * Gets a random color in rgb format as a JSON object
@@ -451,52 +491,6 @@ module.exports = {
           job.save()
         }
         console.log("bounced jobs for compare")})
-    })
-
-
-    //video tagging example
-    Job.create([
-      {
-        name:"Find when cats appear in these videos", 
-        type:"videotimetagging",
-        reward:0.02,
-        desc: "Pause video when you see the cat."
-      }
-    ]).exec(function(err,jobs){ 
-      console.log(err,jobs)
-      var job = jobs[0]
-      Task.create([
-        {
-          src:'http://www.youtube.com/embed/m2UszPwHvXE',
-          video_id: 'm2UszPwHvXE',
-          type:"videotimetagging",
-          job_id:job.id
-        },
-        {
-          src:'https://www.youtube.com/watch?v=pRLTqdn52AI',
-          video_id: 'pRLTqdn52AI',
-          type:"videotimetagging",
-          job_id:job.id
-        },
-        {
-          src:'https://www.youtube.com/watch?v=KdxEAt91D7k',
-          video_id: 'KdxEAt91D7k',
-          type:"videotimetagging",
-          job_id:job.id
-        },
-        {
-          src:'http://youtu.be/KdxEAt91D7k',
-          video_id: 'KdxEAt91D7k',
-          type:"videotimetagging",
-          job_id:job.id
-        }
-      ]).exec(function(a,b){ 
-        if(!a) {
-          job.taskCount = b.length;
-          job.save()
-        }
-        res.send("bounced jobs for video")})
-
     })
 
 

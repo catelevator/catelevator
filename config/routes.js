@@ -40,9 +40,9 @@ module.exports.routes = {
   '/u': "ProfileController.index",
   // '/': "UserController.homepage",
 
-  '/createjob': {
-    view: 'profile/createjob'
-  },
+  // '/createjob': {
+  //   view: 'profile/createjob'
+  // },
 
   'get /signup': {
     view: 'auth/signup'

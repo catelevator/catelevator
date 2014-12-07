@@ -26,93 +26,150 @@ block body
 
           .panel.panel-default
             #step-1.setup-content
-              .panel-body
-                .col-md-12
-                  br
-                  br
+                .panel-body
+                  .col-md-12
+                    br
+                    br
 
-                .col-md-12
-                  .col-md-4
-                    p.lead Project name:
-                  .col-md-8
-                    input(name="name", type="text", value="test", placeholder="Name")#jobName.form-control
-                  br
-                  br
+                  .col-md-12
+                    .col-md-4
+                      p.lead Project name:
+                    .col-md-8
+                      input(name="name", type="text", value="Name", placeholder="Name")#jobName.form-control
+                    br
+                    br
 
+                      
+                  .col-md-12
+                    .col-md-4
+                      p.lead Template:
+                    .col-md-8
+                      select.selectpicker
+                        option Evaluation
+                        option Change Detection
+                        option Feature Finding
+                        option Impression Measuring
+                        option Inquiry
+                        option Survey
+                        option Transcribing
+                        option Video Time Tagging
+                        //- option(data-content="<a data-toggle='tooltip' data-placement='right' href='#' title='' data-original-title='Put things here?'>put things hereee</a>") Change Detection
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Change Detection</span>") Change Detection
+                        //- option Change Detection
+                        //- option.tooltip(title='things') Change Detection
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Evaluation</span>") Evaluation
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Feature Finding</span>") Feature Finding
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Impression Measuring</span>") Impression Measuring
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Inquiry</span>") Inquiry
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Survey</span>") Survey
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Transcribing</span>") Transcribing
+                        //- option(data-content="<span class='tooltip right' title='Put things here?'>Video Time Tagging</span>") Video Time Tagging
+                    //- .col-md-4
+                    //-   button#help.btn.button.button-flat Help
+
+                  .col-md-12
+                    .col-md-4
+                      p.lead Description:
+                    .col-md-8
+                      textarea(name="desc", value="Description", placeholder="Description").form-control#jobDesc
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
                     
-                .col-md-12
-                  .col-md-4
-                    p.lead Template:
-                  .col-md-8
-                    select.selectpicker
-                      option Evaluation
-                      option Change Detection
-                      option Feature Finding
-                      option Impression Measuring
-                      option Inquiry
-                      option Survey
-                      option Transcribing
-                      option Video Time Tagging
-                      //- option(data-content="<a data-toggle='tooltip' data-placement='right' href='#' title='' data-original-title='Put things here?'>put things hereee</a>") Change Detection
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Change Detection</span>") Change Detection
-                      //- option Change Detection
-                      //- option.tooltip(title='things') Change Detection
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Evaluation</span>") Evaluation
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Feature Finding</span>") Feature Finding
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Impression Measuring</span>") Impression Measuring
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Inquiry</span>") Inquiry
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Survey</span>") Survey
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Transcribing</span>") Transcribing
-                      //- option(data-content="<span class='tooltip right' title='Put things here?'>Video Time Tagging</span>") Video Time Tagging
-                  //- .col-md-4
-                  //-   button#help.btn.button.button-flat Help
+                  
 
-                .col-md-12
-                  .col-md-4
-                    p.lead Description:
-                  .col-md-8
-                    textarea(name="desc", value="test", placeholder="Description").form-control#jobDesc
-                  br
-                  br
-                  br
-                  br
-                  hr
-                
-
-              .panel-footer.text-right
-                  //- button.btn.btn-link cancel  
-                  a#activate-step-2.btn.btn-success.next Next 
-                    fa.fa.fa-fw.fa-chevron-right
+                .panel-footer.text-right
+                    //- button.btn.btn-link cancel  
+                    a#activate-step-2.btn.btn-success.next Next 
+                      fa.fa.fa-fw.fa-chevron-right
 
 
             #step-2.setup-content
               .panel-body
-                #changeDetect.config-content
+                #mostTemplates.config-content
                   .col-md-12
-                    h2.medBrand Change Detection
-                    hr
+                    br
                     .col-md-4
                       p.lead Prompt for each task:
                     .col-md-8
-                      input(name="instruction",type="text", value="test", placeholder="Find the difference between the photos.").form-control
+                      input(name="instruction",type="text", value="Prompt").form-control
+                    br
+                
+                #evaluation.config-content
+                  .col-md-12
+                    .col-md-4
+                      p.lead Question:
+                    .col-md-8
+                      textarea.transcribingTextarea(placeholder="Maybe we can make this textarea have formatting options and things like this http://bootsnipp.com/snippets/featured/html-editor-wysiwyg-interface").form-control
                     br
                   hr
-             
+                
+                #impressMeasure.config-content  
+                  .col-md-12
+                    .col-md-3
+                      p.lead On a scale from
+                    .col-md-4
+                      input(type="text", placeholder="depressed").form-control
+                    .col-md-1
+                      p.lead to
+                    .col-md-4
+                      input(type="text", placeholder="estatic").form-control
+                    br
+                  hr
+                #inquiry.config-content
+                  .col-md-12
+                    .col-md-4
+                      p.lead Choose answer set:
+                    .col-md-4
+                      .radio.inline
+                        label.radioLabel
+                          input(type='radio', name='inquiryOptions', value='default', checked)
+                          | Default (Yes/No)
+                    .col-md-4
+                      .radio.inline
+                        label.radioLabel
+                          input(type='radio', name='inquiryOptions', value='custom')
+                          | Custom Answer Set
                   #customAnswerSet
                     .col-md-12
                       .col-md-4
-                        p.lead Number of Answers
-                      .col-md-2
-                        input(name="options",type="number", min="1", max="6", value="2", id="numAnswers", onchange="customAnswers()").form-control
-                      .col-md-6
-                        #answer1
-                          input(name="option1", type="text", value="test", placeholder="Custom Answer 1").form-control
-                        #answer2
-                          input(type="option2", value="test", placeholder="Custom Answer 2").form-control
-
+                        p.lead Custom Answers:
+                      .col-md-8
+                        form
+                          .form-group.multiple-form-group(data-max='8')
+                            .form-group.input-group
+                              input.form-control(type='text', name='multiple[]')
+                              span.input-group-btn
+                                button.btn.btn-default.btn-add(type='button') 
+                                  | +
                   hr
-            
+                #survey.config-content
+                  .col-md-12
+                    br
+                    .col-md-4
+                      p.lead Prompt for this task:
+                    .col-md-8
+                      input(name="instruction",type="text", value="Prompt (or maybe move this to assimilate data page?").form-control
+                    br
+                  .col-md-12
+                    .col-md-4
+                      p.lead Custom Answers:
+                    .col-md-8
+                      form
+                        .form-group.multiple-form-group(data-max='8')
+                          .form-group.input-group
+                            input.form-control(type='text', name='multiple[]')
+                            span.input-group-btn
+                              button.btn.btn-default.btn-add(type='button') 
+                                | +
+                  hr
+
+                    
                 .col-md-12
+                  hr
                   br
                   .col-md-6
                     p.lead Points Awarded per Task:
@@ -125,9 +182,8 @@ block body
                     input(name="points_per_job", type='number', value="test", placeholder="1", step="1", id="pointsForComplete").form-control
                 .col-md-12
                   hr
-                  .col-md-12
-                    p.lead Job expiration
-
+                  .col-md-10.col-md-offset-1
+                    p.lead Job Expiration
                     .radio
                       .col-md-7
                         label.radioLabel
@@ -146,7 +202,6 @@ block body
                       .col-md-2
                         input(name="confidence_rating", type='number').form-control
                     br
-
                     .radio
                       .col-md-3
                         label.radioLabel
@@ -155,9 +210,7 @@ block body
                       .col-md-6
                         input(name="close_date", type='datetime-local').form-control
                     br
-
-
-
+              
               .panel-footer.text-right
                 a#cancel-step-2.btn.btn-link Back  
                 a#activate-step-3.btn.btn-success.create_job.next Next 
@@ -184,61 +237,49 @@ block body
   script.
     var template;
 
+
+    var addFormGroup = function (event) {
+      event.preventDefault();
+
+      var $formGroup = $(this).closest('.form-group');
+      var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+      var $formGroupClone = $formGroup.clone();
+
+      $(this)
+          .toggleClass('btn-default btn-add btn-danger btn-remove')
+          .html('–');
+
+      $formGroupClone.find('input').val('');
+      $formGroupClone.insertAfter($formGroup);
+
+      var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+      if ($multipleFormGroup.data('max') <= countFormGroup($multipleFormGroup)) {
+          $lastFormGroupLast.find('.btn-add').attr('disabled', true);
+      }
+    };
+
+    var removeFormGroup = function (event) {
+        event.preventDefault();
+
+        var $formGroup = $(this).closest('.form-group');
+        var $multipleFormGroup = $formGroup.closest('.multiple-form-group');
+
+        var $lastFormGroupLast = $multipleFormGroup.find('.form-group:last');
+        if ($multipleFormGroup.data('max') >= countFormGroup($multipleFormGroup)) {
+            $lastFormGroupLast.find('.btn-add').attr('disabled', false);
+        }
+
+        $formGroup.remove();
+    };
+
+    var countFormGroup = function ($form) {
+        return $form.find('.form-group').length;
+    };
+
+    $(document).on('click', '.btn-add', addFormGroup);
+    $(document).on('click', '.btn-remove', removeFormGroup);
+
     $('.selectpicker').selectpicker();
-
-    //- this is definitely not the best way to do this...but it works...
-    function customAnswers() {
-      var x = document.getElementById("numAnswers").value;
-      if( x == '1') {
-        $('#answer1').show();
-        $('#answer2').hide();
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '2') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '3') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '4') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').hide();
-        $('#answer6').hide();
-      }
-      if( x == '5') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').show();
-        $('#answer6').hide();
-      }
-      if( x == '6') {
-        $('#answer1').show();
-        $('#answer2').show();
-        $('#answer3').show();
-        $('#answer4').show();
-        $('#answer5').show();
-        $('#answer6').show();
-      }
-    }
-
 
     $('input[name="inquiryOptions"]').on('change', function() {
       if($(this).val()=='default') {
@@ -248,16 +289,6 @@ block body
         $('#customAnswerSet').show();
       }
     })
-
-    //- $(document).on( "click", ".addtask", function(){ 
-    //-   $("#addMoreTasks").append('<hr><div class="row"><div class="col-md-1"><label>' 
-    //-     + taskcount + '.</label></div>' 
-    //-     + '<div class="col-md-11"><input class="form-control", type="file", name="task' 
-    //-     + taskcount + '", placeholder="things"></input></div></div>');
-      
-    //-   taskcount++;
-    //- })
-
 
     $(document).ready(function() {
         $('[rel="tooltip"], .tooltip').tooltip();
@@ -273,10 +304,6 @@ block body
 
         $('#customAnswerSet').hide();
 
-        $('#answer3').hide();
-        $('#answer4').hide();
-        $('#answer5').hide();
-        $('#answer6').hide();
 
         navListItems.click(function(e)
         {
@@ -300,25 +327,24 @@ block body
             $('ul.setup-panel li a[href="#step-2"]').trigger('click');
             template = $('.selectpicker').val();
             $('.config-content').hide();
-            //there is probably a better way to do this....but whatevs
-            if(template == "Change Detection")
-              $('#changeDetect').show();
-            if(template == "Evaluation") 
+
+            $('#mostTemplates').show();
+
+            if(template == "Evaluation") {
               $('#evaluation').show();
-            if(template == "Feature Finding") 
-              $('#featureFind').show();
+              $('#mostTemplates').hide(); 
+            }
+
             if(template == "Impression Measuring") 
               $('#impressMeasure').show();
+
             if(template == "Inquiry") 
               $('#inquiry').show();
-            if(template == "Survey") 
-              $('#survey').show();
-            if(template == "Transcribing") 
-              $('#transcrib').show();
-            if(template == "Video Time Tagging") 
-              $('#videoTagging').show();
-            //$(this).remove();
 
+            if(template == "Survey") {
+              $('#survey').show();
+              $('#mostTemplates').hide();
+              }
 
         })    
 
@@ -333,9 +359,6 @@ block body
           $('ul.setup-panel li a[href="#step-1"]').trigger('click');
           $('.config-content').hide();
         })
-
-
-
 
     });
 
