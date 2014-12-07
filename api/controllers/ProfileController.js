@@ -18,57 +18,93 @@ module.exports = {
     var uq = {user_id:req.user[0].id}
     var i = 0
 
-
-    Actions.find(uq).exec(function(err,actions){
+    /**
+     * Get all the actions which this user has performed
+     * @param  {[type]} err     
+     * @param  {[type]} actions 
+     * @return {[type]}         
+     */
+    Actions.find(uq).populate("job_id").exec(function(err,actions){
+      /**
+       * Add up all the reqards for all the actions as retrieved form their parent jobs
+       * @type {Number}
+       */ 
       var balance = 0;
       _.map(actions, function(action){
         balance+= (action.job_id ? action.job_id.reward : 0)
       })
+
+      /**
+       * Save that balance to the user
+       * @type {[type]}
+       */
       content.user.balance = Math.round(balance*1000)/1000
       // User.update(content.user.id, {balance:balance}).exec(function(a,b){console.log(a,b)})
 
-        console.log("FUCK!!!", i++)
-
-      Job.find({}).exec(function(err,jobs){
-        console.log("jobs.length")
-        console.log(jobs.length)
-          // var actions_json = _.pluck(actions, 'createdAt')
+      /**
+       * Grab all of the jobs
+       * @param  {[type]} err  
+       * @param  {[type]} jobs 
+       * @return {[type]}      
+       */
+      Job.find().exec(function(err,jobs){
           
-          if(err) return res.view( "profile/index", { jobs:jobs, actions:(actions||[]), user:req.user[0] } );
-          
+          // if(err) return res.view( "profile/index", { jobs:jobs, actions:(actions||[]), user:req.user[0] } );
 
-          // var actions_json = _.groupBy(actions, function(action) {
-          //   var d = new Date( Date.parse( action.createdAt ) );
-          //   return d.getHour()
-          // });
+          /**
+           * Group all of the actions by there fucking dates
+           * @param  {[type]} action 
+           * @return {[type]}        
+           */
+          var actions_json = _.groupBy(actions, function(action) {
+            var d = new Date( Date.parse( action.createdAt ) );
+            return d.getHours()
+          });
 
-          // var actions_counts = _.groupBy(actions, function(action) {
-          //   return action.job_id
-          // });
 
-          // _.map(jobs, function(jb){
-          //   jb.progress = ( typeof actions_counts[jb.id] !== 'undefined' ? Math.ceil(actions_counts[jb.id].length/jb.taskCount*100) : 0 )
-          // })
+          /**
+           * group all the fucking actions by thir job IDS.
+           */
+          var actions_counts = _.groupBy(actions, function(action) {
+            console.log(action);
+            return action.job_id.id
+          });
+          /**
+           * Walk through all of the jobs and calculate the progress as 
+           * a function of the actions finished by the user over the total tasks in the job.
+           * @param  {[type]} jb 
+           * @return {[type]}    
+           */
+          _.map(jobs, function(jb){
+            jb.progress = ( typeof actions_counts[jb.id] !== 'undefined' ? Math.ceil(actions_counts[jb.id].length/jb.taskCount*100) : 0 )
+          })
 
-          // var jbs = _.reject(jobs, function(jb){
-          //   return (jb.progress == 0)
-          // })
+          /**
+           * Drop all of the jobs that don't have any user progress
+           * @param  {[type]} jb 
+           * @return {[type]}    
+           */
+          var jbs = _.reject(jobs, function(jb){
+            return (jb.progress == 0)
+          })
 
-          // var actions =  []
-          // console.log("actions_json", actions_json)
-          // for( a in actions_json){
-          //   var ac = {x:a, y:actions_json[a].length} 
-          //   actions.push( ac )
-          // }
-
-          console.log(actions)
-
-          content.actions = actions
-          res.view( "profile/index", { jobs:jobs, actions:actions, user:req.user[0] } );
+          /**
+           * Walk through all the fuckig actions in that actions_json
+           * and make the shit for the activity chart.
+           */
+          var assssss = []
+          for( a in actions_json){
+            var ac = {x:a, y:actions_json[a].length} 
+            assssss.push( ac )
+          }
+          /**
+           * Send all that shit to the view like a bad ass.
+           * @type {[type]}
+           */
+          return res.view( "profile/index", { jobs:jbs, actions:assssss, user:req.user[0] } );
       })
     })
 
-    return;
   },
   //
   //  index:function(req,res){

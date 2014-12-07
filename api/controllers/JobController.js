@@ -12,8 +12,7 @@ module.exports = {
 
   index:function(req,res){
     Job.find({}).exec(function(e,jobs){
-      console.log("error:",e)
-      console.log("jobs:",jobs)
+      console.log(jobs)
       if(req.user)
         res.view("job/index",{ jobs:jobs, user:req.user[0] })
       else
@@ -22,10 +21,10 @@ module.exports = {
   },
 
   work:function(req,res){
-    Job.find({ id:req.param('job') }).exec(function(e,jobs){
-      var job = jobs[0]
-      Task.find({ job_id:job.id, limit:2 }).exec(function(e,tasks){
-        res.view( "templates/"+job.type, { job:job, tasks:tasks } );
+    Job.findOne({ id:req.param('job') }).exec(function(e,job){
+      Task.count({ job_id:job.id}).exec(function(a,count){
+        Job.update(job.id, {task_count:count}).exec(function(a,b){ console.log(a,b) })
+        res.view( "templates/"+job.type, {job:job});
       })
     })
   },

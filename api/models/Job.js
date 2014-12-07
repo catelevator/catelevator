@@ -12,10 +12,5 @@ module.exports = {
     progress:{type:"string",defaultsTo:0},
     tasks: { collection:"task", via:"job_id" },
     creator: { model:"user", required:true },
-    task_count: function(){
-      Tasks.count({job_id:this.id}, function(err,result){
-        console.log(result);
-      })
-    },
   }
 };

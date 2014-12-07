@@ -16,6 +16,22 @@ module.exports = {
       collection: 'actions',
       via: 'task_id'
     }
-  }
+  },
+
+
+  afterCreate: function(shit, done){
+
+    var j = shit.job_id;
+    console.log("job_id",j)
+    Task.count({job_id:j}).exec(function(err, count){
+      Job.update({id:j}, {taskCount:count}).exec(function(err,job){
+        console.log(err,job)
+        done()
+      })
+    })
+  },
+
+
+
 };
 

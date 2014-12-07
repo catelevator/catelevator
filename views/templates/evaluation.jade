@@ -14,7 +14,7 @@ block body
               #jobid.hide=job.id
               hr
                 
-          textarea#imageTranscription.transcribingTextarea(name="dataEvaluation" width="100%")
+          textarea#dataEvaluation.transcribingTextarea(name="dataEvaluation", width="100%")
 
           a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton
             b Submit
@@ -33,43 +33,45 @@ block body
 
   script.
 
+    var skip = 0;
+    var current = 0;
+
     function select(){
 
-      //- dont technically need this...
-      //- var src = $("#currentTask").find('p').attr('src')
-      var task_id  = $("#currentTask").find('p').attr('data-id')
 
+      var task_id  = $(".featureImage").first().attr('data-id')
       var job_id  = $("#jobid").text()
       var val = $('#dataEvaluation').val();
 
-      var inputbtn = $(this).text();
-
       console.log(val)
       io.socket.post("/actions/new_do", {task_id:task_id,
-        job_id:job_id, 
-        input_type:inputbtn,
+        job_id:job_id,
         input:val, 
         type:"evaluation"
       }, function(new_task,info){
 
-        console.log(new_task)
-        console.log(info)
+        io.socket.get( "/task/find", { job_id:#{job.id}, limit:1, skip:skip++ }, function(tasks){
+          $.map(tasks, function(task){
+            featureModel.emit('created', {
+              id:task.id,
+              data:task
+            })
+          })
 
-        $('#dataEvaluation').val("");
+          $('#dataEvaluation').val("");
+          $(".featureImage").first().remove(); 
+          $(".featureImage").first().click(); 
+
+        })
+
+
 
       })
 
     }
 
     function toCanvas(){
-
-        var src = $(this).find('img').attr('info')
-        var id  = $(this).find('img').attr('data-id')
-        $(".featureImage.active").removeClass("active")
-        $(this).addClass("active")
-        //- $("#currentTask p").attr('innerHTML', src)
-        $("#currentTask p").text(src);
-        $("#currentTask p").attr('data-id',id)
+      $("#currentTask").html( $(this).html() ).addClass("panel-body").find("img").addClass("img-responsive")
     }
 
     $(document).on( "click", ".selectButton", select )
@@ -78,18 +80,16 @@ block body
     var featureModel = new $.eventModel();
 
     featureModel.on('created', function(info,item) {
-      var a = item.data.tasks
-      $.map(a, function(d){
+      var d = item.data
         console.log(d)
         $("#job").append($("<span>", {
           "data-id":d.id,
           class:"small featureImage"
         }).append($("<img>",{
-          src: 'https://ageofex.files.wordpress.com/2012/11/hidden-text-example-31.gif',
+          src: d.src,
           "info":d.src,
           "data-id":d.id
         })))
-      })
       $(".featureImage").first().click();
     });
 
@@ -107,20 +107,20 @@ block body
         featureModel.emit(dataset.verb, dataset);
       })
 
-      io.socket.get( "/"+model+"/find", {type:"evaluation"}, function(datasets){
-        console.log(datasets);
-        $.map(datasets, function(dataset){
+      io.socket.get( "/task/find", { job_id:#{job.id} , limit:2 }, function(tasks){
+        skip = tasks.length
+        $.map(tasks, function(task){
           featureModel.emit('created', {
-            id:dataset.id,
-            data:dataset
+            id:task.id,
+            data:task
           })
+        $(".featureImage").first().click(); 
         })
       })
-      $(".featureImage").first().click();
     }
 
     $(document).ready(function(){
 
-      dataset_glue("job");
+      dataset_glue("task");
 
     });
