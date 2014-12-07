@@ -1,30 +1,36 @@
 extends ../layout
 block body
   include ../navbar
-  .container-fluid(style="background-color:#f7f7f8;")
+  .container
       br
       br
-      .col-md-4.col-md-offset-4
-         table.prettytable
-            tr
-               td Username
-               td= user.username
-            tr
-               td Password
-               td 
-                  button.btn-danger Edit Password
-            tr
-               td Email
-               td=user.email
-            tr
-               td Points
-               td= user.points
-            tr
-               td btc
-               td= user.btc
-            tr
-               td Expert Level
-               td=user.expert_level
+      .col-md-12
+         .panel.panel-default
+            .panel-body
+               .col-md-12
+                  h1
+                     o User:  
+                     b= user.username
+                  hr
+               .col-md-6
+                  table.table.table-striped.well
+
+                     tr
+                        td Password
+                        td 
+                           button.button.button-small Change Password
+                     tr
+                        td Email
+                        td=user.email
+                     tr
+                        td Points
+                        td= user.points
+                     tr
+                        td balance
+                        td= user.balance
+                     tr
+                        td Expert Level
+                        td=user.expert_level
       //- .col-md-10.col-md-offset-2(style="vertical-align:middle;")
       //-    br
       //-    br

@@ -4,7 +4,7 @@
  */
 
 module.exports = function(req, res, next){
-  if (req.isAuthenticated() && req.user){
+  if (req.isAuthenticated() && typeof req.user != "undefined"){
     return next();
   }else{
   		return res.redirect('/login');

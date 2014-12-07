@@ -7,27 +7,48 @@ block body
       .col-md-3.panel.panel-default
         br
         div(style="height:100pc!important;")
-          h2.skinny Jobs
           include sidebar
 
 
       .col-md-9.panel.panel-default
-        .row(style="height:100pc!important;")
-          ul.nav.nav-justified.text-left.panel-body
-            li.bigger
-                .skinny Balance:   
-                  b.balance.green
-                    o=user.btc||"0.00" 
-                    o.skinny 
-            li.bigger
-                .skinny Active Jobs:  
-                  o.balance=jobs.length
-            li.bigger
-                .skinny Integrity Rating: 
-                  o.balance=user.expert_level||"00"
-                    o %
+        br
+        ul.nav.nav-justified.text-left.panel-body.text-center
+          li.bigger
+              o Wallet Balance:   
+                b.balance.green
+                  o=user.balance||"0.00" 
+                  o.skinny 
+          li.bigger
+              .skinny Active Jobs:  
+                o.balance=jobs.length
+          li.bigger
+              .skinny Integrity Rating: 
+                o.balance=user.expert_level||"00"
+                  o %
+        .row 
+          hr
+        if jobs
+            table.table.table-condensed
+              for job in jobs
+                tbody
+                  tr
+                    td(style="padding:12px;")
+                      b
+                        a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
+                      div.skinny=job.desc
+                    td(style="padding-top:18px;").text-left
+                      small=job.progress
+                        o  % of   
+                        o=job.taskCount 
+                        o   tasks
+                      .progress(style="height:6px;background-color:#d3d3d3;width:140px;").text-center
+                        .progress-bar(role='progressbar', aria-valuenow="#{job.progress}", aria-valuemin='0', aria-valuemax='100', style='width:#{job.progress}%;')
+                    //- this is just for mads ocd purposes to make sure all templates are made
+   
 
-          #activityChart
+
+
+          #activityChart.row
             if(actions)
               script.
                 console.log(!{ JSON.stringify(actions) })
@@ -120,25 +141,3 @@ block body
             //-               p=job.type
             //-     else
             //-       p no active jobs
-
-            if jobs
-              table.table.table-condensed
-                for job in jobs
-                  tbody
-                    tr
-                      td(style="padding:12px;")
-                        b
-                          a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
-                        div.skinny=job.desc
-                      td(style="padding-top:18px;")
-                        small=job.progress
-                          o % of  
-                          o=job.taskCount 
-                          o  tasks
-                        .progress(style="height:3px;background-color:#d3d3d3;width:100px;")
-                          .progress-bar(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width:60%;')
-                      //- this is just for mads ocd purposes to make sure all templates are made
-                      td(style="padding-top:11px;")
-                        //- a.btn.btn-default.btn-sm Work
-
-

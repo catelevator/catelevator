@@ -30,6 +30,12 @@ module.exports = {
     })
   },
 
+
+  new:function(req,res){
+    return res.view( "job/create_job", { user:req.user[0] });
+  },
+
+
   analyze:function(req,res){
     Job.find(req.param('job')).exec(function(e,jobs){
       var job = jobs[0]
@@ -92,6 +98,7 @@ module.exports = {
       {
         name:"Detect changes in satellite imagery", 
         type:"changedetection",
+        creator:req.user[0].id||1,
         reward:0.01,
         desc: "circle the difference"
       }
@@ -139,6 +146,7 @@ module.exports = {
     Job.create([
       {
         name:"Please Provide your feedback", 
+        creator:req.user[0].id||1,
         type:"evaluation",
         reward:0.001,
         desc: "what do you think of my website"
@@ -169,6 +177,7 @@ module.exports = {
     Job.create([
       {
         name:"Read and transcribe hand written notes", 
+        creator:req.user[0].id||1,
         type:"transcribing",
         reward:0.01,
         desc: "Transcribe the images."
@@ -213,6 +222,7 @@ module.exports = {
     Job.create([
       {
         name:"Classify image content semantically", 
+        creator:req.user[0].id||1,
         type:"featurefinding",
         reward:0.01,
         desc: "Find and circle the cats in the picture."
@@ -257,6 +267,7 @@ module.exports = {
     Job.create([
       {
         name:"Tell me how fantastic my cat is. ", 
+        creator:req.user[0].id||1,
         type:"impressionmeasuring",
         reward:0.02,
         desc: "Position the slider to indicate how awesome my cat is."
@@ -308,6 +319,7 @@ module.exports = {
     Job.create([
       {
         name:"Filter images by cat presence.", 
+        creator:req.user[0].id||1,
         type:"inquiry",
         reward:0.02,
         desc: "Select whether or not the specified feature exists in the dataset."
@@ -356,6 +368,7 @@ module.exports = {
       {
         name:"Find when cats appear in these videos", 
         type:"videotimetagging",
+        creator:req.user[0].id||1,
         reward:0.02,
         desc: "Pause video when you see the cat."
       }
@@ -476,6 +489,7 @@ module.exports = {
     Job.create([
       {
         name:"Teach a neural net to optimize color contrasts", 
+        creator:req.user[0].id||1,
         type:"compare",
         reward:0.005,
         desc: "Select which color combination is bestest."

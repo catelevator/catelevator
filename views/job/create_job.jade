@@ -36,6 +36,7 @@ block body
                       p.lead Project name:
                     .col-md-8
                       input(name="name", type="text", value="Name", placeholder="Name")#jobName.form-control
+                      input(name="creator", type="hidden", value="#{user.id}")
                     br
                     br
 
@@ -44,7 +45,7 @@ block body
                     .col-md-4
                       p.lead Template:
                     .col-md-8
-                      select.selectpicker
+                      select.selectpicker(name="type")
                         option Evaluation
                         option Change Detection
                         option Feature Finding
@@ -352,6 +353,9 @@ block body
             $('ul.setup-panel li:eq(2)').removeClass('disabled');
             $('ul.setup-panel li a[href="#step-3"]').trigger('click');
             $(this).remove();
+
+
+
         })
 
         $('#cancel-step-2').on('click', function(e) {

@@ -11,6 +11,7 @@ var _ = require("underscore")
 
 module.exports = {
   attributes: {
+
     username: {
       type: 'string',
       unique: true
@@ -20,6 +21,10 @@ module.exports = {
       defaultsTo:0.00
     },
     btc: {
+      type: 'float',
+      defaultsTo:0.00
+    },
+    balance: {
       type: 'float',
       defaultsTo:0.00
     },
@@ -38,13 +43,25 @@ module.exports = {
       type: 'string',
       required: true
     },
+
+
+
+
+
+
+
   },
+
+
+
 
   task_count: function(){
     Tasks.count({user_id:this.id}, function(err,result){
       console.log(result);
     })
   },
+
+
 
   // beforeCreate: function(user, done) {
   //   if(!user.password) done(null, user)

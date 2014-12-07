@@ -20,7 +20,7 @@ block content
                 .fa.fa-fw.fa-tasks
                 | Dashboard
             li
-              a(href='/create_job')
+              a(href='/job/new')
                 .fa.fa-fw.fa-plus-square-o
                 | Create a job
                 //- li.divider
@@ -71,13 +71,10 @@ block content
                             fa.fa.fa-fw.fa-refresh
                             | User
             li.dropdown
-              if user
-                a.dropdown-toggle(href='#', data-toggle='dropdown')=user.username+" "
-                  fa.fa.fa-caret-down
-              else
-                a.dropdown-toggle(href='#', data-toggle='dropdown')=req.user[0].username+" "
-                  fa.fa.fa-caret-down
-             
+
+              a.dropdown-toggle(href='#', data-toggle='dropdown')=req.user[0].username+" "
+                fa.fa.fa-caret-down
+           
 
             
               ul.dropdown-menu.multi-level(role='menu', aria-labelledby='dropdownMenu')
@@ -90,6 +87,9 @@ block content
                   a(href='/logout') 
                     fa.fa.fa-fw.fa-sign-out
                     | Log out
+
+
+
 
         else
           ul.nav.navbar-nav.navbar-right
@@ -105,8 +105,6 @@ block content
               a(href='/signup') SIGN UP
 
           
-        
-
 
 
   div(style="margin-bottom:50px;")

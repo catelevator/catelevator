@@ -23,16 +23,19 @@ body {
 /*
 Brand colors
 */ 
+
 .jumbotron,.button-flat-primary, .btn-primary, .panel-heading, .navbar-custom, .dropdown-menu.navbar ul, .dropdown, .bg-brand{
-  background: #43529a; 
+  background: #1E213C; 
 }
-h1,h2, .brand-blue, .balance {
-  color: #43529a;
+h1,h2, .brand-blue, .brand-color, .balance {
+  color: #1E213C;
 }
 
 .panel-body .dropdown-menu{
   background-color:white;
 }
+
+
 
 .panel,.well,.btn, .sidebar li a{
     -webkit-border-radius: 0 0px 0px 0px;
@@ -521,12 +524,15 @@ h1.big{
 }
 .balance {
   font-weight:700;
-  font-size:22px;
+  padding-left:12px;
+  font-size:18px;
   line-height: 28px;
   padding-top:2px!important;
 }
 .balance.green{
-  color:#229342;
+  font-weight:500;
+  font-size:24px;
+  color:#22a342;
 }
 
 .button-flat-primary{
