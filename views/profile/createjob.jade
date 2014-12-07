@@ -87,16 +87,15 @@ block body
 
           #step-2.setup-content
             .panel-body
-              #changeDetect.config-content
+              #mostTemplates.config-content
                 .col-md-12
-                  h2.medBrand Change Detection
-                  hr
                   .col-md-4
                     p.lead Prompt for each task:
                   .col-md-8
                     input(name="instruction",type="text", value="test", placeholder="Find the difference between the photos.").form-control
                   br
                 hr
+              
               #evaluation.config-content
                 .col-md-12
                   h3 Evaluation
@@ -107,24 +106,8 @@ block body
                     textarea(placeholder="i'm not sure what this is exactly supposed to be...do they need to load data??").form-control
                   br
                 hr
-              #featureFind.config-content
-                .col-md-12
-                  h2.medBrand Feature Finding
-                  hr
-                  .col-md-4
-                    p.lead Prompt for each task:
-                  .col-md-8
-                    input(type="text", placeholder="Find the cat in this photo.").form-control
-                  br
-                hr
-              #impressMeasure.config-content
-                .col-md-12
-                  h2.medBrand Impression Measuring
-                  hr
-                  .col-md-4
-                    p.lead Prompt for each task:
-                  .col-md-8
-                    input(type="text", placeholder="How happy does this picture make you feel?").form-control
+              
+              #impressMeasure.config-content  
                 .col-md-12
                   .col-md-3
                     p.lead On a scale from
@@ -137,13 +120,6 @@ block body
                   br
                 hr
               #inquiry.config-content
-                .col-md-12
-                  h2.medBrand Inquiry
-                  hr
-                  .col-md-4
-                    p.lead Prompt for each task:
-                  .col-md-8
-                    input(type="text", placeholder="Is there a cat?").form-control
                 .col-md-12
                   .col-md-4
                     p.lead Choose answer set:
@@ -172,75 +148,61 @@ block body
                 hr
               #survey.config-content
                 .col-md-12
-                  h2.medBrand Survey
-                  hr
                   .col-md-4
-                    p.lead Prompt for each task:
+                    p.lead Custom Answers:
                   .col-md-8
-                    input(type="text", placeholder="THIS NEEDS TO BE FIGURED OUT").form-control
-                  br
+                    form
+                      .form-group.multiple-form-group(data-max='8')
+                        .form-group.input-group
+                          input.form-control(type='text', name='multiple[]')
+                          span.input-group-btn
+                            button.btn.btn-default.btn-add(type='button') 
+                              | +
                 hr
-              #transcrib.config-content
-                .col-md-12
-                  h2.medBrand Transcribing
-                  hr
-                  .col-md-4
-                    p.lead Prompt for each task:
-                  .col-md-8
-                    input(type="text", placeholder="What does this say?").form-control
-                  br
-                hr
-              #videoTagging.config-content
-                .col-md-12
-                  h2.medBrand Video Time Tagging
-                  hr
-                  .col-md-4
-                    p.lead Prompt for each task:
-                  .col-md-8
-                    input(type="text", placeholder="Where does the cat appear in this video?").form-control
-                  br
-                hr   
+
+                  
               .col-md-12
                 hr
                 br
                 .col-md-6
                   p.lead Points Awarded per Task:
                 .col-md-2
-                  input(type='number', placeholder="0.1", step=".1", id="pointsForTask").form-control
+                  input(name="points_per_task", type='number', value="test", placeholder="0.1", step=".1", id="pointsForTask").form-control
               .col-md-12
                 .col-md-6
                   p.lead Points Awarded for Job Completion:
                 .col-md-2
-                  input(type='number', placeholder="1", step="1", id="pointsForComplete").form-control
+                  input(name="points_per_job", type='number', value="test", placeholder="1", step="1", id="pointsForComplete").form-control
               .col-md-12
                 hr
                 .col-md-10.col-md-offset-1
-                  p.lead When would you like your job to be closed?
-                  ul.list-group
-                    li.list-group-item
-                      .radio
-                        .col-md-7
-                          label.radioLabel
-                            input(type='radio', name='closeOptions', value='numberTagged', checked)
-                            | After each task has been answered
-                        .col-md-2
-                          input(type='number', min='1').form-control
-                        .col-md-1
-                          label.radioLabel times
-                    li.list-group-item
-                      .radio
-                        .col-md-3
-                          label.radioLabel
-                            input(type='radio', name='closeOptions', value='specificTime')
-                            | At this time: 
-                        .col-md-6
-                          input(type='datetime-local').form-control
-                    li.list-group-item
-                      .radio
-                        .col-md-9
-                          label.radioLabel
-                            input(type='radio', name='closeOptions', value='later')
-                            | Please provide a Close button so I can decide later
+                  p.lead Job Expiration
+                  .radio
+                    .col-md-7
+                      label.radioLabel
+                        input( type='radio', name='closeOptions', value='numberTagged', checked)
+                        | After each task has been answered
+                    .col-md-2
+                      input(type='number', min='1',value='10').form-control
+                    .col-md-1
+                      label.radioLabel times
+                  br
+                  .radio
+                    .col-md-7
+                      label.radioLabel
+                        input(type='radio', name='closeOptions', value='specificTime')
+                        | When confidence rating reaches
+                    .col-md-2
+                      input(name="confidence_rating", type='number').form-control
+                  br
+                  .radio
+                    .col-md-3
+                      label.radioLabel
+                        input(type='radio', name='closeOptions', value='specificTime')
+                        | At this time: 
+                    .col-md-6
+                      input(name="close_date", type='datetime-local').form-control
+                  br
              
 
             .panel-footer.text-right
