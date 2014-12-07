@@ -11,9 +11,9 @@ body {
    margin-bottom: 60px;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Cookie);
 .cursive{
-  font-family: 'Lobster', cursive;
+  font-family: 'Open Sans', cursive;
+  text-shadow:0 0 12px rgba(0,0,0,0.1);
 }
 .stupidBig{
   font-size:100px!important;
@@ -25,10 +25,10 @@ Brand colors
 */ 
 
 .jumbotron,.button-flat-primary, .btn-primary, .panel-heading, .navbar-custom, .dropdown-menu.navbar ul, .dropdown, .bg-brand{
-  background: #1E213C; 
+  background: #06305E; 
 }
 h1,h2, .brand-blue, .brand-color, .balance {
-  color: #1E213C;
+  color: #06305E;
 }
 
 .panel-body .dropdown-menu{
@@ -41,14 +41,13 @@ h1,h2, .brand-blue, .brand-color, .balance {
     -webkit-border-radius: 0 0px 0px 0px;
     -moz-border-radius: 0 0px 0px;
     border-radius: 0 0px 0px 0px;
-    border-color:#e2e2e2;
+    border-color:none;
 }
 .sidebar{
   margin:0px;
   font-weight:600;
-  margin-left:1px;
-  border-top:1px solid #f9f9f9;
-  border-bottom:1px solid #f9f9f9;
+  border-top:0px solid #f9f9f9;
+  border-bottom:0px solid #f9f9f9;
 }
 .sidebar li a{
   color:#32323f!important;
@@ -56,8 +55,6 @@ h1,h2, .brand-blue, .brand-color, .balance {
   padding:13px;
   margin:0px;
   font-weight:600;
-  margin-bottom:-2px;
-  margin-right:2px;
   border-bottom:1px solid #f9f9f9;
 }
 
@@ -498,12 +495,6 @@ ul.nav-tabs{
 }
 
 
-
-
-
-
-
-
 .actions{
 
 }
@@ -526,15 +517,13 @@ h1.big{
   margin-right: 12px;
 }
 .balance {
+  font-weight:500;
+  font-size:22px;
   font-weight:700;
-  padding-left:12px;
-  font-size:18px;
   line-height: 28px;
   padding-top:2px!important;
 }
 .balance.green{
-  font-weight:500;
-  font-size:24px;
   color:#22a342;
 }
 

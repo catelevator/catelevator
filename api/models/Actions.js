@@ -18,13 +18,7 @@ module.exports = {
     user_id: {
       model: 'user'
     },
-    reward: (function() {
-      if(this.job_id && this.job_id.reward) {
-        return this.job_id.reward;
-      } else {
-        return "Couldn't get job_id from action"
-      }
-    }),
+    action_date: {type: "string", defaultsTo: Date.now() },
    
 
   },

@@ -6,30 +6,37 @@ block body
         br
         .col-md-3.panel.panel-default
           include sidebar
-    
-
 
         .col-md-9
-          if jobs
-            h3.skinny.brand-color Jobs you created.
-            hr
-            for job in jobs
-              .panel.panel-default
-                .panel-heading.clickable
-                  h4
-                    .fa.fa-fw.fa-chevron-down
-                    b=job.name
+          .panel.panel-default
+            if jobs
+              .panel-body
+                h3.skinny.brand-color Jobs you created
+              for job in jobs
+                .pane.pane-default
+                  .pane-head.clickable.well-sm
+                    o
+                      .fa.fa-fw.fa-caret-right
+                      o=job.name
                       .pull-right
-                          .small= (job.taskCount||0) + " tasks"
-                            
+                        small.small.text-muted= (job.taskCount||0) + " tasks"
+                              
 
 
-                .panel-body
-                  p=job.desc
+                  .pane-body.panel-body.well-lg
+                    p=job.desc
+
+            else 
+              .panel-body
+                h3.skinny.brand-color You do not own any jobs.
+                  a(href="/job/new").button.button-flat.button-pill Create a new job
+
+
+        .col-md-4
 
 
 
-              //- .panel
+              //- .pane
               //-   .well-sm
               //-     .row
               //-       .col-md-9
@@ -46,32 +53,32 @@ block body
 
 
   script.
-    $(document).on('click', '.panel-heading span.clickable', function (e) {
+    $(document).on('click', '.pane-head span.clickable', function (e) {
         var $this = $(this);
         if (!$this.hasClass('panel-collapsed')) {
-            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.parents('.pane').find('.pane-body').slideUp();
             $this.addClass('panel-collapsed');
             $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
         } else {
-            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.parents('.pane').find('.pane-body').slideDown();
             $this.removeClass('panel-collapsed');
             $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
-    $(document).on('click', '.panel div.clickable', function (e) {
+    $(document).on('click', '.pane div.clickable', function (e) {
         var $this = $(this);
         if (!$this.hasClass('panel-collapsed')) {
-            $this.parents('.panel').find('.panel-body').slideUp();
+            $this.parents('.pane').find('.pane-body').slideUp();
             $this.addClass('panel-collapsed');
             $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');
         } else {
-            $this.parents('.panel').find('.panel-body').slideDown();
+            $this.parents('.pane').find('.pane-body').slideDown();
             $this.removeClass('panel-collapsed');
             $this.find('i').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
     $(document).ready(function () {
-        $('.panel-heading span.clickable').click();
-        $('.panel div.clickable').click();
+        $('.pane-head span.clickable').click();
+        $('.pane div.clickable').click();
     });
 

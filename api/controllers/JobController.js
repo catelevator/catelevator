@@ -14,10 +14,10 @@ module.exports = {
     Job.find({}).exec(function(e,jobs){
       console.log("error:",e)
       console.log("jobs:",jobs)
-      if(req.user[0])
+      if(req.user)
         res.view("job/index",{ jobs:jobs, user:req.user[0] })
       else
-        res.view("job/index",{ jobs:jobs })
+        res.view("auth/login",{ jobs:jobs })
     });
   },
 

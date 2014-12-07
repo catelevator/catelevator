@@ -19,17 +19,27 @@
 
 module.exports.policies = {
 
-  // '*': "authenticated",
-  '/u': "authenticated",
+  '*': true,
+  '/job': true,
+  '/task': true,
 
-  UserController: {
-    "create": true,
+  ProfileController: {
+    "*": "authenticated",
   },
 
   UserController: {
-    '*': true,
+    "*": "authenticated",
+    // "create": true,
+    "process": true,
   },
 
+  TaskController: {
+    "*": true,
+  },
+
+  JobController: {
+    "*": true,
+  },
 
   /***************************************************************************
   *                                                                          *

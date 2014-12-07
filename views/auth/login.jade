@@ -1,9 +1,11 @@
 extends ../layout
 block body
-  include ../navbar
-  div(style="background-color:#f7f7f8")
+  .text-center
+    br
+    br
+    br
+    h1.reallyBig.cursive.brand-color Cat Elevator
     .container
-      br
       br
       br
       .col-md-4.col-md-offset-4
@@ -19,7 +21,7 @@ block body
                   input#inputPassword.form-control.input-lg(type='password', name='password', placeholder='Create a password', required)
                 .form-group
                 hr
-                input(type='submit', value='Sign in').button.button-flat-primary.pull-right.btn-block
+                input(type='submit', value='Sign in').button.button-flat-primary.button-pill.btn-block
           
           p.text-center Don't have an account?  
             a(href="/signup")  Sign up

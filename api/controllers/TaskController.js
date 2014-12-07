@@ -22,12 +22,14 @@ module.exports = {
       if (err) 
         return res.send(500, err);
     
-      var new_task = merge (uploadedFiles[0], {
-        filename:path.basename(uploadedFiles[0].fd), 
-        location:path.dirname(uploadedFiles[0].fd), 
-        src:"/images/"+path.basename(uploadedFiles[0].fd)
-      })
+      var uploaded = uploadedFiles[0]
 
+      var new_task = merge (uploaded, {
+        filename:path.basename(uploaded.fd), 
+        location:path.dirname(uploaded.fd), 
+        job_id:req.body.job_id, 
+        src:"/images/"+path.basename(uploaded.fd)
+      })
 
       Task.create(new_task, function(err,task){
           res.send(task);

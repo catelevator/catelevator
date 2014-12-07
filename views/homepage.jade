@@ -10,24 +10,19 @@ block body
           br
           br
           br
-          br
-          br
-          br
-          br
-          br
 
-          h1.stupidBig.cursive Cat Elevator
-          p.lead.skinny Crowd source everything
+          h1.stupidBig.cursive Cat elevator
+          br
+          br
+          br
+          h3 Crowd source everything.
               
           br
-          br
-          br
-          br
-          br
-          br
-          br
-          button.button(onclick="location.href='/signup'",style="margin-right:4px;").button-flat.button-pill
-            b SIGN UP
+          a.button(href='/signup',style="margin-right:4px;").button-pill
+            //- .fa.fa-fw.fa-.fa-github-alt.brand-color
+            o.brand-color Get the code
+          a.button(href='/signup',style="margin-right:4px;").button-pill
+            b.brand-color SIGN UP
           br
           br
           br
@@ -46,7 +41,7 @@ block body
   .container.text-center
     br
     h2.skinny
-      o A friendly platform for rapid democratization.
+      o A software platform for rapid democratization.
     br
     br
     br
@@ -57,28 +52,28 @@ block body
 
 
     .col-md-3
-          .stupidBig.fa.fa-fw.fa-cloud-download.fa-4x.text-muted.brand-color
+          .reallyBig.fa.fa-fw.fa-cloud-download.fa-3x.text-muted.brand-color
           h4
-            b  Data collection
+            b  Data Collection
           p Gather nearly and dataset into a simple-to-manage set of tasks.
 
 
 
     .col-md-3
-          .stupidBig.fa.fa-fw.fa-tags.fa-4x.text-muted.brand-color
+          .reallyBig.fa.fa-fw.fa-tags.fa-3x.text-muted.brand-color
           h4
-            b  Content categorization
+            b  Content Categorization
           p Categorization takes time, but it doesn't have to be your time.
 
 
     .col-md-3
-          .stupidBig.fa.fa-fw.fa-clock-o.fa-4x.text-muted.brand-color
+          .reallyBig.fa.fa-fw.fa-clock-o.fa-3x.text-muted.brand-color
           h4
-            b  Super-fast feedback
+            b  Super-fast Feedback
           p If you build it, they will come. With incentives, you can get results <b>fast</b>.
 
     .col-md-3
-          .stupidBig.fa.fa-fw.fa-check-circle.fa-4x.text-muted.brand-color
+          .reallyBig.fa.fa-fw.fa-check-circle.fa-3x.text-muted.brand-color
           h4
             b  Quality Assurance
           p Automatic confidence metrics for most tasks using Bayesian statistics.
@@ -94,7 +89,7 @@ block body
     br
     br
     h2.skinny
-      o With templates for many problem spaces.
+      o Abstracted away and templatized.
     br
     br
     br
@@ -105,45 +100,44 @@ block body
   br
   .container.text-center
 
-    .col-md-8.col-md-offset-2
 
-      .col-md-2
-        .fa.fa-fw.fa-thumbs-up.fa-2x
-      
-        h5.small  Impression Measuring
-
-
-
-      .col-md-2
-        .fa.fa-fw.fa-image.fa-2x
-      
-        h5.small  Feature Detection
-
-      
-      .col-md-2
-        .fa.fa-fw.fa-crosshairs.fa-2x
-      
-        h5.small  Feature Recognition
+    .col-md-2
+      .fa.fa-fw.fa-sliders.fa-3x
+    
+      h5  Impression Gathering
 
 
 
-      .col-md-2
-        .fa.fa-fw.fa-comments.fa-2x
-      
-        h5.small  Freeform surveys
+    .col-md-2
+      .fa.fa-fw.fa-image.fa-3x
+    
+      h5  Feature Detection
+
+    
+    .col-md-2
+      .fa.fa-fw.fa-crosshairs.fa-3x
+    
+      h5  Semantic Classifying
 
 
 
-      .col-md-2
-        .fa.fa-fw.fa-pie-chart.fa-2x
-      
-        h5.small  Data classification
+    .col-md-2
+      .fa.fa-fw.fa-comments.fa-3x
+    
+      h5  Content Creation
 
 
-      .col-md-2
-        .fa.fa-fw.fa-newspaper-o.fa-2x
-      
-        h5.small  Transcription & Translation
+
+    .col-md-2
+      .fa.fa-fw.fa-pie-chart.fa-3x
+    
+      h5  Dataset Classifying
+
+
+    .col-md-2
+      .fa.fa-fw.fa-newspaper-o.fa-3x
+    
+      h5  Content Transcription 
 
 
 
@@ -156,38 +150,45 @@ block body
     hr
     br
     br
-    .col-md-6.text-left
-      
-      //- fa.fa-fw.fa-share
-      .panel.well-lg
-          h2.brand-blue Much solution
-          p.bigger There are no big problems, only big collections of small problems. 
-            | Cat Elevator includes a collection of templates which help with simplifying problem spaces.
-          br
-          ul
-            li Analyzing space images which potentially contain spaceships.
-            li Getting quick feedback on websites, articles, ideas or designs.
-            li Combing through security footage for bad guys and backpacks. 
-            li Classifying image sets for supervised machine learning research.
-            li Training neural nets to perform simple tasks by watching humans.
-
-
-        
-  
-
-    .col-md-6.text-left
-      //- b.fa.fa-fw.fa-sort
-      .panel.well-lg
-          h2.brand-blue Very business
-          p.bigger Create a 'job' by first selecting a template appropriate for your problem space. Then just upload your data and incentivize your crowd. Faster than barbeque-ing a penguin, garaunteed. 
-          .container-fluid
-            br
-            br
-      .text-center
-        br
-        .button-wrap
-          a.button.button-flat-primary.button-pill.button-large(href="/examples") 
-            b See examples
+    h4.skinny.brand-color 
+      b Because people know more than they know they know.
+    br
+    br
+    br
+    .col-md-2.col-md-offset-5
+      img(src="http://www.smartluck.com/img/lottotip-bellcurve.png").img-responsive
+      //- .col-md-6.text-left
+      //-       
+        //- //- fa.fa-fw.fa-share
+        //- .panel.well-lg
+            //- h2.brand-blue Much solution
+            //- p.bigger There are no big problems, only big collections of small problems. 
+              //- | Cat Elevator includes a collection of templates which help with simplifying problem spaces.
+            //- br
+            //- ul
+              //- li Analyzing space images which potentially contain spaceships.
+              //- li Getting quick feedback on websites, articles, ideas or designs.
+              //- li Combing through security footage for bad guys and backpacks. 
+              //- li Classifying image sets for supervised machine learning research.
+              //- li Training neural nets to perform simple tasks by watching humans.
+      //- 
+      //- 
+      //-         
+      //-   
+      //- 
+      //- .col-md-6.text-left
+        //- //- b.fa.fa-fw.fa-sort
+        //- .panel.well-lg
+            //- h2.brand-blue Very business
+            //- p.bigger Create a 'job' by first selecting a template appropriate for your problem space. Then just upload your data and incentivize your crowd. Faster than barbeque-ing a penguin, garaunteed. 
+            //- .container-fluid
+              //- br
+              //- br
+  .text-center
+    br
+    .button-wrap
+      a.button.button-flat-primary.button-pill.button-large(href="/examples") 
+        b See examples
   br
   br
 

@@ -1,6 +1,9 @@
 extends ../layout
 block body
   include ../navbar
+  
+  h1#job_id
+
   form(target="job/create", method="POST").form.job_form.container
     
       .col-md-10.col-md-offset-1
@@ -46,14 +49,14 @@ block body
                       p.lead Template:
                     .col-md-8
                       select.selectpicker(name="type")
-                        option Evaluation
-                        option Change Detection
-                        option Feature Finding
-                        option Impression Measuring
-                        option Inquiry
-                        option Survey
-                        option Transcribing
-                        option Video Time Tagging
+                        option(value="evaluation") Evaluation
+                        option(value="changedetection") Change Detection
+                        option(value="featurefinding") Feature Finding
+                        option(value="impressionmeasuring") Impression Measuring
+                        option(value="inquiry") Inquiry
+                        option(value="survey") Survey
+                        option(value="transcribing") Transcribing
+                        option(value="videotimetagging") Video Time Tagging
                         //- option(data-content="<a data-toggle='tooltip' data-placement='right' href='#' title='' data-original-title='Put things here?'>put things hereee</a>") Change Detection
                         //- option(data-content="<span class='tooltip right' title='Put things here?'>Change Detection</span>") Change Detection
                         //- option Change Detection
@@ -371,6 +374,7 @@ block body
 
     $('.create_job').on("click", function(){
       io.socket.post("/job/create?"+ $(".job_form").serialize(), function(res){
+        $("#job_id").text(res.id)
         console.log(res.id)
       });
     })
@@ -384,6 +388,10 @@ block body
 
     myDropzone.on("addedfile", function(file) {
       console.log(file)
+    });
+
+    myDropzone.on("sending", function(file, xhr, formData) {
+      formData.append("job_id", $("#job_id").text() );
     });
 
     myDropzone.on("complete", function(file) {

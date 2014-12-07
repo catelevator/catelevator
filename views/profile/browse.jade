@@ -3,14 +3,13 @@ block body
   include ../navbar
   .container
     br
-    .col-md-3.panel.panel-default
+    .col-md-2.panel.panel-default
       include sidebar
-  
 
-
-    .col-md-9
-      
+    .col-md-10
       if jobs
+        .panel-body
+          h3.skinny.brand-color Available Jobs
         for job in jobs
           .panel
             .well-sm
