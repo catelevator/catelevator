@@ -1,6 +1,5 @@
 /**
  * ProfileController
- *
  * @description :: Server-side logic for managing profiles
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
@@ -9,9 +8,8 @@ var _ = require("underscore")
 
 module.exports = {
 
-
-
   index:function(req,res){
+    
     var content  = {};
     content.user = req.user[0];
 
@@ -25,6 +23,7 @@ module.exports = {
      * @return {[type]}         
      */
     Actions.find(uq).populate("job_id").exec(function(err,actions){
+      
       /**
        * Add up all the reqards for all the actions as retrieved form their parent jobs
        * @type {Number}
@@ -39,7 +38,7 @@ module.exports = {
        * @type {[type]}
        */
       content.user.balance = Math.round(balance*1000)/1000
-      // User.update(content.user.id, {balance:balance}).exec(function(a,b){console.log(a,b)})
+      // User.update(content.user.id, {balance:content.user.balance}).exec(function(a,b){console.log(a,b)})
 
       /**
        * Grab all of the jobs
@@ -61,14 +60,14 @@ module.exports = {
             return d.getHours()
           });
 
-
           /**
            * group all the fucking actions by thir job IDS.
            */
           var actions_counts = _.groupBy(actions, function(action) {
             console.log(action);
-            return action.job_id.id
+            return action.job_id
           });
+
           /**
            * Walk through all of the jobs and calculate the progress as 
            * a function of the actions finished by the user over the total tasks in the job.
@@ -106,35 +105,6 @@ module.exports = {
     })
 
   },
-  //
-  //  index:function(req,res){
-  //    var content  = {};
-  //    content.user = req.user[0];
-  //    var q = {user_id:content.user.id}
-  //    var q = {}
-  //    Job.find(q).exec(function(err,jobs){
-  //      Actions.find({user_id:content.user.id}).exec(function(err,actions){
-  //        // var actions_json = _.pluck(actions, 'createdAt')
-  //        if(err) return res.view( "profile/index", { jobs:jobs, actions:(actions||[]), user:req.user[0] } );
-  //        actions_json = _.groupBy(actions, function(action) {
-  //          var d = new Date( Date.parse( action.createdAt ) );
-  //          return d.getDay()+"."+d.getHours()
-  //        });
-  //        var actions = []
-  //        console.log(actions_json)
-  //        for( a in actions_json){
-  //          var ac = {x:a, y:actions_json[a].length} 
-  //          actions.push( ac )
-  //        }
-  //        console.log(actions)
-  //
-  //        content.actions = actions
-  //        res.view( "profile/index", { jobs:jobs, actions:actions, user:req.user[0] } );
-  //      })
-  //    })
-  //
-  //    return;
-  //  },
 
 
 

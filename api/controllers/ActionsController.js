@@ -16,9 +16,7 @@ module.exports = {
       })
       res.send("bounced")
     });
-
   },
-
 
   new_do: function(req,res){
     var job_id = req.body.job_id;
@@ -35,7 +33,6 @@ module.exports = {
     Job.find({job_id:req.body.job_id}, function(err, job){
       Task.count({job_id:job_id}, function(err,result){
         numberOfTasks = result;
-
         console.log(req.session[job_id].task_count)
 
         var user_id = req.session.passport.user||1
@@ -52,8 +49,7 @@ module.exports = {
           ,input_type:input_type
           ,input:input
           ,type:type
-        })
-        .exec(function(err,action){
+        }).exec(function(err,action){
           console.log("Action Created:", err, action)
           if(numberOfTasks == req.session[job_id].task_count)
             res.send('job_complete', {});

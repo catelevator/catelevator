@@ -74,6 +74,31 @@ module.exports = {
   },
 
 
+  clean: function(req,res){
+    Job.find({}).exec(function(e,things){
+      _.map(things, function(thing){
+        Job.destroy(thing.id, function(err,done){
+          console.log(err,done)
+        })
+      })
+    })
+    Task.find({}).exec(function(e,things){
+      _.map(things, function(thing){
+        Task.destroy(thing.id, function(err,done){
+          console.log(err,done)
+        })
+      })
+    })
+    Actions.find({}).exec(function(e,things){
+      _.map(things, function(thing){
+        Actions.destroy(thing.id, function(err,done){
+          console.log(err,done)
+        })
+      })
+    })
+    return res.send("<h1>Database has been cleaned.</h1>")
+  },
+
   bounce: function(req,res){
     
     Job.find({}).exec(function(e,things){

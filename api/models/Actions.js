@@ -19,15 +19,8 @@ module.exports = {
       model: 'user'
     },
     action_date: {type: "string", defaultsTo: Date.now() },
-   
 
   },
-
-
-
-
-
-
 
 };
 
