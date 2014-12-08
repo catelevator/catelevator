@@ -146,6 +146,52 @@ hr{
 }
 
 
+/*this is for the preview images on template*/
+.active img { 
+  border-color:#0099ff;
+  padding:1px;
+  border:3px solid #0099ff;
+
+ } 
+
+.preview img {
+  margin: 15px;
+  height: 70px;
+  width: 70px;
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1);
+  transition-duration: 0.3s;
+  -webkit-transition-duration: 0.3s; /* Safari */
+}
+
+.preview img:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.5, 1.5);
+  -ms-transform: scale(1.5, 1.5);
+  transform: scale(1.5, 1.5);
+  transition-duration: 0.2s;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  box-shadow: 5px 5px 2px #888888;
+  z-index: 1;
+}
+
+/*i forgot what this is for...might be deprecated*/
+.small img { 
+  min-height:66px;
+  height:66px;
+  width:auto;
+  border:2px solid #bbb;
+  margin:3px;
+  margin-left:7px;
+  padding:2px;
+ } 
+
+.small img:hover { 
+  opactity:0.5!important;
+  border-color:#99aaff;
+ } 
+
 
 
 
@@ -183,27 +229,10 @@ hr{
 
 
 
-/*i forgot what this is for...might be deprecated*/
-.small img { 
-  min-height:66px;
-  height:66px;
-  width:auto;
-  border:2px solid #bbb;
-  margin:3px;
-  margin-left:7px;
-  padding:2px;
- } 
 
-.small img:hover { 
-  opactity:0.5!important;
-  border-color:#99aaff;
- } 
-.active img { 
-  border-color:#0099ff;
-  padding:1px;
-  border:3px solid #0099ff;
 
- } 
+
+
 
 
 /*WHAT IS THIS FOR??*/
@@ -352,28 +381,7 @@ label.radioLabel {
 }
 
 
-/*this is for the preview images on the bottom of each template*/
-img.preview {
-  margin: 10px 10px 10px 10px;
-  height: 60px;
-  width: 60px;
-  -webkit-transform: scale(1, 1);
-  -ms-transform: scale(1, 1);
-  transform: scale(1, 1);
-  transition-duration: 0.3s;
-  -webkit-transition-duration: 0.3s; /* Safari */
-}
 
-img:hover.preview  {
-  cursor: pointer;
-  -webkit-transform: scale(2, 2);
-  -ms-transform: scale(2, 2);
-  transform: scale(2, 2);
-  transition-duration: 0.3s;
-  -webkit-transition-duration: 0.3s; /* Safari */
-  box-shadow: 10px 10px 5px #888888;
-  z-index: 1;
-}
 
 
 .thumbnail{

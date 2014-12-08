@@ -20,7 +20,7 @@ block body
             b Submit
           a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
             b No Comment
-          a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton  
+          a.btn.btn-default.button-flat.btn-superbig.btn-block.skipButton  
             b Skip this task
 
         .col-sm-9
@@ -38,13 +38,14 @@ block body
 
     function select(){
 
-
-      var task_id  = $(".featureImage").first().attr('data-id')
+      //- var task_id  = $(".featureImage").first().attr('data-id')
+      var task_id = $(".featureImage.active").attr('data-id');
       var job_id  = $("#jobid").text()
       var val = $('#dataEvaluation').val();
 
       console.log(val)
-      io.socket.post("/actions/new_do", {task_id:task_id,
+      io.socket.post("/actions/new_do", {
+        task_id:task_id,
         job_id:job_id,
         input:val, 
         type:"evaluation"
@@ -59,23 +60,32 @@ block body
           })
 
           $('#dataEvaluation').val("");
-          $(".featureImage").first().remove(); 
+          //- $(".featureImage").first().remove(); 
+          $(".featureImage.active").remove();
           $(".featureImage").first().click(); 
 
         })
-
-
-
       })
-
     }
 
     function toCanvas(){
-      $("#currentTask").html( $(this).html() ).addClass("panel-body").find("img").addClass("img-responsive")
+      $("#currentTask").html( $(this).html() ).addClass("panel-body").find("img").addClass("img-responsive");
+      $("#currentTask img").removeClass("preview");
+      $("#currentTask img").removeClass("img-rounded");
+      $(".featureImage.active").removeClass("active");
+      $(this).addClass("active");
+      $('#dataEvaluation').val("");
+    }
+
+    function skipthing() {
+      $('#dataEvaluation').val("");
+      $(".featureImage.active").next().click();
     }
 
     $(document).on( "click", ".selectButton", select )
     $(document).on( "click", ".featureImage", toCanvas )
+    $(document).on( "click", ".skipButton", skipthing )
+
 
     var featureModel = new $.eventModel();
 
@@ -84,8 +94,9 @@ block body
         console.log(d)
         $("#job").append($("<span>", {
           "data-id":d.id,
-          class:"small featureImage"
+          class:"preview featureImage"
         }).append($("<img>",{
+          class:"img-rounded",
           src: d.src,
           "info":d.src,
           "data-id":d.id
@@ -107,7 +118,7 @@ block body
         featureModel.emit(dataset.verb, dataset);
       })
 
-      io.socket.get( "/task/find", { job_id:#{job.id} , limit:2 }, function(tasks){
+      io.socket.get( "/task/find", { job_id:#{job.id} , limit:10 }, function(tasks){
         skip = tasks.length
         $.map(tasks, function(task){
           featureModel.emit('created', {

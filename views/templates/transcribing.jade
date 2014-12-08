@@ -22,7 +22,7 @@ block body
           a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
             b No Comment
 
-          a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+          a.btn.btn-default.button-flat.btn-superbig.btn-block.skipButton 
             b Skip this task
 
         .col-md-9
@@ -52,16 +52,20 @@ block body
         input:val, 
         type:"transcribing"
       }, function(new_task,info){
+          io.socket.get( "/task/find", { job_id:#{job.id}, limit:1, skip:skip++ }, function(tasks){
+            $.map(tasks, function(task){
+              featureModel.emit('created', {
+                id:task.id,
+                data:task
+              })
+            })
 
-        console.log(new_task)
-        console.log(info)
+            $('#imageTranscription').val("");
+            $(".featureImage.active").remove();
+            $(".featureImage").first().click(); 
 
-        $('#imageTranscription').val("");
-        $(".featureImage.active").next().click()
-        //- $("#currentImage img").attr('src',new_task.src)
-        //- $("#currentImage img").attr('data-id',new_task.id)
+          })
       })
-        //- $('#imageTranscription').val("");
     }
 
     function toCanvas(){
@@ -74,23 +78,29 @@ block body
         $("#currentImage img").attr('data-id',id)
     }
 
+    function skipthing() {
+      $('#imageTranscription').val("");
+      $(".featureImage.active").next().click();
+    }
+
     $(document).on( "click", ".selectButton", select )
     $(document).on( "click", ".featureImage", toCanvas )
+    $(document).on( "click", ".skipButton", skipthing )
+
 
     var featureModel = new $.eventModel();
 
     featureModel.on('created', function(info,item) {
-      var a = item.data.tasks
-      $.map(a, function(d){
+      var d = item.data
         console.log(d)
         $("#job").append($("<span>", {
           "data-id":d.id,
-          class:"small featureImage"
+          class:"preview featureImage"
         }).append($("<img>",{
-          src:d.src,
+          class:"img-rounded",
+          src: d.src,
           "data-id":d.id
         })))
-      })
       $(".featureImage").first().click();
     });
 
@@ -108,20 +118,20 @@ block body
         featureModel.emit(dataset.verb, dataset);
       })
 
-      io.socket.get( "/"+model+"/find", {type:"transcribing"}, function(datasets){
-        console.log(datasets);
-        $.map(datasets, function(dataset){
+      io.socket.get( "/task/find", { job_id:#{job.id} , limit:10 }, function(tasks){
+        skip = tasks.length
+        $.map(tasks, function(task){
           featureModel.emit('created', {
-            id:dataset.id,
-            data:dataset
+            id:task.id,
+            data:task
           })
+        $(".featureImage").first().click(); 
         })
       })
-      $(".featureImage").first().click();
     }
 
     $(document).ready(function(){
 
-      dataset_glue("job");
+      dataset_glue("task");
 
     });

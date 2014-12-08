@@ -30,26 +30,13 @@ block body
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Not Found
 
-            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.skipButton 
               b Skip this task
 
         .col-md-9
             #currentImageContainer.btn-block
             #currentVideo
               #player
-              //- iframe(id="myvideo")
-              //- .row
-              //-   a.btn.btn-md.btn-warning.videobutton Play
-              //-   a.btn.btn-md.btn-warning.videobutton Pause
-            //- .row
-            //-   .col-sm-10
-            //-     input(id="paused", type='text', placeholder='enter time here').form-control
-            //-   .col-sm-1
-            //-     a.btn.btn-md.btn-warning.clearbtnVideo Clear
-
-            //- #currentImage
-            //- #currentCanvas(style="border:1px solid rgba(50,50,150,0.5);")
-            //-   canvas#mycanvas
 
   script.
 
@@ -76,38 +63,26 @@ block body
         document.getElementById("paused").value = '';
         onYouTubeIframeAPIReady(src);
 
-
-        //- var src = $(this).find('img').attr('vidsrc')
-        //- var src = $(this).find('img').attr('vidid')
-        //- src = "http://www.youtube.com/embed/"+src;
-        //- var id  = $(this).find('img').attr('data-id')
-        //- $(".featureImage.active").removeClass("active")
-        //- $(this).addClass("active")
-
-        //- $("#currentVideo iframe").attr('src',src)
         $("#currentVideo iframe").attr('data-id',id)
 
       }
 
       function onYouTubeIframeAPIReady(src) {
-            player = new YT.Player('player', {
-              height: '390',
-              width: '640',
-              videoId: src,
-              //- 'data-id': id,
-              events: {
-                'onStateChange': onPlayerStateChange
-              }
-            });
-        }
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: src,
+          //- 'data-id': id,
+          events: {
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
 
 
-      //- var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PAUSED) {
-          //- setTimeout(stopVideo, 6000);
           document.getElementById("paused").value = player.getCurrentTime();
-          //- done = true;
         }
       }
 
@@ -117,53 +92,54 @@ block body
        * upon completion of this task. Can retrieve next tasks here too.
        */
       function select(){
-        // Isolates the values we need
-        //- var src =  featureCanvas.canvas.src
-        //- var task_id  = $("#currentImageContainer").find('img').attr('data-id')
+        
         var src = $("#currentVideo").find('iframe').attr('src')
         var task_id  = $("#currentVideo").find('iframe').attr('data-id')
-        //- if(task_id == null) alert('task_id = null')
         var job_id  = $("#jobid").text()
         var inputbtn = $(this).text()
         var val = document.getElementById("paused").value;
         console.log(val)
-        // logs the circles we have.
-        //- console.log( featureCanvas.canvas.circles )
-        // Posts this action to the server.
+
         io.socket.post("/actions/new_do", {task_id:task_id,
           job_id:job_id,
           input_type:inputbtn,
           input:val,
-          //- input_type:"circles",
-          //- input:featureCanvas.canvas.circles,
           type:"videotimetagging"
         }, function(new_task,info){
-            console.log(new_task)
-          //- player.destroy();
-          // Goes to next task.
-          $(".featureImage.active").next().click()
-        })
+            io.socket.get( "/task/find", { job_id:#{job.id}, limit:1, skip:skip++ }, function(tasks){
+              $.map(tasks, function(task){
+                featureModel.emit('created', {
+                  id:task.id,
+                  data:task
+                })
+              })
+
+              $(".featureImage.active").remove();
+              $(".featureImage").first().click(); 
+            })
+          })
       }
 
-
+      function skipthing() {
+        $(".featureImage.active").next().click();
+      }
 
       var featureModel = new $.eventModel();
 
       featureModel.on('created', function(info,item) {
-          var a = item.data.tasks
-          $.map(a, function(d){
-            console.log("asdasdasdasad")
+          var a = item.data
+          
             console.log(d)
             $("#job").append($("<span>", {
               "data-id":d.id,
-              class:"small featureImage"
+              class:"preview featureImage"
             }).append($("<img>",{
+              class:"img-rounded",
               "data-id":d.id,
               "vidid":d.video_id,
-                src:"http://img.youtube.com/vi/"+d.video_id+"/default.jpg",
-                "vidsrc":d.src
+              src:"http://img.youtube.com/vi/"+d.video_id+"/default.jpg",
+              "vidsrc":d.src
             })))
-          })
       });
 
 
@@ -176,32 +152,31 @@ block body
       });
 
 
-
       function dataset_glue(model){
 
-          io.socket.on( model, function(dataset){
-            featureModel.emit(dataset.verb, dataset);
-          })
+        io.socket.on( model, function(dataset){
+          featureModel.emit(dataset.verb, dataset);
+        })
 
-          io.socket.get( "/"+model+"/find", {type:"videotimetagging"}, function(datasets){
-            console.log(datasets);
-            $.map(datasets, function(dataset){
-              featureModel.emit('created', {
-                id:dataset.id,
-                data:dataset
-              })
+        io.socket.get( "/task/find", { job_id:#{job.id} , limit:10 }, function(tasks){
+          skip = tasks.length
+          $.map(tasks, function(task){
+            featureModel.emit('created', {
+              id:task.id,
+              data:task
             })
-            $(".featureImage").first().click();
+          $(".featureImage").first().click(); 
           })
+        })
       }
 
       $(document).on( "click", ".featureImage", toCanvas )
       $(document).on( "click", ".selectButton", select )
-
+      $(document).on( "click", ".skipButton", skipthing )
 
       $(document).ready(function() {
 
-        dataset_glue("job");
+        dataset_glue("task");
 
       });
 

@@ -22,197 +22,113 @@ block body
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b No
 
-            a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
+            a.btn.btn-default.button-flat.btn-superbig.btn-block.skipButton 
               b Skip this task
 
         .col-md-9
             #currentImageContainer.btn-block
             #currentImage
-            #currentCanvas(style="border:1px solid rgba(50,50,150,0.5);")
-              canvas#mycanvas
-            #job
+              img.thumbnail
 
 
   script.
+    function select(){
 
-    // wraps it all in a clojure
-    (function(){
+      var src = $("#currentImage").find('img').attr('src')
+      var task_id  = $("#currentImage").find('img').attr('data-id')
 
-      /**
-       * Example of a constructor -- the feature canvas. Thought I'd show oop and procedural
-       * stuff so you guys can see the fundamental patterns in a variety of ways and continue
-       * it however you like.
-       * @param {Object} ops options parameters
-       */
-      function FeatureCanvas(ops){
-        for(op in ops)
-          this[op]= ops[op]
+      var job_id  = $("#jobid").text()
 
-        this.canvas = new fabric.Canvas('mycanvas');
-        this.canvas.selection = false;
+      var inputbtn = $(this).text();
 
+      console.log(val)
+      io.socket.post("/actions/new_do", {task_id:task_id,
+        job_id:job_id, 
+        input_type:inputbtn,
+        input:val, 
+        type:"inquiry"
+      }, function(new_task,info){
 
-      
-      }
+        io.socket.get( "/task/find", { job_id:#{job.id}, limit:1, skip:skip++ }, function(tasks){
+          $.map(tasks, function(task){
+            featureModel.emit('created', {
+              id:task.id,
+              data:task
+            })
+          })
+ 
+          $(".featureImage.active").remove();
+          $(".featureImage").first().click(); 
 
-      /**
-       * Instantiates a new instance of that Class.
-       * @type {FeatureCanvas}
-       */
-      var featureCanvas = new FeatureCanvas()
+        })
+      })
+    }
 
-
-      /**
-       * Sends an image to the main canvas and resizes it appropriately.
-       * We set the background image of the canvas -- instead of adding the image
-       * itself, so we can't bind the aspect ratio to it globally. So our circles relate
-       * to the right pixels on the image.
-       */
-      function toCanvas(){
-
+    function toCanvas(){
         var src = $(this).find('img').attr('src')
         var id  = $(this).find('img').attr('data-id')
         $(".featureImage.active").removeClass("active")
         $(this).addClass("active")
+        $("#currentImage img").attr('src', src)
+        $("#currentImage img").attr('data-id',id)
+    }
 
-        featureCanvas.canvas.clear()
 
-        /**
-         * Creates an image from the src url, scales it appropriately, 
-         * then makes it the background image.
-         * @param  {Image} img The image object
-         * @return {[type]}     [description]
-         */
-        fabric.Image.fromURL(src, function(img) {
+    var featureModel = new $.eventModel();
 
-          var w = img.width
-          var h = img.height
-          var cw = $("#currentImageContainer").width()
-          scale_factor = cw/w
-          var ch = h * scale_factor
+    function skipthing() {
+      $(".featureImage.active").next().click();
+    }
 
-          // sets the new w and h for the image
-          img.set({width: cw, height: ch, originX: 'left', originY: 'top'});
-          // sets the new w and h for the canvas
-          featureCanvas.canvas.setWidth(cw);
-          featureCanvas.canvas.setHeight(ch);
-          // sets the canvas backgrouns as the image and binds the dimensions.
-          featureCanvas.canvas.setBackgroundImage( img, 
-            featureCanvas.canvas.renderAll.bind(featureCanvas.canvas)
-          );
+
+    featureModel.on('created', function(info,item) {
+      var d = item.data
+        console.log(d)
+        $("#job").append($("<span>", {
+          "data-id":d.id,
+          class:"preview featureImage"
+        }).append($("<img>",{
+          class:"img-rounded",
+          src: d.src,
+          "data-id":d.id
+        })))
+      $(".featureImage").first().click();
+    });
+
+
+    featureModel.on('updated', function(info,item) {
+        $.map(item.data, function(val, attr){
+          if($("#"+item.id+" #"+attr).text())
+            $("#"+item.id+" #"+attr).text(val)
+          else $("#"+item.id).append($("<div>",{id:attr,text:val}))
         })
-      }
-
-      /**
-       * When the window is resized -- we want to also resize the canvas to fit.
-       */
-      function resizeCanvas() {
-          var w = featureCanvas.canvas.width
-          var h = featureCanvas.canvas.height
-          var cw = $("#currentImageContainer").width()
-          scale_factor = cw/w
-          var ch = h * scale_factor
-          featureCanvas.canvas.setWidth(cw);
-          featureCanvas.canvas.setHeight(ch);
-          featureCanvas.canvas.renderAll();
-      }
-      // Adds a listener for canvas resize
-      window.addEventListener('resize', resizeCanvas, false);
-
-      // resize on init
-      resizeCanvas();
+    });
 
 
-      /**
-       * Submits whatever stuff you want to submit relating to the user input
-       * upon completion of this task. Can retrieve next tasks here too.
-       */
-      function select(){
-        // Isolates the values we need
-        //- var src =  featureCanvas.canvas.src
-        var src = $(".featureImage.active").find("img").attr("src")
-        //- var task_id  = $("#currentImageContainer").find('img').attr('data-id')
-        var task_id = $(".featureImage.active").find('img').attr('data-id')
-        var job_id  = $("#jobid").text()
-        var val = $(this).text()
-        // logs the circles we have.
-        //console.log( featureCanvas.canvas.circles )
-        console.log(src)
-        console.log(task_id)
-        // Posts this action to the server.
-        io.socket.post("/actions/new_do", {task_id:task_id,
-          job_id:job_id,
-          //- input_type:"yesno",
-          input:val,
-          type:"inquiry"
-        }, function(new_task,info){
+    function dataset_glue(model){
 
-          // Deletes our old circles
-          //featureCanvas.canvas.circles = []
-          // Goes to next task.
-          $(".featureImage.active").next().click()
+      io.socket.on( model, function(dataset){
+        featureModel.emit(dataset.verb, dataset);
+      })
+
+      io.socket.get( "/task/find", { job_id:#{job.id} , limit:10 }, function(tasks){
+        skip = tasks.length
+        $.map(tasks, function(task){
+          featureModel.emit('created', {
+            id:task.id,
+            data:task
+          })
+        $(".featureImage").first().click(); 
         })
-      }
+      })
+    }
 
+    $(document).on( "click", ".featureImage", toCanvas )
+    $(document).on( "click", ".selectButton", select )
+    $(document).on( "click", ".skipButton", skipthing )
 
-      var featureModel = new $.eventModel();
+    $(document).ready(function() {
 
+      dataset_glue("task");
 
-      featureModel.on('created', function(info,item) {
-          var a = item.data.tasks
-          $.map(a, function(d){
-            console.log("asdasdasdasad")
-            console.log(d)
-            $("#job").append($("<span>", {
-              "data-id":d.id,
-              class:"small featureImage"
-            }).append($("<img>",{
-              "data-id":d.id,
-                src:d.src
-            })))
-          })
-      });
-
-
-      featureModel.on('updated', function(info,item) {
-          $.map(item.data, function(val, attr){
-            if($("#"+item.id+" #"+attr).text())
-              $("#"+item.id+" #"+attr).text(val)
-            else $("#"+item.id).append($("<div>",{id:attr,text:val}))
-          })
-      });
-
-
-
-      function dataset_glue(model){
-
-          io.socket.on( model, function(dataset){
-            featureModel.emit(dataset.verb, dataset);
-          })
-
-          io.socket.get( "/"+model+"/find", {type:"inquiry"}, function(datasets){
-            console.log(datasets);
-            $.map(datasets, function(dataset){
-              featureModel.emit('created', {
-                id:dataset.id,
-                data:dataset
-              })
-            })
-            $(".featureImage").first().click();
-          
-          })
-        }
-
-      $(document).on( "click", ".featureImage", toCanvas )
-      $(document).on( "click", ".selectButton", select )
-
-
-
-      $(document).ready(function() {
-
-        dataset_glue("job");
-
-      });
-
-    })()
-
+    });
