@@ -39,13 +39,11 @@ block body
 
       var job_id  = $("#jobid").text()
 
-      var inputbtn = $(this).text();
 
-      console.log(val)
       io.socket.post("/actions/new_do", {task_id:task_id,
         job_id:job_id, 
-        input_type:inputbtn,
-        input:val, 
+        input:$(this).text(),
+
         type:"inquiry"
       }, function(new_task,info){
 

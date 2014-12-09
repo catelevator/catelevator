@@ -1,0 +1,36 @@
+extends ../layout
+block body
+  include ../navbar
+
+
+  script(src="/js/HighCharts.js")
+  .container
+    br
+    h1=job.name 
+      small  evaluation  
+    hr
+
+    if tasks
+      for task in tasks
+        .col-md-12
+          .panel.panel-default
+            .panel-body
+              if task.src
+                .col-md-3
+                  img(src="#{task.src}").img-thumbnail
+                  br
+              if task.html
+                .col-md-12
+                  div task.html
+              if task.actions
+                for action in task.actions
+                  .col-md-12
+                    .well
+                      if action.username
+                        h5=action.username
+                      else 
+                        h5
+                          a(href="/user/#{action.user_id}")="user: "+action.user_id
+                      p=action.input
+                      if action.src
+                        img(src="#{action.src}").img-responsive

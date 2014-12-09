@@ -20,7 +20,7 @@ block body
                 h4.text-muted#minval
               .col-sm-6.text-right
                 h4.text-muted#maxval
-            input(type="range", min="0", max="10", step="0.1")#rangeval
+            input(type="range", min="0", max="1", step="0.01")#rangeval
             br
             a.btn.btn-default.button-flat.btn-superbig.btn-block.selectButton 
               b Enter
@@ -46,13 +46,10 @@ block body
       var job_id  = $("#jobid").text()
       var inputval = document.getElementById("rangeval").value;
 
-      var inputbtn = $(this).text();
 
-      console.log(val)
       io.socket.post("/actions/new_do", {task_id:task_id,
         job_id:job_id, 
-        input_type:inputbtn,
-        input:val, 
+        input:inputval,
         type:"impressionmeasuring"
       }, function(new_task,info){
 
@@ -79,8 +76,8 @@ block body
         $(this).addClass("active")
         $("#currentImage img").attr('src', src)
         $("#currentImage img").attr('data-id',id)
-        $('#minval').text(min);
-        $('#maxval').text(max);
+        $('#minval').text(0);
+        $('#maxval').text(1);
     }
 
 

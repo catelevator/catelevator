@@ -126,20 +126,20 @@ block body
 
       var featureModel = new $.eventModel();
 
-      featureModel.on('created', function(info,item) {
-          var a = item.data
-          
-            console.log(d)
-            $("#job").append($("<span>", {
-              "data-id":d.id,
-              class:"preview featureImage"
-            }).append($("<img>",{
-              class:"img-rounded",
-              "data-id":d.id,
-              "vidid":d.video_id,
-              src:"http://img.youtube.com/vi/"+d.video_id+"/default.jpg",
-              "vidsrc":d.src
-            })))
+      featureModel.on('created', function(info,task) {
+        var task = task.data
+        
+          console.log(task)
+          $("#job").append($("<span>", {
+            "data-id":task.id,
+            class:"preview featureImage"
+          }).append($("<img>",{
+            class:"img-rounded",
+            "data-id":task.id,
+            "vidid":task.video_id,
+            src:"http://img.youtube.com/vi/"+task.video_id+"/default.jpg",
+            "vidsrc":task.src
+          })))
       });
 
 
