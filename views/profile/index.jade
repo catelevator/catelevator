@@ -16,7 +16,7 @@ block body
             .balance=user.balance||"0.00" 
             .skinny Moneys  
           li
-            .balance=jobs.length
+            .balance=(jobs ? jobs.length : 0)
             .skinny Active Jobs
           li
               .balance=(user.expert_level||"00")+"%"
@@ -34,7 +34,7 @@ block body
                         tr
                           td(style="padding:12px;")
                             b
-                              a(href="/job/work?job=#{job.id}",style="color:#2d2d2d;")=job.name
+                              a(href="/job/work?job=#{job.id||0}",style="color:#2d2d2d;")=job.name
                             div.skinny=job.desc
                           td(style="padding-top:20px;").text-left
                             .small=job.progress
@@ -45,7 +45,12 @@ block body
                             .progress(style="height:6px;background-color:#d3d3d3;width:140px;").text-center
                               .progress-bar(role='progressbar', aria-valuenow="#{job.progress}", aria-valuemin='0', aria-valuemax='100', style='width:#{job.progress}%;')
                           //- this is just for mads ocd purposes to make sure all templates are made
-           
+                else
+                  .panel-body
+                    h4 Your active jobs will appear here if you ever 
+                      a.button.button-flat-primary(href="/profile/browse").button-large 
+                        b Start one.
+                    blockquote Yeah. Jeeeez
 
         #activityChart
 

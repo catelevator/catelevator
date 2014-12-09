@@ -9,7 +9,7 @@ var _ = require("underscore")
 module.exports = {
 
   index:function(req,res){
-    
+
     var content  = {};
     content.user = req.user[0];
 
@@ -23,6 +23,8 @@ module.exports = {
      * @return {[type]}         
      */
     Actions.find(uq).populate("job_id").exec(function(err,actions){
+      if(err||actions.length < 1) 
+        return res.view( "profile/index", { jobs:null, actions:(actions||[]), user:req.user[0] } );
       
       /**
        * Add up all the reqards for all the actions as retrieved form their parent jobs
@@ -38,7 +40,7 @@ module.exports = {
        * @type {[type]}
        */
       content.user.balance = Math.round(balance*1000)/1000
-      // User.update(content.user.id, {balance:content.user.balance}).exec(function(a,b){console.log(a,b)})
+      User.update(content.user.id, {balance:content.user.balance}).exec(function(a,b){console.log(a,b)})
 
       /**
        * Grab all of the jobs
@@ -48,7 +50,10 @@ module.exports = {
        */
       Job.find().exec(function(err,jobs){
           
-          // if(err) return res.view( "profile/index", { jobs:jobs, actions:(actions||[]), user:req.user[0] } );
+        if(err||jobs.length  < 1){
+            return res.view( "profile/index", { jobs:null, actions:(actions||[]), user:req.user[0] } );
+          } else {
+
 
           /**
            * Group all of the actions by there fucking dates
@@ -60,13 +65,18 @@ module.exports = {
             return d.getHours()
           });
 
+          // console.log("actions_json",actions_json)
+
           /**
            * group all the fucking actions by thir job IDS.
            */
           var actions_counts = _.groupBy(actions, function(action) {
-            console.log(action);
-            return action.job_id
+            // console.log("action",action);
+            return action.job_id.id
           });
+
+          console.log(actions_counts)
+
 
           /**
            * Walk through all of the jobs and calculate the progress as 
@@ -75,16 +85,32 @@ module.exports = {
            * @return {[type]}    
            */
           _.map(jobs, function(jb){
-            jb.progress = ( typeof actions_counts[jb.id] !== 'undefined' ? Math.ceil(actions_counts[jb.id].length/jb.taskCount*100) : 0 )
+
+            var should_be_zero = (typeof actions_counts[jb.id] == 'undefined')
+            if(should_be_zero){
+              jb.progress = 0
+            }
+            else{
+              var number_of_actions = actions_counts[jb.id].length
+              var number_of_total_tasks = jb.taskCount
+              jb.progress = number_of_actions / number_of_total_tasks
+            }
+
+            
           })
+          
+
+          console.log("jobs[0]",jobs[0])
+
+
 
           /**
            * Drop all of the jobs that don't have any user progress
            * @param  {[type]} jb 
            * @return {[type]}    
            */
-          var jbs = _.reject(jobs, function(jb){
-            return (jb.progress == 0)
+          var jbs = _.filter(jobs, function(jb){
+            return (jb.progress != 0)
           })
 
           /**
@@ -96,11 +122,15 @@ module.exports = {
             var ac = {x:a, y:actions_json[a].length} 
             assssss.push( ac )
           }
+
+          console.log("jbs",jbs)
+
           /**
            * Send all that shit to the view like a bad ass.
            * @type {[type]}
            */
           return res.view( "profile/index", { jobs:jbs, actions:assssss, user:req.user[0] } );
+          }
       })
     })
 

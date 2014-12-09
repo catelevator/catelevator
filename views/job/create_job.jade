@@ -2,15 +2,17 @@ extends ../layout
 block body
   include ../navbar
   
-  h1#job_id
-
-  form(target="job/create", method="POST").form.job_form.container
+  h1.hide#job_id
+  br
+  .container
+    h1.skinny Creating a new job.
+    hr
+    br
+    br
+    form(target="job/create", method="POST").form.job_form
     
-      .col-md-10.col-md-offset-1
-        br
-        h1.text-center.skinny Crowd source in seconds.
+      .col-md-12
         .col-xs-12
-          hr
           ul.nav.nav-tabs.nav-justified.setup-panel
             li.active
               a(href='#step-1').skinny
@@ -25,8 +27,8 @@ block body
                 b 3  
                 o.list-group-item-heading Assimilate your data.
 
-        .col-xs-12
 
+        .col-xs-12
           .panel.panel-default
             #step-1.setup-content
                 .panel-body
@@ -34,7 +36,44 @@ block body
                     br
                     br
 
+                    //- .col-md-12
+                    //-   p.lead Select a template:
+                    //- .col-md-12.text-left
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-sliders.fa-2x.scootLeft
+                    //-       b Evaluation
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-image.fa-2x.scootLeft
+                    //-       b Change Detection
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-crosshairs.fa-2x.scootLeft
+                    //-       b Feature Finding
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-thumbs-up.fa-2x.scootLeft
+                    //-       b Impression Measuring
+
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-comments.fa-2x.scootLeft
+                    //-       b Inquiry
+                    //-   //- .col-md-2
+                    //-   //- .col-md-2
+                    //-   .col-md-4.well-sm
+                    //-     .well.well-lg.button-flat
+                    //-       b.fa.fa-fw.fa-play.fa-2x.scootLeft
+                    //-       b Video Time Tagging
+
+
                   .col-md-12
+                    br
+                    hr
+                    br
+                  .col-md-12
+
                     .col-md-4
                       p.lead Project name:
                     .col-md-8
@@ -75,7 +114,8 @@ block body
 
                 .panel-footer.text-right
                     //- button.btn.btn-link cancel  
-                    a#activate-step-2.btn.btn-success.next Next 
+                    a#activate-step-2.button.button-large.button-flat-action.next 
+                      b Next 
                       fa.fa.fa-fw.fa-chevron-right
 
 
@@ -95,7 +135,7 @@ block body
                     .col-md-4
                       p.lead Question:
                     .col-md-8
-                      textarea.transcribingTextarea(placeholder="Maybe we can make this textarea have formatting options and things like this http://bootsnipp.com/snippets/featured/html-editor-wysiwyg-interface").form-control
+                      textarea.transcribingTextarea(placeholder="").form-control
                     br
                   hr
                 
@@ -140,6 +180,7 @@ block body
                   hr
                 #survey.config-content
                   .col-md-12
+                    br
                     br
                     .col-md-4
                       p.lead Prompt for this task:
@@ -205,7 +246,8 @@ block body
               
               .panel-footer.text-right
                 a#cancel-step-2.btn.btn-link Back  
-                a#activate-step-3.btn.btn-success.create_job.next Next 
+                a#activate-step-3.button.button-large.button-flat-action.next.create_job
+                  b Next 
                   fa.fa.fa-fw.fa-chevron-right
 
 
@@ -222,7 +264,8 @@ block body
 
               .panel-footer.text-right
                 //- button.btn.btn-link Cancel  
-                a(href="/u").button.button-flat-action Finished  
+                a(href="/profile/analyze").button.button-large.button-flat-action 
+                  b Finished  
                   fa.fa.fa-chevron-right
 
 
