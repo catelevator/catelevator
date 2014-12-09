@@ -18,6 +18,7 @@ module.exports = {
     user_id: {
       model: 'user'
     },
+
     action_date: {type: "string", defaultsTo: Date.now() },
 
   },

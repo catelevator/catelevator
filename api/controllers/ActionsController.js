@@ -34,27 +34,31 @@ module.exports = {
       Task.count({job_id:job_id}, function(err,result){
         numberOfTasks = result;
         console.log(req.session[job_id].task_count)
-
+        
         var user_id = req.session.passport.user||1
-        var task_id = req.body.task_id;
-        //var job_id = req.body.job_id;
-        var input = req.body.input;
-        var input_type = req.body.input_type;
-        var type = req.body.type;
+        User.find(user_id).exec(function(err,user){
 
-        Actions.create({
-          user_id:user_id
-          ,task_id:task_id
-          ,job_id:job_id
-          ,input_type:input_type
-          ,input:input
-          ,type:type
-        }).exec(function(err,action){
-          console.log("Action Created:", err, action)
-          if(numberOfTasks == req.session[job_id].task_count)
-            res.send('job_complete', {});
-          else
-            res.json(err||action)
+          var task_id = req.body.task_id;
+          //var job_id = req.body.job_id;
+          var input = req.body.input;
+          var input_type = req.body.input_type;
+          var type = req.body.type;
+
+          Actions.create({
+            user_id:user_id
+            ,user_name:user.username
+            ,task_id:task_id
+            ,job_id:job_id
+            ,input_type:input_type
+            ,input:input
+            ,type:type
+          }).exec(function(err,action){
+            console.log("Action Created:", err, action)
+            if(numberOfTasks == req.session[job_id].task_count)
+              res.send('job_complete', {});
+            else
+              res.json(err||action)
+          })
         })
       })
     })

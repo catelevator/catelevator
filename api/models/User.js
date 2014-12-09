@@ -44,7 +44,10 @@ module.exports = {
       required: true
     },
 
-
+    actions: {
+      collection: 'actions',
+      via: 'user_id'
+    }
 
 
 

@@ -22,15 +22,16 @@ module.exports.policies = {
   '*': true,
   '/job': true,
   '/task': true,
+  '/signup': true,
 
   ProfileController: {
     "*": "authenticated",
   },
 
   UserController: {
-    "*": "authenticated",
+    "*": true,
     // "create": true,
-    "process": true,
+    // "process": true,
   },
 
   TaskController: {

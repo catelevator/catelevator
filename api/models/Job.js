@@ -9,8 +9,11 @@ module.exports = {
   attributes: {
     name:{type:"string",required:true},
     desc:{type:"string",required:true},
-    progress:{type:"string",defaultsTo:0},
+    // progress:{type:"string",defaultsTo:0},
     tasks: { collection:"task", via:"job_id" },
     creator: { model:"user", required:true },
   }
 };
+
+
+

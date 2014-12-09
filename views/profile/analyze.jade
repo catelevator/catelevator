@@ -3,59 +3,64 @@ extends ../layout
 block body
   include ../navbar
   .container
-        br
-        .col-md-3.panel.panel-default
-          include sidebar
+    br
+    .col-md-3.panel.panel-default
+      include sidebar
 
-        .col-md-9
-          .panel.panel-default
-            if jobs
-              .panel-body
-                h3.skinny.brand-color Jobs you created
-              for job in jobs
-                .pane.pane-default
-                  .pane-head.clickable.well-sm
-                    o
-                      .fa.fa-fw.fa-caret-right
-                      o=job.name
-                      .pull-right
-                        small.small.text-muted= (job.taskCount||0) + " tasks"
-                              
+    .col-md-9
+      if jobs
+        //- h3.skinny.brand-color Jobs you created
+        .list-group
+          for job in jobs
+            .list-group-item
+              .container-fluid
+                  h4=job.name
+                    small.text-muted.scootRight tasks: 
+                      b=(job.taskCount||0) 
+                    small.text-muted.scootRight template:
+                      b= (job.type||"")
+              .container-fluid.well-sm
+                a.button(href="/job/analyze?job=#{job.id}").scootRight 
+                  b Analyze
+                a.button(href="/job/work?job=#{job.id}").scootRight Do tasks
+                //- a.button(href="/job/work?job=#{job.id}").scootRight Edit
+                br
+                //- p=job.desc  
+                //- a(href="/job/analyze?job=#{job.id}").button.button-flat.button-pill Analyze
 
+          else 
+            .panel-body
+              h3.skinny.brand-color You haven't created any jobs yet. 
+                a(href="/job/new").button.button-flat.button-pill Go make one!
 
-                  .pane-body.panel-body.well-lg
-                    p=job.desc
+        //- if jobs
+        //-   .panel-body
+        //-     h3.skinny.brand-color Jobs you created
+        //-     hr
+        //-     for job in jobs
+        //-       .pane.pane-default
+        //-         .pane-head.clickable
+        //-           h4
+        //-             b=job.name
+        //-             small.small.text-muted= (job.taskCount||0) + " tasks"
+        //-             a.fa.fa-fw.fa-caret-right
+                
+        //-         .pane-body.panel-body
+                
+        //-           //- p=job.desc
+        //-           a(href="/job/analyze?job=#{job.id}").button.button-flat.button-pill Analyze
 
-            else 
-              .panel-body
-                h3.skinny.brand-color You do not own any jobs.
-                  a(href="/job/new").button.button-flat.button-pill Create a new job
+        //-     else 
+        //-       .panel-body
+        //-         h3.skinny.brand-color You haven't created any jobs yet. 
+        //-           a(href="/job/new").button.button-flat.button-pill Go make one!
 
-
-        .col-md-4
-
-
-
-              //- .pane
-              //-   .well-sm
-              //-     .row
-              //-       .col-md-9
-              //-         h4
-              //-           a(href="/job/work?job=#{job.id}").btn-link=job.name
-              //-       .col-md-3.pull-right
-              //-         b=job.taskCount+" tasks"
-              //-     .row
-              //-       .col-md-9
-              //-         p=job.desc
-              //-       //- this is just for mads ocd purposes to make sure all templates are made
-              //-       .col-md-3
-              //-         p=job.type
 
 
   script.
     $(document).on('click', '.pane-head span.clickable', function (e) {
         var $this = $(this);
-        if (!$this.hasClass('panel-collapsed')) {
+        if (!$this.hasClass('panel-collapsed')){
             $this.parents('.pane').find('.pane-body').slideUp();
             $this.addClass('panel-collapsed');
             $this.find('i').removeClass('glyphicon-minus').addClass('glyphicon-plus');

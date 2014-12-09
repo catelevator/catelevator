@@ -8,15 +8,48 @@
 var merge = require("merge")
 var brain = require("brain")
 
+function color_analyze(req,res){
+  Job.find(req.param('job')).exec(function(e,jobs){
+    var job = jobs[0]
+    Task.find({ job_id:job.id}).populate("actions").exec(function(e,tasks){
+      var training_set = []
+      _.map(tasks, function(task){
+        _.map(task.actions, function(action){
+          if(action){
+            var output = {}
+            output[(action.input == 0 ? 'black' : 'white')] = 1
+            training_set.push( {input:task.data, output:output })
+          }
+        })
+      })
+      if(tasks[0].actions){
+        
+        console.log(training_set)
+        var net = new brain.NeuralNetwork();
+
+        net.train( training_set );
+        var run = net.toFunction();
+        var output = run({ r: 1, g: 0.4, b: 0 });
+
+        var trained_neural_net = run.toString()
+        console.log("trained_neural_net",trained_neural_net); 
+      }
+
+      return res.view( "analysis/"+job.type, { job:job, tasks:tasks, neural_net:(trained_neural_net || null) } );
+    })
+  })
+}
+
+
 module.exports = {
 
   index:function(req,res){
     Job.find({}).exec(function(e,jobs){
       console.log(jobs)
       if(req.user)
-        res.view("job/index",{ jobs:jobs, user:req.user[0] })
+        return res.view("job/index",{ jobs:jobs, user:req.user[0] })
       else
-        res.view("auth/login",{ jobs:jobs })
+        return res.view("auth/login",{ jobs:jobs })
     });
   },
 
@@ -24,7 +57,7 @@ module.exports = {
     Job.findOne({ id:req.param('job') }).exec(function(e,job){
       Task.count({ job_id:job.id}).exec(function(a,count){
         Job.update(job.id, {task_count:count}).exec(function(a,b){ console.log(a,b) })
-        res.view( "templates/"+job.type, {job:job});
+        return res.view( "templates/"+job.type, {job:job});
       })
     })
   },
@@ -36,42 +69,19 @@ module.exports = {
 
 
   analyze:function(req,res){
-    Job.find(req.param('job')).exec(function(e,jobs){
-      var job = jobs[0]
-      Task.find({ job_id:job.id}).populate("actions").exec(function(e,tasks){
-
-        var training_set = []
-
-        _.map(tasks, function(task){
-          _.map(task.actions, function(action){
-            if(action){
-              var output = {}
-              output[(action.input == 0 ? 'black' : 'white')] = 1
-              training_set.push( {input:task.data, output:output })
-            }
-          })
+    Job.findOne(req.param('job')).exec(function(e,job){
+      if (job.type=="compare"){
+              return color_analyze(req,res)
+      } else {
+        Task.find({ job_id:job.id}).populate("actions").exec(function(e,tasks){
+          console.log(tasks[0].actions[0])
+          return res.view( "analysis/"+job.type, { job:job, tasks:tasks });
         })
-        if(tasks[0].actions){
-          
-          console.log(training_set)
-          var net = new brain.NeuralNetwork();
-
-          net.train( training_set );
-
-          // var output = net.run({ r: 1, g: 0.4, b: 0 });
-          var run = net.toFunction();
-          var output = run({ r: 1, g: 0.4, b: 0 });
-
-          var trained_neural_net = run.toString()
-          console.log("trained_neural_net",trained_neural_net); 
-        }
-
-        res.view( "analysis/"+job.type, { job:job, tasks:tasks, neural_net:(trained_neural_net || null) } );
-        // console.log(tasks)
-
-      })
+      }
     })
   },
+
+
 
 
   clean: function(req,res){
